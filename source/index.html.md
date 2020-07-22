@@ -327,10 +327,32 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `startDate`        | Employee's hire date.                                                                             |
 | `weeklyHours`      | Number of hours worked per week.                                                                  |
 | `payCycle`         | Payment period. Possible values are `monthly`, `biweekly`, and `weekly`.                          |
-| `paystubs`         | An array of URLs, each pointing to a downloadable paystub in PDF format.                          |
+| `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
 
 ### Nested object properties
+
+#### Statement
+
+> Sample statement
+
+```json
+{
+    "date": "2020-01-01T00:00:00.000Z",
+    "amount": "1266.11",
+    "paymentMethod": "deposit",
+    "paystub": "https://example.url/statement1.pdf"
+}
+```
+
+##### Properties
+
+| Name                     | Type   | Description                                                               |
+| ------------------------ | ------ | ------------------------------------------------------------------------- |
+| `date` <h6>required</h6> | string | Date of the deposit.                                                      |
+| `amount`                 | string | Dollar amount of the deposit.                                             |
+| `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
+| `paystub`                | string | A link to download a PDF of the paystub.                                  |
 
 #### Deposit account
 
