@@ -2188,10 +2188,21 @@ startTransact();
             <span class="hljs-attr">"jobTitle"</span>: <span class="hljs-string">"Product Manager"</span>,
             <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"4/19/2017"</span>,
             <span class="hljs-attr">"weeklyHours"</span>: <span class="hljs-string">"40"</span>,
-            <span class="hljs-attr">"paystubs"</span>: [
-                <span class="hljs-string">"https://example.url/payroll_items/123.pdf"</span>,
-                <span class="hljs-string">"https://example.url/payroll_items/778.pdf"</span>,
-                <span class="hljs-string">"https://example.url/payroll_items/8932.pdf"</span>
+            <span class="hljs-attr">"statements"</span>: [
+              {
+                  <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
+                  <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
+                  <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
+                  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
+                  <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>
+              },
+              {
+                  <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-15T00:00:00.000Z"</span>,
+                  <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
+                  <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
+                  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
+                  <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement2.pdf"</span>
+              }              
             ],
             <span class="hljs-attr">"accounts"</span>: [
                 {
@@ -2263,7 +2274,8 @@ startTransact();
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
     <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
-    <span class="hljs-attr">"amount"</span>: <span class="hljs-string">"1266.11"</span>,
+    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
+    <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
     <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>
 }
@@ -2284,9 +2296,14 @@ startTransact();
 <td>Date of the deposit.</td>
 </tr>
 <tr>
-<td><code>amount</code></td>
+<td><code>grossAmount</code></td>
 <td>string</td>
-<td>Dollar amount of the deposit.</td>
+<td>Gross dollar amount of the deposit.</td>
+</tr>
+<tr>
+<td><code>netAmount</code></td>
+<td>string</td>
+<td>Net dollar amount of the deposit.</td>
 </tr>
 <tr>
 <td><code>paymentMethod</code></td>
