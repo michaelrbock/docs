@@ -297,10 +297,21 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
             "jobTitle": "Product Manager",
             "startDate": "4/19/2017",
             "weeklyHours": "40",
-            "paystubs": [
-                "https://example.url/payroll_items/123.pdf",
-                "https://example.url/payroll_items/778.pdf",
-                "https://example.url/payroll_items/8932.pdf"
+            "statements": [
+              {
+                  "date": "2020-01-01T00:00:00.000Z",
+                  "grossAmount": "1266.11",
+                  "netAmount": "1014.29",
+                  "paymentMethod": "deposit",
+                  "paystub": "https://example.url/statement1.pdf"
+              },
+              {
+                  "date": "2019-12-15T00:00:00.000Z",
+                  "grossAmount": "1266.11",
+                  "netAmount": "1014.29",
+                  "paymentMethod": "deposit",
+                  "paystub": "https://example.url/statement2.pdf"
+              }              
             ],
             "accounts": [
                 {
@@ -327,10 +338,34 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `startDate`        | Employee's hire date.                                                                             |
 | `weeklyHours`      | Number of hours worked per week.                                                                  |
 | `payCycle`         | Payment period. Possible values are `monthly`, `biweekly`, and `weekly`.                          |
-| `paystubs`         | An array of URLs, each pointing to a downloadable paystub in PDF format.                          |
+| `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
 
 ### Nested object properties
+
+#### Statement
+
+> Sample statement
+
+```json
+{
+    "date": "2020-01-01T00:00:00.000Z",
+    "grossAmount": "1266.11",
+    "netAmount": "1014.29",
+    "paymentMethod": "deposit",
+    "paystub": "https://example.url/statement1.pdf"
+}
+```
+
+##### Properties
+
+| Name                     | Type   | Description                                                               |
+| ------------------------ | ------ | ------------------------------------------------------------------------- |
+| `date` <h6>required</h6> | string | Date of the deposit.                                                      |
+| `grossAmount`                 | string | Gross dollar amount of the deposit.                                             |
+| `netAmount`                 | string | Net dollar amount of the deposit.                                             |
+| `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
+| `paystub`                | string | A link to download a PDF of the paystub.                                  |
 
 #### Deposit account
 
