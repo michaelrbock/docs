@@ -377,7 +377,7 @@ startTransact();
 </tr>
 <tr>
 <td><code>deeplink</code></td>
-<td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code> or <code>login</code> (if <code>login</code>, then <code>connector</code> is required)</td></tr><tr><td><code>connector</code></td><td>Required if the step is <code>login</code>. Accepts the <a href="#connector-search">ID</a> of the connector</td></tr></table></td>
+<td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code> or <code>login</code> (if <code>login</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login</code>. Accepts the <a href="#connector-search">ID</a> of the connector</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>login</code>. Accepts a string of the company name.</td></tr></table></td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
