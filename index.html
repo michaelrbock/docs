@@ -347,7 +347,27 @@ startTransact();
 <p>An <a href="#create-access-token">AccessToken</a> is required to initialize Transact, and is generated server-side using your API key, and the <code>publicToken</code> from the response is returned to your client-side code.</p>
 <h3 id="mobile--amp--web">Mobile &amp; Web</h3>
 <p>Transact can be initialized by including our JavaScript SDK into your page, and then calling the <code>Atomic.start</code> method.</p>
-<p>Within the context of a mobile app, we recommend loading Transact into a web view (for example, <code>WKWebView</code> on iOS) by building a simple self-hosted wrapper page. Here are examples for <a href="https://github.com/atomicfi/transact-ios">Swift (iOS)</a>, <a href="https://github.com/atomicfi/transact-android">Kotlin (Android)</a>, and <a href="https://github.com/atomicfi/transact-react-native">React Native</a>
+<p>Within the context of a mobile app, we recommend loading Transact into a web view (for example, <code>WKWebView</code> on iOS) by building a simple self-hosted wrapper page. The URL used in the webview will be <code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING</code>. The <code>BASE64 Encoded String</code> is made up of an object containing the parameters used within the SDK (excluding <code>onFinish</code> and <code>onClose</code>).</p>
+<blockquote>
+<p>Webview URL</p>
+</blockquote>
+<pre class="highlight tab tab-html"><code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
+</code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-comment">//Object to be BASE64 Encoded</span>
+{
+  <span class="hljs-attr">publicToken</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
+  <span class="hljs-comment">// Could be wither 'balance', 'verify', 'identify', or 'deposit'</span>
+  product: <span class="hljs-string">"deposit"</span>,
+  <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
+  color: <span class="hljs-string">'#1b1464'</span>,
+  <span class="hljs-comment">// Optionally start on a specific step. Accepts an object</span>
+  deeplink: {
+    <span class="hljs-attr">step</span>: <span class="hljs-string">'search-company'</span>
+  }
+}
+
+</code></pre>
+<p>Here are examples for <a href="https://github.com/atomicfi/transact-ios">Swift (iOS)</a>, <a href="https://github.com/atomicfi/transact-android">Kotlin (Android)</a>, and <a href="https://github.com/atomicfi/transact-react-native">React Native</a>
 <br />
 <a href="https://github.com/atomicfi/transact-android"><img src="/source/images/kotlin.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-ios"><img src="/source/images/swift.png" class="transact-example-platform" /></a>
@@ -404,7 +424,7 @@ startTransact();
 <tbody>
 <tr>
 <td><code>X-HMAC-Signature-Sha-256</code></td>
-<td>A SHA1 HMAC hexdigest computed with your API key and the raw body of the request.</td>
+<td>A SHA1 HMAC hexdigest computed with your API secret and the raw body of the request.</td>
 </tr>
 </tbody>
 </table>
@@ -534,20 +554,20 @@ startTransact();
             <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"4/19/2017"</span>,
             <span class="hljs-attr">"weeklyHours"</span>: <span class="hljs-string">"40"</span>,
             <span class="hljs-attr">"statements"</span>: [
-              {
-                  <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
-                  <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
-                  <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
-                  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-                  <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>
-              },
-              {
-                  <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-15T00:00:00.000Z"</span>,
-                  <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
-                  <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
-                  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-                  <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement2.pdf"</span>
-              }              
+                {
+                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
+                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
+                    <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
+                    <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
+                    <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>
+                },
+                {
+                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-15T00:00:00.000Z"</span>,
+                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
+                    <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
+                    <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
+                    <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement2.pdf"</span>
+                }
             ],
             <span class="hljs-attr">"accounts"</span>: [
                 {

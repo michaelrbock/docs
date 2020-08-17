@@ -174,7 +174,31 @@ An [AccessToken](#create-access-token) is required to initialize Transact, and i
 
 Transact can be initialized by including our JavaScript SDK into your page, and then calling the `Atomic.start` method.
 
-Within the context of a mobile app, we recommend loading Transact into a web view (for example, `WKWebView` on iOS) by building a simple self-hosted wrapper page. Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [Kotlin (Android)](https://github.com/atomicfi/transact-android), and [React Native](https://github.com/atomicfi/transact-react-native)
+Within the context of a mobile app, we recommend loading Transact into a web view (for example, `WKWebView` on iOS) by building a simple self-hosted wrapper page. The URL used in the webview will be `https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING`. The `BASE64 Encoded String` is made up of an object containing the parameters used within the SDK (excluding `onFinish` and `onClose`).
+
+> Webview URL
+
+```html
+https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
+```
+
+```javascript
+//Object to be BASE64 Encoded
+{
+  publicToken: "PUBLIC_TOKEN",
+  // Could be wither 'balance', 'verify', 'identify', or 'deposit'
+  product: "deposit",
+  // Optionally theme Transact with a *dark* color
+  color: '#1b1464',
+  // Optionally start on a specific step. Accepts an object
+  deeplink: {
+    step: 'search-company'
+  }
+}
+
+```
+
+Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [Kotlin (Android)](https://github.com/atomicfi/transact-android), and [React Native](https://github.com/atomicfi/transact-react-native)
 <br />
 <a href="https://github.com/atomicfi/transact-android"><img src="/source/images/kotlin.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-ios"><img src="/source/images/swift.png" class="transact-example-platform" /></a>
@@ -186,14 +210,14 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 
 ### Javascript SDK parameters
 
-| Attribute                       | Description                                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `publicToken` <h6>required</h6> | The public token return during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                                                           |
-| `product` <h6>required</h6>     | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`                                                                                                                                                                                                                                                                                |
-| `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                            |
+| Attribute                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `publicToken` <h6>required</h6> | The public token return during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `product` <h6>required</h6>     | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `login-connector`. Accepts a string of the company name.</td></tr></table> |
-| `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                           |
-| `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                       |
+| `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 # Webhooks
 
@@ -205,9 +229,9 @@ You can configure webhook endpoints via the [Atomic Dashboard](https://dashboard
 
 To validate a webhook request came from Atomic, we suggest verifying the payloads with the `X-HMAC-Signature-Sha-256` header (which we pass with every request).
 
-| Header                     | Description                                                                       |
-| -------------------------- | --------------------------------------------------------------------------------- |
-| `X-HMAC-Signature-Sha-256` | A SHA1 HMAC hexdigest computed with your API key and the raw body of the request. |
+| Header                     | Description                                                                          |
+| -------------------------- | ------------------------------------------------------------------------------------ |
+| `X-HMAC-Signature-Sha-256` | A SHA1 HMAC hexdigest computed with your API secret and the raw body of the request. |
 
 ## Event object
 
@@ -298,20 +322,20 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
             "startDate": "4/19/2017",
             "weeklyHours": "40",
             "statements": [
-              {
-                  "date": "2020-01-01T00:00:00.000Z",
-                  "grossAmount": "1266.11",
-                  "netAmount": "1014.29",
-                  "paymentMethod": "deposit",
-                  "paystub": "https://example.url/statement1.pdf"
-              },
-              {
-                  "date": "2019-12-15T00:00:00.000Z",
-                  "grossAmount": "1266.11",
-                  "netAmount": "1014.29",
-                  "paymentMethod": "deposit",
-                  "paystub": "https://example.url/statement2.pdf"
-              }              
+                {
+                    "date": "2020-01-01T00:00:00.000Z",
+                    "grossAmount": "1266.11",
+                    "netAmount": "1014.29",
+                    "paymentMethod": "deposit",
+                    "paystub": "https://example.url/statement1.pdf"
+                },
+                {
+                    "date": "2019-12-15T00:00:00.000Z",
+                    "grossAmount": "1266.11",
+                    "netAmount": "1014.29",
+                    "paymentMethod": "deposit",
+                    "paystub": "https://example.url/statement2.pdf"
+                }
             ],
             "accounts": [
                 {
@@ -362,8 +386,8 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | Name                     | Type   | Description                                                               |
 | ------------------------ | ------ | ------------------------------------------------------------------------- |
 | `date` <h6>required</h6> | string | Date of the deposit.                                                      |
-| `grossAmount`                 | string | Gross dollar amount of the deposit.                                             |
-| `netAmount`                 | string | Net dollar amount of the deposit.                                             |
+| `grossAmount`            | string | Gross dollar amount of the deposit.                                       |
+| `netAmount`              | string | Net dollar amount of the deposit.                                         |
 | `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
 | `paystub`                | string | A link to download a PDF of the paystub.                                  |
 
