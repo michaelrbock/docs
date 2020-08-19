@@ -139,7 +139,7 @@ When testing `balance`, you may use `4111111111111111` as the origin account num
 
 ### Integration
 
-> Initalize Transact
+> Initalize Transact via Javascript
 
 > Sandbox URL
 
@@ -184,7 +184,15 @@ Transact can be initialized by including our JavaScript SDK into your page, and 
 
 Within the context of a mobile app, we recommend loading Transact into a web view (for example, `WKWebView` on iOS) by building a simple self-hosted wrapper page. The URL used in the webview will be `https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING`. The `BASE64 Encoded String` is made up of an object containing the parameters used within the SDK (excluding `onFinish` and `onClose`).
 
-> Webview URL
+> Initialize Transact within a Webview
+
+> Sandbox URL
+
+```html
+https://transact-sandbox.atomicfi.com/initialize/BASE64_ENCODED_STRING
+```
+
+> Production URL
 
 ```html
 https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
@@ -220,7 +228,7 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 
 | Attribute                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `publicToken` <h6>required</h6> | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `publicToken` <h6>required</h6> | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `product` <h6>required</h6>     | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `login-connector`. Accepts a string of the company name.</td></tr></table> |

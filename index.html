@@ -319,7 +319,7 @@ window.onpopstate = function() {
 <h3 id="atomic-transact-sdk-is-a-ui-designed-to-securely-handle-interactions-with-our-products--while-performing-the-heavy-lifting-of-integration-">Atomic Transact SDK is a UI designed to securely handle interactions with our products, while performing the heavy-lifting of integration.</h3>
 <h3 id="integration">Integration</h3>
 <blockquote>
-<p>Initalize Transact</p>
+<p>Initalize Transact via Javascript</p>
 </blockquote>
 <blockquote>
 <p>Sandbox URL</p>
@@ -357,7 +357,15 @@ startTransact();
 <p>Transact can be initialized by including our JavaScript SDK into your page, and then calling the <code>Atomic.start</code> method.</p>
 <p>Within the context of a mobile app, we recommend loading Transact into a web view (for example, <code>WKWebView</code> on iOS) by building a simple self-hosted wrapper page. The URL used in the webview will be <code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING</code>. The <code>BASE64 Encoded String</code> is made up of an object containing the parameters used within the SDK (excluding <code>onFinish</code> and <code>onClose</code>).</p>
 <blockquote>
-<p>Webview URL</p>
+<p>Initialize Transact within a Webview</p>
+</blockquote>
+<blockquote>
+<p>Sandbox URL</p>
+</blockquote>
+<pre class="highlight tab tab-html"><code>https://transact-sandbox.atomicfi.com/initialize/BASE64_ENCODED_STRING
+</code></pre>
+<blockquote>
+<p>Production URL</p>
 </blockquote>
 <pre class="highlight tab tab-html"><code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 </code></pre>
