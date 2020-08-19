@@ -141,6 +141,14 @@ When testing `balance`, you may use `4111111111111111` as the origin account num
 
 > Initalize Transact
 
+> Sandbox URL
+
+```html
+<script src="https://cdn-sandbox.atomicfi.com/transact.js"></script>
+```
+
+> Production URL
+
 ```html
 <script src="https://cdn.atomicfi.com/transact.js"></script>
 ```
