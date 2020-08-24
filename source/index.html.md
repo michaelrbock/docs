@@ -724,13 +724,13 @@ An `AccessToken` grants access to Atomic's API resources for a specific user.
 
 ##### Properties
 
-| Name                              | Type   | Description                                                                                                               |
-| --------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `accountNumber` <h6>required</h6> | string | Account number.                                                                                                           |
-| `routingNumber`                   | string | When account the account is bank account, this is the ABA routing number.                                                 |
-| `type`                            | string | Type of account. Possible values include `card`, `checking`, or `savings`                                                 |
-| `title`                           | string | A friendly name for the account that could be shown to the user.                                                          |
-| `transferLimit`                   | string | A balance transfer limit (in dollars) that may be optionally imposed when executing an [Transfer](#transfer) transaction. |
+| Name                              | Type   | Description                                                                                                                     |
+| --------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `accountNumber` <h6>required</h6> | string | Account number.                                                                                                                 |
+| `routingNumber`                   | string | When account the account is bank account, this is the ABA routing number.                                                       |
+| `type` <h6>required</h6>          | string | Type of account. Possible values include `card`, `checking`, or `savings`. This field is required for creating an access token. |
+| `title`                           | string | A friendly name for the account that could be shown to the user.                                                                |
+| `transferLimit`                   | string | A balance transfer limit (in dollars) that may be optionally imposed when executing an [Transfer](#transfer) transaction.       |
 
 #### Name
 
