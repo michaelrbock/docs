@@ -162,6 +162,8 @@ const startTransact = () => {
         product: "balance",
         // Optionally theme Transact with a *dark* color
         color: "#4B39EF",
+        // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
+        language: "en",
         onFinish: function (data) {
             // Called when the user finishes the transaction
             // We recommend saving the `data` object which could be useful for support purposes
@@ -202,14 +204,16 @@ https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 //Object to be BASE64 Encoded
 {
   publicToken: "PUBLIC_TOKEN",
-  // Could be wither 'balance', 'verify', 'identify', or 'deposit'
+  // Could be either 'balance', 'verify', 'identify', or 'deposit'
   product: "deposit",
   // Optionally theme Transact with a *dark* color
   color: '#1b1464',
   // Optionally start on a specific step. Accepts an object
   deeplink: {
     step: 'search-company'
-  }
+  },
+  // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
+  language: 'en'
 }
 
 ```
@@ -232,6 +236,7 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 | `product` <h6>required</h6>     | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `login-connector`. Accepts a string of the company name.</td></tr></table> |
+| `language`                      | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 

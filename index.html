@@ -339,6 +339,8 @@ window.onpopstate = function() {
         product: <span class="hljs-string">"balance"</span>,
         <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
         color: <span class="hljs-string">"#4B39EF"</span>,
+        <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
+        language: <span class="hljs-string">"en"</span>,
         <span class="hljs-attr">onFinish</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
             <span class="hljs-comment">// Called when the user finishes the transaction</span>
             <span class="hljs-comment">// We recommend saving the `data` object which could be useful for support purposes</span>
@@ -372,14 +374,16 @@ startTransact();
 <pre class="highlight tab tab-javascript"><code><span class="hljs-comment">//Object to be BASE64 Encoded</span>
 {
   <span class="hljs-attr">publicToken</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
-  <span class="hljs-comment">// Could be wither 'balance', 'verify', 'identify', or 'deposit'</span>
+  <span class="hljs-comment">// Could be either 'balance', 'verify', 'identify', or 'deposit'</span>
   product: <span class="hljs-string">"deposit"</span>,
   <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
   color: <span class="hljs-string">'#1b1464'</span>,
   <span class="hljs-comment">// Optionally start on a specific step. Accepts an object</span>
   deeplink: {
     <span class="hljs-attr">step</span>: <span class="hljs-string">'search-company'</span>
-  }
+  },
+  <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
+  language: <span class="hljs-string">'en'</span>
 }
 
 </code></pre>
@@ -414,6 +418,10 @@ startTransact();
 <tr>
 <td><code>deeplink</code></td>
 <td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>companyId</code></td><td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>login-connector</code>. Accepts a string of the company name.</td></tr></table></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Optionally pass in a language. Acceptable values: <code>en</code> for English and <code>es</code> for Spanish. Default value is <code>en</code></td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
