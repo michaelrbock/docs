@@ -1979,7 +1979,15 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
 <h3 id="atomic-transact-sdk-is-a-ui-designed-to-securely-handle-interactions-with-our-products--while-performing-the-heavy-lifting-of-integration-">Atomic Transact SDK is a UI designed to securely handle interactions with our products, while performing the heavy-lifting of integration.</h3>
 <h3 id="integration">Integration</h3>
 <blockquote>
-<p>Initalize Transact</p>
+<p>Initalize Transact via Javascript</p>
+</blockquote>
+<blockquote>
+<p>Sandbox URL</p>
+</blockquote>
+<pre class="highlight tab tab-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn-sandbox.atomicfi.com/transact.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>Production URL</p>
 </blockquote>
 <pre class="highlight tab tab-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.atomicfi.com/transact.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
@@ -1991,6 +1999,8 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         product: <span class="hljs-string">"balance"</span>,
         <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
         color: <span class="hljs-string">"#4B39EF"</span>,
+        <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
+        language: <span class="hljs-string">"en"</span>,
         <span class="hljs-attr">onFinish</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
             <span class="hljs-comment">// Called when the user finishes the transaction</span>
             <span class="hljs-comment">// We recommend saving the `data` object which could be useful for support purposes</span>
@@ -2009,21 +2019,31 @@ startTransact();
 <p>Transact can be initialized by including our JavaScript SDK into your page, and then calling the <code>Atomic.start</code> method.</p>
 <p>Within the context of a mobile app, we recommend loading Transact into a web view (for example, <code>WKWebView</code> on iOS) by building a simple self-hosted wrapper page. The URL used in the webview will be <code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING</code>. The <code>BASE64 Encoded String</code> is made up of an object containing the parameters used within the SDK (excluding <code>onFinish</code> and <code>onClose</code>).</p>
 <blockquote>
-<p>Webview URL</p>
+<p>Initialize Transact within a Webview</p>
+</blockquote>
+<blockquote>
+<p>Sandbox URL</p>
+</blockquote>
+<pre class="highlight tab tab-html"><code>https://transact-sandbox.atomicfi.com/initialize/BASE64_ENCODED_STRING
+</code></pre>
+<blockquote>
+<p>Production URL</p>
 </blockquote>
 <pre class="highlight tab tab-html"><code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 </code></pre>
 <pre class="highlight tab tab-javascript"><code><span class="hljs-comment">//Object to be BASE64 Encoded</span>
 {
   <span class="hljs-attr">publicToken</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
-  <span class="hljs-comment">// Could be wither 'balance', 'verify', 'identify', or 'deposit'</span>
+  <span class="hljs-comment">// Could be either 'balance', 'verify', 'identify', or 'deposit'</span>
   product: <span class="hljs-string">"deposit"</span>,
   <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
   color: <span class="hljs-string">'#1b1464'</span>,
   <span class="hljs-comment">// Optionally start on a specific step. Accepts an object</span>
   deeplink: {
     <span class="hljs-attr">step</span>: <span class="hljs-string">'search-company'</span>
-  }
+  },
+  <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
+  language: <span class="hljs-string">'en'</span>
 }
 
 </code></pre>
@@ -2058,6 +2078,10 @@ startTransact();
 <tr>
 <td><code>deeplink</code></td>
 <td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>companyId</code></td><td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>login-connector</code>. Accepts a string of the company name.</td></tr></table></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Optionally pass in a language. Acceptable values: <code>en</code> for English and <code>es</code> for Spanish. Default value is <code>en</code></td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
@@ -2770,9 +2794,9 @@ print(response.text)
 <td>When account the account is bank account, this is the ABA routing number.</td>
 </tr>
 <tr>
-<td><code>type</code></td>
+<td><code>type</code> <h6 id="required">required</h6></td>
 <td>string</td>
-<td>Type of account. Possible values include <code>card</code>, <code>checking</code>, or <code>savings</code></td>
+<td>Type of account. Possible values include <code>card</code>, <code>checking</code>, or <code>savings</code>. This field is required for creating an access token.</td>
 </tr>
 <tr>
 <td><code>title</code></td>
