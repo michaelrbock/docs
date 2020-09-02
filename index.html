@@ -1784,6 +1784,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
           </li>
         
           <li>
+            <a href="#event-listeners" class="toc-h1 toc-link" data-title="Event Listeners">Event Listeners</a>
+            
+          </li>
+        
+          <li>
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
             
               <ul class="toc-list-h2">
@@ -2090,6 +2095,30 @@ startTransact();
 <tr>
 <td><code>onClose</code></td>
 <td>Called when the user exits Transact prematurely.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="event-listeners">Event Listeners</h1>
+<p>When using the SDK, events will be emitted and passed to the native application. Such events allow native applications to react and perform functions as needed. Some events will be passed with a data object with additional information.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>atomic-transact-close</code></td>
+<td>Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be <code>{reason: 'zero-search-results}</code>. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be <code>{reason: 'task-pending'}</code>.<br/><br/> 3. At any point if the user clicks on the <code>x</code> the data passed with the event will be <code>{reason: 'unknown'}</code></td>
+</tr>
+<tr>
+<td><code>atomic-transact-finish</code></td>
+<td>Triggered when the user reaches the success screen and closes transact</td>
+</tr>
+<tr>
+<td><code>atomic-transact-open-url</code></td>
+<td>Triggered when external links are accessed. The data passed with the event will be <code>{url: Full URL path}</code></td>
 </tr>
 </tbody>
 </table>
