@@ -240,13 +240,13 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 | `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-# Event Listeners
+#### Event Listeners
 
 When using the SDK, events will be emitted and passed to the native application. Such events allow native applications to react and perform functions as needed. Some events will be passed with a data object with additional information.
-| Event                     | Description                                                                   |
+| Event | Description |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | `atomic-transact-close` | Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be `{reason: 'zero-search-results}`. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be `{reason: 'task-pending'}`.<br/><br/> 3. At any point if the user clicks on the `x` the data passed with the event will be `{reason: 'unknown'}`|
-| `atomic-transact-finish` | Triggered when the user reaches the success screen and closes transact|
+| `atomic-transact-finish` | Triggered when the user reaches the success screen and closes Transact|
 | `atomic-transact-open-url` | Triggered when external links are accessed. The data passed with the event will be `{url: Full URL path}`|
 
 # Webhooks
