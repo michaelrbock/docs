@@ -357,14 +357,16 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
                     "grossAmount": "1266.11",
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
-                    "paystub": "https://example.url/statement1.pdf"
+                    "paystub": "https://example.url/statement1.pdf",
+                    "hours": "32"
                 },
                 {
                     "date": "2019-12-15T00:00:00.000Z",
                     "grossAmount": "1266.11",
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
-                    "paystub": "https://example.url/statement2.pdf"
+                    "paystub": "https://example.url/statement2.pdf",
+                    "hours": "32"
                 }
             ],
             "accounts": [
@@ -407,7 +409,8 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
     "grossAmount": "1266.11",
     "netAmount": "1014.29",
     "paymentMethod": "deposit",
-    "paystub": "https://example.url/statement1.pdf"
+    "paystub": "https://example.url/statement1.pdf",
+    "hours": "32"
 }
 ```
 
@@ -420,6 +423,7 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `netAmount`              | string | Net dollar amount of the deposit.                                         |
 | `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
 | `paystub`                | string | A link to download a PDF of the paystub.                                  |
+| `hours`                  | number | Hours worked within the pay period.                                       |
 
 #### Deposit account
 
