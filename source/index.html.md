@@ -285,13 +285,13 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
 }
 ```
 
-| Attribute   | Description                                                                           |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `eventType` | Status of a task was changed. Currently this value will only be `task-status-updated` |
-| `eventTime` | The date and time of the event creation.                                              |
-| `user`      | Object containg `_id` and `identifier`. `Identifier` will be your internal GUID       |
-| `task`      | Contains the task ID.                                                                 |
-| `data`      | Payload object containing `previousStatus`, `status`, and `transferType`              |
+| Attribute   | Description                                                                     |
+| ----------- | ------------------------------------------------------------------------------- |
+| `eventType` | Status of a task was changed. Currently this value is `task-status-updated`     |
+| `eventTime` | The date and time of the event creation.                                        |
+| `user`      | Object containg `_id` and `identifier`. `Identifier` will be your internal GUID |
+| `task`      | Contains the task ID.                                                           |
+| `data`      | Payload object containing `previousStatus`, `status`, and `transferType`        |
 
 ## Event types
 
