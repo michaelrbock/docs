@@ -392,7 +392,7 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `jobTitle`         | Employee's job title.                                                                             |
 | `startDate`        | Employee's hire date.                                                                             |
 | `weeklyHours`      | Number of hours worked per week.                                                                  |
-| `payCycle`         | Payment period. Possible values are `monthly`, `biweekly`, and `weekly`.                          |
+| `payCycle`         | Payment period. Possible values are `monthly`, `semimonthly`, `biweekly`, and `weekly`.           |
 | `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
 
