@@ -248,6 +248,61 @@ When using the SDK, events will be emitted and passed to the native application.
 | `atomic-transact-close` | Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be `{reason: 'zero-search-results}`. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be `{reason: 'task-pending'}`.<br/><br/> 3. At any point if the user clicks on the `x` the data passed with the event will be `{reason: 'unknown'}`|
 | `atomic-transact-finish` | Triggered when the user reaches the success screen and closes Transact|
 | `atomic-transact-open-url` | Triggered when external links are accessed. The data passed with the event will be `{url: Full URL path}`|
+| `atomic-transact-interaction` | Triggered on interactions within Transact. For example, when a user transitions to a news screen or presses the back button. The data passed with the event will be `{name: NAME OF THE EVENT, value: OBJECT CONTAINING EVENT VALUES}`. |
+
+#### Event Interactions
+
+```javascript
+{
+  name: "EVENT_NAME"
+  value: {
+    //Default property
+    customer: "Atomic",
+    //Default property. Possible values are 'en' or 'es'
+    language: "en"
+    //Default property. Possible values are 'deposit', 'verify', 'identify', or 'balance'
+    product: "deposit"
+    //Additional properties will be included based on the event that has occurred.
+  }
+}
+
+```
+
+Each event, by default, will have `customer`, `product`, and `language` in the `value object`. Most events have additional data. See the Additional Properties table below
+
+| Name                                      | Description                                              |
+| ----------------------------------------- | -------------------------------------------------------- |
+| `back`                                    | Back button pressed                                      |
+| `step-initialize-welcome`                 | Welcome screen is initialized                            |
+| `step-initialize-deeplink-search-company` | User deeplinks to the company search                     |
+| `step-welcome`                            | User visits the Welcome screen                           |
+| `step-search-company`                     | User visits the Company Search screen                    |
+| `step-search-payroll`                     | User visits the Payroll Provider Search screen           |
+| `step-company-uses`                       | User visits Company X uses Payroll Provider X screen     |
+| `step-phone-verification`                 | User prompted to verify their phone number               |
+| `step-phone-update`                       | User visits the Phone Update screen                      |
+| `step-unauthorized`                       | User is unauthorized                                     |
+| `step-access-expired-token`               | User is using an expired token                           |
+| `authentication-login`                    | User visits the Payroll Provider Login screen            |
+| `authentication-login-help`               | User visits the Forgot Credentials screen                |
+| `authentication-mfa-step`                 | User is presented with Multi Factor Authentication (MFA) |
+| `authentication-success`                  | User completes the authentication process                |
+| `authentication-error`                    | User receives an error during authentication             |
+| `search`                                  | User is searching an Company or Payroll Provider         |
+| `select-company`                          | User selects a company (aka employer)                    |
+| `select-payroll`                          | User selects a payroll provider                          |
+
+#### Additional Properties
+
+| Property        | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| `company`       | User's employer that they have selected                        |
+| `payroll`       | Payroll provider the the company uses (ie: ADP, Gusto, etc...) |
+| `searchCompany` | Search input for a company                                     |
+| `searchPayroll` | Search input for a payroll provider                            |
+| `exitScreen`    | Screen user was on when they exited the app                    |
+| `fromScreen`    | Screen user was on when they pressed the back button           |
+| `depositOption` | Option user chose during the deposit options                   |
 
 # Webhooks
 

@@ -2115,6 +2115,151 @@ startTransact();
 <td><code>atomic-transact-open-url</code></td>
 <td>Triggered when external links are accessed. The data passed with the event will be <code>{url: Full URL path}</code></td>
 </tr>
+<tr>
+<td><code>atomic-transact-interaction</code></td>
+<td>Triggered on interactions within Transact. For example, when a user transitions to a news screen or presses the back button. The data passed with the event will be <code>{name: NAME OF THE EVENT, value: OBJECT CONTAINING EVENT VALUES}</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="event-interactions">Event Interactions</h4>
+<pre class="highlight tab tab-javascript"><code>{
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"EVENT_NAME"</span>
+  value: {
+    <span class="hljs-comment">//Default property</span>
+    customer: <span class="hljs-string">"Atomic"</span>,
+    <span class="hljs-comment">//Default property. Possible values are 'en' or 'es'</span>
+    language: <span class="hljs-string">"en"</span>
+    <span class="hljs-comment">//Default property. Possible values are 'deposit', 'verify', 'identify', or 'balance'</span>
+    product: <span class="hljs-string">"deposit"</span>
+    <span class="hljs-comment">//Additional properties will be included based on the event that has occurred.</span>
+  }
+}
+
+</code></pre>
+<p>Each event, by default, will have <code>customer</code>, <code>product</code>, and <code>language</code> in the <code>value object</code>. Most events have additional data. See the Additional Properties table below</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>back</code></td>
+<td>Back button pressed</td>
+</tr>
+<tr>
+<td><code>step-initialize-welcome</code></td>
+<td>Welcome screen is initialized</td>
+</tr>
+<tr>
+<td><code>step-initialize-deeplink-search-company</code></td>
+<td>User deeplinks to the company search</td>
+</tr>
+<tr>
+<td><code>step-welcome</code></td>
+<td>User visits the Welcome screen</td>
+</tr>
+<tr>
+<td><code>step-search-company</code></td>
+<td>User visits the Company Search screen</td>
+</tr>
+<tr>
+<td><code>step-search-payroll</code></td>
+<td>User visits the Payroll Provider Search screen</td>
+</tr>
+<tr>
+<td><code>step-company-uses</code></td>
+<td>User visits Company X uses Payroll Provider X screen</td>
+</tr>
+<tr>
+<td><code>step-phone-verification</code></td>
+<td>User prompted to verify their phone number</td>
+</tr>
+<tr>
+<td><code>step-phone-update</code></td>
+<td>User visits the Phone Update screen</td>
+</tr>
+<tr>
+<td><code>step-unauthorized</code></td>
+<td>User is unauthorized</td>
+</tr>
+<tr>
+<td><code>step-access-expired-token</code></td>
+<td>User is using an expired token</td>
+</tr>
+<tr>
+<td><code>authentication-login</code></td>
+<td>User visits the Payroll Provider Login screen</td>
+</tr>
+<tr>
+<td><code>authentication-login-help</code></td>
+<td>User visits the Forgot Credentials screen</td>
+</tr>
+<tr>
+<td><code>authentication-mfa-step</code></td>
+<td>User is presented with Multi Factor Authentication (MFA)</td>
+</tr>
+<tr>
+<td><code>authentication-success</code></td>
+<td>User completes the authentication process</td>
+</tr>
+<tr>
+<td><code>authentication-error</code></td>
+<td>User receives an error during authentication</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td>User is searching an Company or Payroll Provider</td>
+</tr>
+<tr>
+<td><code>select-company</code></td>
+<td>User selects a company (aka employer)</td>
+</tr>
+<tr>
+<td><code>select-payroll</code></td>
+<td>User selects a payroll provider</td>
+</tr>
+</tbody>
+</table>
+<h4 id="additional-properties">Additional Properties</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>company</code></td>
+<td>User's employer that they have selected</td>
+</tr>
+<tr>
+<td><code>payroll</code></td>
+<td>Payroll provider the the company uses (ie: ADP, Gusto, etc...)</td>
+</tr>
+<tr>
+<td><code>searchCompany</code></td>
+<td>Search input for a company</td>
+</tr>
+<tr>
+<td><code>searchPayroll</code></td>
+<td>Search input for a payroll provider</td>
+</tr>
+<tr>
+<td><code>exitScreen</code></td>
+<td>Screen user was on when they exited the app</td>
+</tr>
+<tr>
+<td><code>fromScreen</code></td>
+<td>Screen user was on when they pressed the back button</td>
+</tr>
+<tr>
+<td><code>depositOption</code></td>
+<td>Option user chose during the deposit options</td>
+</tr>
 </tbody>
 </table>
 <h1 id="webhooks">Webhooks</h1>
