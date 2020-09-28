@@ -1823,7 +1823,12 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
-                    <a href="#create-task" class="toc-h2 toc-link" data-title="">Create Task</a>
+                    <a href="#list-linked-accounts" class="toc-h2 toc-link" data-title="">List Linked Accounts</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#use-a-linked-account" class="toc-h2 toc-link" data-title="">Use a Linked Account</a>
                     
                   </li>
                 
@@ -2084,6 +2089,10 @@ startTransact();
 <td>Optionally pass in a language. Acceptable values: <code>en</code> for English and <code>es</code> for Spanish. Default value is <code>en</code></td>
 </tr>
 <tr>
+<td><code>linkedAccount</code></td>
+<td>Optionally pass the <code>_id</code> of a <a href="#linkedaccount-object">LinkedAccount</a>. When used, Transact will immediately begin authenticating upon opening. This parameter is used when the <a href="#linkedaccount-object">LinkedAccount</a>'s <code>userMustBePresent</code> flag is set to <code>true</code>.</td>
+</tr>
+<tr>
 <td><code>onFinish</code></td>
 <td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code> object.</td>
 </tr>
@@ -2105,7 +2114,7 @@ startTransact();
 <tbody>
 <tr>
 <td><code>atomic-transact-close</code></td>
-<td>Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be <code>{reason: 'zero-search-results}</code>. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be <code>{reason: 'task-pending'}</code>.<br/><br/> 3. At any point if the user clicks on the <code>x</code> the data passed with the event will be <code>{reason: 'unknown'}</code></td>
+<td>Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be <code>{reason: 'zero-search-results'}</code>. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be <code>{reason: 'task-pending'}</code>.<br/><br/> 3. At any point if the user clicks on the <code>x</code> the data passed with the event will be <code>{reason: 'unknown'}</code></td>
 </tr>
 <tr>
 <td><code>atomic-transact-finish</code></td>
@@ -3107,9 +3116,209 @@ print(response.text)
 <td>string</td>
 <td>Private token that should be kept secret.</td>
 </tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<h2 id="create-task">Create Task</h2>
+<h2 id="list-linked-accounts">List Linked Accounts</h2>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code>curl --location --request GET <span class="hljs-string">"https://api.atomicfi.com/user/accounts"</span> \
+  --header <span class="hljs-string">"x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">var</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+
+<span class="hljs-keyword">var</span> options = {
+  <span class="hljs-string">'method'</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-string">'hostname'</span>: <span class="hljs-string">'https://api.atomicfi.com'</span>,
+  <span class="hljs-string">'path'</span>: <span class="hljs-string">'/user/accounts'</span>,
+  <span class="hljs-string">'headers'</span>: {
+    <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
+  }
+};
+
+<span class="hljs-keyword">var</span> req = https.request(options, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+  <span class="hljs-keyword">var</span> chunks = [];
+
+  res.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk</span>) </span>{
+    chunks.push(chunk);
+  });
+
+  res.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk</span>) </span>{
+    <span class="hljs-keyword">var</span> body = Buffer.concat(chunks);
+    <span class="hljs-built_in">console</span>.log(body.toString());
+  });
+
+  res.on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+    <span class="hljs-built_in">console</span>.error(error);
+  });
+});
+
+req.end();
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">"uri"</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">"net/http"</span>
+
+url = URI(<span class="hljs-string">"https://api.atomicfi.com/user/accounts"</span>)
+
+http = Net::HTTP.new(url.host, url.port)
+
+request = Net::HTTP::Get.new(url)
+request[<span class="hljs-string">"x-public-token"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+
+response = http.request(request)
+puts response.read_body
+
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+url = <span class="hljs-string">'https://api.atomicfi.com/user/accounts'</span>
+payload = {}
+headers = {
+  <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
+}
+response = requests.request(<span class="hljs-string">'GET'</span>, url, headers = headers, data = payload, allow_redirects=<span class="hljs-keyword">False</span>, timeout=undefined, allow_redirects=false)
+print(response.text)
+
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+  <span class="hljs-string">"fmt"</span>
+  <span class="hljs-string">"os"</span>
+  <span class="hljs-string">"path/filepath"</span>
+  <span class="hljs-string">"net/http"</span>
+  <span class="hljs-string">"io/ioutil"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+  url := <span class="hljs-string">"https://api.atomicfi.com/user/accounts"</span>
+  method := <span class="hljs-string">"GET"</span>
+
+  client := &amp;http.Client {
+    CheckRedirect: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(req *http.Request, via []*http.Request)</span> <span class="hljs-title">error</span></span> {
+      <span class="hljs-keyword">return</span> http.ErrUseLastResponse
+    },
+  }
+  req, err := http.NewRequest(method, url, <span class="hljs-literal">nil</span>)
+
+  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+    fmt.Println(err)
+  }
+  req.Header.Add(<span class="hljs-string">"x-public-token"</span>, <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>)
+
+  res, err := client.Do(req)
+  <span class="hljs-keyword">defer</span> res.Body.Close()
+  body, err := ioutil.ReadAll(res.Body)
+
+  fmt.Println(<span class="hljs-keyword">string</span>(body))
+}
+</code></pre>
+<p>If enabled on your account, can be used to list accounts linked to a particular user.</p>
+<h3 id="http-request">HTTP Request</h3>
+<p><code>GET /user/accounts</code></p>
+<h3 id="authentication-headers">Authentication headers</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x-public-token</code></td>
+<td>Public token generated during <a href="#create-access-token">access token creation</a>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code>                                        |
+</code></pre>
+<h3 id="response">Response</h3>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+    <span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5f7212103a40e91f95ba376d"</span>,
+            <span class="hljs-attr">"valid"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">"connector"</span>: {
+                <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d77f95207085632a58945c3"</span>,
+                <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ADP"</span>,
+                <span class="hljs-attr">"branding"</span>: {}
+            },
+            <span class="hljs-attr">"company"</span>: {
+                <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d77f9e1070856f3828945c6"</span>,
+                <span class="hljs-attr">"name"</span>: <span class="hljs-string">"DoTerra"</span>,
+                <span class="hljs-attr">"branding"</span>: {
+                    <span class="hljs-attr">"logo"</span>: {
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5eb62781b4b83f0008f638cc"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
+                    }
+                }
+            },
+            <span class="hljs-attr">"lastSuccess"</span>: <span class="hljs-string">"2020-09-28T16:40:48.009Z"</span>,
+            <span class="hljs-attr">"userMustBePresent"</span>: <span class="hljs-literal">false</span>
+        }
+    ]
+}
+</code></pre>
+<h3 id="linkedaccount-object">LinkedAccount object</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_id</code></td>
+<td>string</td>
+<td>Unique identifier.</td>
+</tr>
+<tr>
+<td><code>valid</code></td>
+<td>boolean</td>
+<td>Whether or not the account credentials were valid after the last attempted use.</td>
+</tr>
+<tr>
+<td><code>userMustBePresent</code></td>
+<td>boolean</td>
+<td>Whether or not using the account requires the user to be present within <a href="#transact-sdk">Transact</a>.</td>
+</tr>
+<tr>
+<td><code>lastSuccess</code></td>
+<td>date</td>
+<td>The datetime of the last successful usage of the account.</td>
+</tr>
+<tr>
+<td><code>lastFailure</code></td>
+<td>date</td>
+<td>The datetime of the last failed usage of the account.</td>
+</tr>
+<tr>
+<td><code>company</code></td>
+<td>object</td>
+<td>The <a href="#company-object">Company</a> to which the account is linked.</td>
+</tr>
+<tr>
+<td><code>connector</code></td>
+<td>object</td>
+<td>The <a href="#connector-object">Connector</a> to which the account is linked.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="use-a-linked-account">Use a Linked Account</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -3117,14 +3326,8 @@ print(response.text)
   --header <span class="hljs-string">"Content-Type: application/json"</span> \
   --header <span class="hljs-string">"x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span> \
   --data <span class="hljs-string">"{
-    \"product\": \"balance\",
-    \"company\": \"5d77f9e1070856f3828945c6\",
-    \"settings\": {
-        \"balance\": {
-            \"amount\": \"500\",
-            \"accountNumber\": \"4111111111111\"
-        }
-    }
+    \"product\": \"verify\",
+    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"
 }"</span>
 
 </code></pre>
@@ -3157,7 +3360,7 @@ print(response.text)
   });
 });
 
-<span class="hljs-keyword">var</span> postData =  <span class="hljs-string">"{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"</span>;
+<span class="hljs-keyword">var</span> postData =  <span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\",\n    }\n}"</span>;
 
 req.write(postData);
 
@@ -3174,7 +3377,7 @@ http = Net::HTTP.new(url.host, url.port)
 request = Net::HTTP::Post.new(url)
 request[<span class="hljs-string">"Content-Type"</span>] = <span class="hljs-string">"application/json"</span>
 request[<span class="hljs-string">"x-public-token"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
-request.body = <span class="hljs-string">"{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"</span>
+request.body = <span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"</span>
 
 response = http.request(request)
 puts response.read_body
@@ -3183,7 +3386,7 @@ puts response.read_body
 </code></pre>
 <pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
 url = <span class="hljs-string">'https://api.atomicfi.com/task'</span>
-payload = <span class="hljs-string">"{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"</span>
+payload = <span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"</span>
 headers = {
   <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
   <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
@@ -3208,7 +3411,7 @@ print(response.text)
   url := <span class="hljs-string">"https://api.atomicfi.com/task"</span>
   method := <span class="hljs-string">"POST"</span>
 
-  payload := strings.NewReader(<span class="hljs-string">"{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"</span>)
+  payload := strings.NewReader(<span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"</span>)
 
   client := &amp;http.Client {
     CheckRedirect: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(req *http.Request, via []*http.Request)</span> <span class="hljs-title">error</span></span> {
@@ -3236,17 +3439,11 @@ print(response.text)
 <p>Request body example</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
-    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"balance"</span>,
-    <span class="hljs-attr">"company"</span>: <span class="hljs-string">"5d77f9e1070856f3828945c6"</span>,
-    <span class="hljs-attr">"settings"</span>: {
-        <span class="hljs-attr">"balance"</span>: {
-            <span class="hljs-attr">"amount"</span>: <span class="hljs-string">"500"</span>,
-            <span class="hljs-attr">"accountNumber"</span>: <span class="hljs-string">"4111111111111"</span>
-        }
-    }
+    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"verify"</span>,
+    <span class="hljs-attr">"linkedAccount"</span>: <span class="hljs-string">"5d77f9e1070856f3828945c6"</span>
 }
 </code></pre>
-<p>To request that an <a href="#transfer">Transfer</a> transaction is performed, a <code>Task</code> object is created that contains instructions on the origin and destination of the balance. A <code>Task</code> associated with a user via the <code>publicToken</code> used to authenticate the request.</p>
+<p>To generate a task using a Linked Account, a <code>Task</code> object is created that contains the <code>product</code> and the <code>_id</code> of the <a href="#linkedaccount-object">LinkedAccount</a>. A <code>Task</code> associated with a user via the <code>publicToken</code> used to authenticate the request.</p>
 <h3 id="http-request">HTTP Request</h3>
 <p><code>POST /task</code></p>
 <h3 id="authentication-headers">Authentication headers</h3>
@@ -3277,27 +3474,12 @@ print(response.text)
 <tr>
 <td><code>product</code> <h6 id="required">required</h6></td>
 <td>string</td>
-<td>Must be set to <code>balance</code>.</td>
+<td>One of <code>verify</code>, <code>identify</code>, or <code>deposit</code>.</td>
 </tr>
 <tr>
-<td><code>company</code> <h6 id="required">required</h6></td>
+<td><code>linkedAccount</code> <h6 id="required">required</h6></td>
 <td>string</td>
-<td>The <code>_id</code> of a <a href="#company-object">Company</a> object. This will be used as the origin of the balance transfer.</td>
-</tr>
-<tr>
-<td><code>settings.transfer.amount</code> <h6 id="required">required</h6></td>
-<td>string</td>
-<td>A USD amount to be transferred from the origin <code>company</code>. May be limited by the <code>transferLimit</code> set during <code>Access Token</code>'s account creation.</td>
-</tr>
-<tr>
-<td><code>settings.transfer.accountNumber</code> <h6 id="required">required</h6></td>
-<td>string</td>
-<td>The origin <code>company</code>'s account number.</td>
-</tr>
-<tr>
-<td><code>settings.destinationUserAccountId</code></td>
-<td>string</td>
-<td>The ID of an optionally chosen destination account if there are multiple eligible accounts added during <code>Access token</code> creation. Defaults to the first eligible account if not passed.</td>
+<td>The <code>_id</code> of a <a href="#linked-account-object">LinkedAccount</a> object.</td>
 </tr>
 </tbody>
 </table>
