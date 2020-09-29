@@ -237,6 +237,7 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 | `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `login-connector`. Accepts a string of the company name.</td></tr></table> |
 | `language`                      | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `linkedAccount`                 | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
@@ -245,9 +246,64 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 When using the SDK, events will be emitted and passed to the native application. Such events allow native applications to react and perform functions as needed. Some events will be passed with a data object with additional information.
 | Event | Description |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `atomic-transact-close` | Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be `{reason: 'zero-search-results}`. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be `{reason: 'task-pending'}`.<br/><br/> 3. At any point if the user clicks on the `x` the data passed with the event will be `{reason: 'unknown'}`|
+| `atomic-transact-close` | Triggered in several different instances. <br/><br/> 1. If a user does not find their employer and payroll provider, the data passed with the event will be `{reason: 'zero-search-results'}`. <br/><br/> 2. During the Transact process if a user is prompted to keep waiting or exit and they choose to exit, the data passed with the event will be `{reason: 'task-pending'}`.<br/><br/> 3. At any point if the user clicks on the `x` the data passed with the event will be `{reason: 'unknown'}`|
 | `atomic-transact-finish` | Triggered when the user reaches the success screen and closes Transact|
 | `atomic-transact-open-url` | Triggered when external links are accessed. The data passed with the event will be `{url: Full URL path}`|
+| `atomic-transact-interaction` | Triggered on interactions within Transact. For example, when a user transitions to a news screen or presses the back button. The data passed with the event will be `{name: NAME OF THE EVENT, value: OBJECT CONTAINING EVENT VALUES}`. |
+
+#### Event Interactions
+
+```javascript
+{
+  name: "EVENT_NAME"
+  value: {
+    //Default property
+    customer: "Atomic",
+    //Default property. Possible values are 'en' or 'es'
+    language: "en"
+    //Default property. Possible values are 'deposit', 'verify', 'identify', or 'balance'
+    product: "deposit"
+    //Additional properties will be included based on the event that has occurred.
+  }
+}
+
+```
+
+Each event, by default, will have `customer`, `product`, and `language` in the `value object`. Most events have additional data. See the Additional Properties table below
+
+| Name                                      | Description                                              |
+| ----------------------------------------- | -------------------------------------------------------- |
+| `back`                                    | Back button pressed                                      |
+| `step-initialize-welcome`                 | Welcome screen is initialized                            |
+| `step-initialize-deeplink-search-company` | User deeplinks to the company search                     |
+| `step-welcome`                            | User visits the Welcome screen                           |
+| `step-search-company`                     | User visits the Company Search screen                    |
+| `step-search-payroll`                     | User visits the Payroll Provider Search screen           |
+| `step-company-uses`                       | User visits Company X uses Payroll Provider X screen     |
+| `step-phone-verification`                 | User prompted to verify their phone number               |
+| `step-phone-update`                       | User visits the Phone Update screen                      |
+| `step-unauthorized`                       | User is unauthorized                                     |
+| `step-access-expired-token`               | User is using an expired token                           |
+| `authentication-login`                    | User visits the Payroll Provider Login screen            |
+| `authentication-login-help`               | User visits the Forgot Credentials screen                |
+| `authentication-mfa-step`                 | User is presented with Multi Factor Authentication (MFA) |
+| `authentication-success`                  | User completes the authentication process                |
+| `authentication-error`                    | User receives an error during authentication             |
+| `search`                                  | User is searching an Company or Payroll Provider         |
+| `select-company`                          | User selects a company (aka employer)                    |
+| `select-payroll`                          | User selects a payroll provider                          |
+
+#### Additional Properties
+
+| Property        | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| `company`       | User's employer that they have selected                        |
+| `payroll`       | Payroll provider the the company uses (ie: ADP, Gusto, etc...) |
+| `searchCompany` | Search input for a company                                     |
+| `searchPayroll` | Search input for a payroll provider                            |
+| `exitScreen`    | Screen user was on when they exited the app                    |
+| `fromScreen`    | Screen user was on when they pressed the back button           |
+| `depositOption` | Option user chose during the deposit options                   |
 
 # Webhooks
 
@@ -816,8 +872,175 @@ Successfully creating an `Access Token` will return a payload with a `data` obje
 | `publicToken`           | string | Public `AccessToken` that can be used to initialize [Transact SDK](#transact-sdk) and make subsequent API requests. |
 | `publicTokenExpiration` | string | [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date by which the `AccessToken` will no longer be valid.         |
 | `token`                 | string | Private token that should be kept secret.                                                                           |
+|                         |
 
-## Create Task
+## List Linked Accounts
+
+> Code samples
+
+```shell
+curl --location --request GET "https://api.atomicfi.com/user/accounts" \
+  --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+```
+
+```javascript--nodejs
+var https = require('https');
+
+var options = {
+  'method': 'GET',
+  'hostname': 'https://api.atomicfi.com',
+  'path': '/user/accounts',
+  'headers': {
+    'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+  }
+};
+
+var req = https.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function (chunk) {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+
+  res.on("error", function (error) {
+    console.error(error);
+  });
+});
+
+req.end();
+
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.atomicfi.com/user/accounts")
+
+http = Net::HTTP.new(url.host, url.port)
+
+request = Net::HTTP::Get.new(url)
+request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+
+response = http.request(request)
+puts response.read_body
+
+
+```
+
+```python
+import requests
+url = 'https://api.atomicfi.com/user/accounts'
+payload = {}
+headers = {
+  'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+}
+response = requests.request('GET', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
+print(response.text)
+
+
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "os"
+  "path/filepath"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "https://api.atomicfi.com/user/accounts"
+  method := "GET"
+
+  client := &http.Client {
+    CheckRedirect: func(req *http.Request, via []*http.Request) error {
+      return http.ErrUseLastResponse
+    },
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+  }
+  req.Header.Add("x-public-token", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
+
+  res, err := client.Do(req)
+  defer res.Body.Close()
+  body, err := ioutil.ReadAll(res.Body)
+
+  fmt.Println(string(body))
+}
+```
+
+If enabled on your account, can be used to list accounts linked to a particular user.
+
+### HTTP Request
+
+`GET /user/accounts`
+
+### Authentication headers
+
+| Name             | Description                                                                  |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
+
+                                            |
+
+### Response
+
+> Example response
+
+```json
+{
+    "data": [
+        {
+            "_id": "5f7212103a40e91f95ba376d",
+            "valid": true,
+            "connector": {
+                "_id": "5d77f95207085632a58945c3",
+                "name": "ADP",
+                "branding": {}
+            },
+            "company": {
+                "_id": "5d77f9e1070856f3828945c6",
+                "name": "DoTerra",
+                "branding": {
+                    "logo": {
+                        "_id": "5eb62781b4b83f0008f638cc",
+                        "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+                    }
+                }
+            },
+            "lastSuccess": "2020-09-28T16:40:48.009Z",
+            "transactRequired": false
+        }
+    ]
+}
+```
+
+### LinkedAccount object
+
+| Name               | Type    | Description                                                                                        |
+| ------------------ | ------- | -------------------------------------------------------------------------------------------------- |
+| `_id`              | string  | Unique identifier.                                                                                 |
+| `valid`            | boolean | Whether or not the account credentials were valid after the last attempted use.                    |
+| `transactRequired` | boolean | Whether or not using the account requires the user to be present within [Transact](#transact-sdk). |
+| `lastSuccess`      | date    | The datetime of the last successful usage of the account.                                          |
+| `lastFailure`      | date    | The datetime of the last failed usage of the account.                                              |
+| `company`          | object  | The [Company](#company-object) to which the account is linked.                                     |
+| `connector`        | object  | The [Connector](#connector-object) to which the account is linked.                                 |
+
+## Use a Linked Account
 
 > Code samples
 
@@ -826,14 +1049,8 @@ curl --location --request POST "https://api.atomicfi.com/task" \
   --header "Content-Type: application/json" \
   --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732" \
   --data "{
-    \"product\": \"balance\",
-    \"company\": \"5d77f9e1070856f3828945c6\",
-    \"settings\": {
-        \"balance\": {
-            \"amount\": \"500\",
-            \"accountNumber\": \"4111111111111\"
-        }
-    }
+    \"product\": \"verify\",
+    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"
 }"
 
 ```
@@ -868,7 +1085,7 @@ var req = https.request(options, function (res) {
   });
 });
 
-var postData =  "{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}";
+var postData =  "{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\",\n    }\n}";
 
 req.write(postData);
 
@@ -887,7 +1104,7 @@ http = Net::HTTP.new(url.host, url.port)
 request = Net::HTTP::Post.new(url)
 request["Content-Type"] = "application/json"
 request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
-request.body = "{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"
+request.body = "{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"
 
 response = http.request(request)
 puts response.read_body
@@ -898,7 +1115,7 @@ puts response.read_body
 ```python
 import requests
 url = 'https://api.atomicfi.com/task'
-payload = "{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}"
+payload = "{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"
 headers = {
   'Content-Type': 'application/json',
   'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
@@ -925,7 +1142,7 @@ func main() {
   url := "https://api.atomicfi.com/task"
   method := "POST"
 
-  payload := strings.NewReader("{\n    \"product\": \"balance\",\n    \"company\": \"5d77f9e1070856f3828945c6\",\n    \"settings\": {\n        \"balance\": {\n            \"amount\": \"500\",\n            \"accountNumber\": \"4111111111111\"\n        }\n    }\n}")
+  payload := strings.NewReader("{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}")
 
   client := &http.Client {
     CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -954,18 +1171,12 @@ func main() {
 
 ```json
 {
-    "product": "balance",
-    "company": "5d77f9e1070856f3828945c6",
-    "settings": {
-        "balance": {
-            "amount": "500",
-            "accountNumber": "4111111111111"
-        }
-    }
+    "product": "verify",
+    "linkedAccount": "5d77f9e1070856f3828945c6"
 }
 ```
 
-To request that an [Transfer](#transfer) transaction is performed, a `Task` object is created that contains instructions on the origin and destination of the balance. A `Task` associated with a user via the `publicToken` used to authenticate the request.
+To generate a task using a Linked Account, a `Task` object is created that contains the `product` and the `_id` of the [LinkedAccount](#linkedaccount-object). A `Task` associated with a user via the `publicToken` used to authenticate the request.
 
 ### HTTP Request
 
@@ -979,13 +1190,10 @@ To request that an [Transfer](#transfer) transaction is performed, a `Task` obje
 
 ### Request properties
 
-| Name                                                | Type   | Description                                                                                                                                                                            |
-| --------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `product` <h6>required</h6>                         | string | Must be set to `balance`.                                                                                                                                                              |
-| `company` <h6>required</h6>                         | string | The `_id` of a [Company](#company-object) object. This will be used as the origin of the balance transfer.                                                                             |
-| `settings.transfer.amount` <h6>required</h6>        | string | A USD amount to be transferred from the origin `company`. May be limited by the `transferLimit` set during `Access Token`'s account creation.                                          |
-| `settings.transfer.accountNumber` <h6>required</h6> | string | The origin `company`'s account number.                                                                                                                                                 |
-| `settings.destinationUserAccountId`                 | string | The ID of an optionally chosen destination account if there are multiple eligible accounts added during `Access token` creation. Defaults to the first eligible account if not passed. |
+| Name                              | Type   | Description                                                    |
+| --------------------------------- | ------ | -------------------------------------------------------------- |
+| `product` <h6>required</h6>       | string | One of `verify`, `identify`, or `deposit`.                     |
+| `linkedAccount` <h6>required</h6> | string | The `_id` of a [LinkedAccount](#linked-account-object) object. |
 
 ### Response
 
