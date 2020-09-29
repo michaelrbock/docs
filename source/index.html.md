@@ -237,7 +237,7 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 | `color`                         | Optionally, provide a hex color code to customize Transact.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `login-connector`. Accepts a string of the company name.</td></tr></table> |
 | `language`                      | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `linkedAccount`                 | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `userMustBePresent` flag is set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `linkedAccount`                 | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
@@ -1022,7 +1022,7 @@ If enabled on your account, can be used to list accounts linked to a particular 
                 }
             },
             "lastSuccess": "2020-09-28T16:40:48.009Z",
-            "userMustBePresent": false
+            "transactRequired": false
         }
     ]
 }
@@ -1030,15 +1030,15 @@ If enabled on your account, can be used to list accounts linked to a particular 
 
 ### LinkedAccount object
 
-| Name                | Type    | Description                                                                                        |
-| ------------------- | ------- | -------------------------------------------------------------------------------------------------- |
-| `_id`               | string  | Unique identifier.                                                                                 |
-| `valid`             | boolean | Whether or not the account credentials were valid after the last attempted use.                    |
-| `userMustBePresent` | boolean | Whether or not using the account requires the user to be present within [Transact](#transact-sdk). |
-| `lastSuccess`       | date    | The datetime of the last successful usage of the account.                                          |
-| `lastFailure`       | date    | The datetime of the last failed usage of the account.                                              |
-| `company`           | object  | The [Company](#company-object) to which the account is linked.                                     |
-| `connector`         | object  | The [Connector](#connector-object) to which the account is linked.                                 |
+| Name               | Type    | Description                                                                                        |
+| ------------------ | ------- | -------------------------------------------------------------------------------------------------- |
+| `_id`              | string  | Unique identifier.                                                                                 |
+| `valid`            | boolean | Whether or not the account credentials were valid after the last attempted use.                    |
+| `transactRequired` | boolean | Whether or not using the account requires the user to be present within [Transact](#transact-sdk). |
+| `lastSuccess`      | date    | The datetime of the last successful usage of the account.                                          |
+| `lastFailure`      | date    | The datetime of the last failed usage of the account.                                              |
+| `company`          | object  | The [Company](#company-object) to which the account is linked.                                     |
+| `connector`        | object  | The [Connector](#connector-object) to which the account is linked.                                 |
 
 ## Use a Linked Account
 
