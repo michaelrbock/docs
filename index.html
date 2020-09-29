@@ -3476,7 +3476,7 @@ print(response.text)
     <span class="hljs-attr">"linkedAccount"</span>: <span class="hljs-string">"5d77f9e1070856f3828945c6"</span>
 }
 </code></pre>
-<p>To generate a task using a Linked Account, a <code>Task</code> request is created that contains the <code>product</code> and the <code>_id</code> of the <a href="#linkedaccount-object">LinkedAccount</a>. A <code>Task</code> is then created, and associated with a user via the <code>publicToken</code> used to authenticate the request.</p>
+<p>To generate a task using a Linked Account, a <code>Task</code> request is created that contains the <code>product</code> and the <code>_id</code> of the <a href="#linkedaccount-object">LinkedAccount</a>. A <code>Task</code> is then created if the request is successful.</p>
 <h3 id="http-request">HTTP Request</h3>
 <p><code>POST /task/create</code></p>
 <h3 id="authentication-headers">Authentication headers</h3>

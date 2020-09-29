@@ -1192,7 +1192,7 @@ func main() {
 }
 ```
 
-To generate a task using a Linked Account, a `Task` request is created that contains the `product` and the `_id` of the [LinkedAccount](#linkedaccount-object). A `Task` is then created, and associated with a user via the `publicToken` used to authenticate the request.
+To generate a task using a Linked Account, a `Task` request is created that contains the `product` and the `_id` of the [LinkedAccount](#linkedaccount-object). A `Task` is then created if the request is successful.
 
 ### HTTP Request
 
