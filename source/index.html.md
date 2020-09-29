@@ -1176,7 +1176,7 @@ func main() {
 }
 ```
 
-To generate a task using a Linked Account, a `Task` object is created that contains the `product` and the `_id` of the [LinkedAccount](#linkedaccount-object). A `Task` associated with a user via the `publicToken` used to authenticate the request.
+To generate a task using a Linked Account, a `Task` request is created that contains the `product` and the `_id` of the [LinkedAccount](#linkedaccount-object). A `Task` is then created, and associated with a user via the `publicToken` used to authenticate the request.
 
 ### HTTP Request
 
@@ -1208,7 +1208,7 @@ To generate a task using a Linked Account, a `Task` object is created that conta
 }
 ```
 
-Successfully creating a `Task` will return a payload with a `data` object containing both a public `_id_` and a private `status` of `queued`. The `status` will change as the task progresses towards completion. The [Atomic Dashboard](https://dashboard.atomicfi.com/) can be used to track task progress. If you plan on implementing (webhooks)(#webhooks), we recommend saving the task `_id` for reference.
+Successfully creating a `Task` will return a payload with a `data` object containing both a public `_id_` and a private `status` of `queued`. The `status` will change as the task progresses towards completion. The [Atomic Dashboard](https://dashboard.atomicfi.com/) can be used to track task progress. If you plan on implementing [webhooks](#webhooks), we recommend saving the task `_id` for reference.
 
 ### Response Properties
 

@@ -3443,7 +3443,7 @@ print(response.text)
     <span class="hljs-attr">"linkedAccount"</span>: <span class="hljs-string">"5d77f9e1070856f3828945c6"</span>
 }
 </code></pre>
-<p>To generate a task using a Linked Account, a <code>Task</code> object is created that contains the <code>product</code> and the <code>_id</code> of the <a href="#linkedaccount-object">LinkedAccount</a>. A <code>Task</code> associated with a user via the <code>publicToken</code> used to authenticate the request.</p>
+<p>To generate a task using a Linked Account, a <code>Task</code> request is created that contains the <code>product</code> and the <code>_id</code> of the <a href="#linkedaccount-object">LinkedAccount</a>. A <code>Task</code> is then created, and associated with a user via the <code>publicToken</code> used to authenticate the request.</p>
 <h3 id="http-request">HTTP Request</h3>
 <p><code>POST /task</code></p>
 <h3 id="authentication-headers">Authentication headers</h3>
@@ -3494,7 +3494,7 @@ print(response.text)
     }
 }
 </code></pre>
-<p>Successfully creating a <code>Task</code> will return a payload with a <code>data</code> object containing both a public <code>_id_</code> and a private <code>status</code> of <code>queued</code>. The <code>status</code> will change as the task progresses towards completion. The <a href="https://dashboard.atomicfi.com/">Atomic Dashboard</a> can be used to track task progress. If you plan on implementing (webhooks)(#webhooks), we recommend saving the task <code>_id</code> for reference.</p>
+<p>Successfully creating a <code>Task</code> will return a payload with a <code>data</code> object containing both a public <code>_id_</code> and a private <code>status</code> of <code>queued</code>. The <code>status</code> will change as the task progresses towards completion. The <a href="https://dashboard.atomicfi.com/">Atomic Dashboard</a> can be used to track task progress. If you plan on implementing <a href="#webhooks">webhooks</a>, we recommend saving the task <code>_id</code> for reference.</p>
 <h3 id="response-properties">Response Properties</h3>
 <table>
 <thead>
