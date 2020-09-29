@@ -879,8 +879,9 @@ Successfully creating an `Access Token` will return a payload with a `data` obje
 > Code samples
 
 ```shell
-curl --location --request GET "https://api.atomicfi.com/user/accounts" \
-  --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+curl --location --request GET "https://api.atomicfi.com/linked-account/list/{identifier}" \
+  --header "x-api-key: f0d0a166-96de-4898-8879-da309801968b" \
+  --header "x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2" \
 ```
 
 ```javascript--nodejs
@@ -889,9 +890,10 @@ var https = require('https');
 var options = {
   'method': 'GET',
   'hostname': 'https://api.atomicfi.com',
-  'path': '/user/accounts',
+  'path': '/linked-account/list/{identifier}',
   'headers': {
-    'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+    'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+    'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
   }
 };
 
@@ -920,12 +922,13 @@ req.end();
 require "uri"
 require "net/http"
 
-url = URI("https://api.atomicfi.com/user/accounts")
+url = URI("https://api.atomicfi.com/linked-account/list/{identifier}")
 
 http = Net::HTTP.new(url.host, url.port)
 
 request = Net::HTTP::Get.new(url)
-request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+request["x-api-key"] = "f0d0a166-96de-4898-8879-da309801968b"
+request["x-api-secret"] = "afcce08f-95bd-4317-9119-ecb8debae4f2"
 
 response = http.request(request)
 puts response.read_body
@@ -935,10 +938,11 @@ puts response.read_body
 
 ```python
 import requests
-url = 'https://api.atomicfi.com/user/accounts'
+url = 'https://api.atomicfi.com/linked-account/list/{identifier}'
 payload = {}
 headers = {
-  'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+  'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+  'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
 }
 response = requests.request('GET', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
 print(response.text)
@@ -959,7 +963,7 @@ import (
 
 func main() {
 
-  url := "https://api.atomicfi.com/user/accounts"
+  url := "https://api.atomicfi.com/linked-account/list/{identifier}"
   method := "GET"
 
   client := &http.Client {
@@ -972,7 +976,8 @@ func main() {
   if err != nil {
     fmt.Println(err)
   }
-  req.Header.Add("x-public-token", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
+  req.Header.Add("x-api-key", "f0d0a166-96de-4898-8879-da309801968b")
+  req.Header.Add("x-api-secret", "afcce08f-95bd-4317-9119-ecb8debae4f2")
 
   res, err := client.Do(req)
   defer res.Body.Close()
@@ -986,15 +991,21 @@ If enabled on your account, can be used to list accounts linked to a particular 
 
 ### HTTP Request
 
-`GET /user/accounts`
+`GET /linked-account/list/{identifier}`
 
 ### Authentication headers
 
-| Name             | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
+| Name           | Description                        |
+| -------------- | ---------------------------------- |
+| `x-api-key`    | API Key for your Atomic account    |
+| `x-api-secret` | API Secret for your Atomic account |
+|                |
 
-                                            |
+### Request properties
+
+| Name         | Type   | Description                                                                                                                                                                                                                                |
+| ------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `identifier` | string | The user's identifier, as sent to Atomic during [AccessToken](#create-access-token) creation. Passed with the URL as a path parameter (e.g. `/linked-account/list/{identifier}`), replacing ` {identifier}` with your user's `identifier`. |
 
 ### Response
 
@@ -1045,9 +1056,10 @@ If enabled on your account, can be used to list accounts linked to a particular 
 > Code samples
 
 ```shell
-curl --location --request POST "https://api.atomicfi.com/task" \
+curl --location --request POST "https://api.atomicfi.com/task/create" \
   --header "Content-Type: application/json" \
-  --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732" \
+  --header "x-api-key: f0d0a166-96de-4898-8879-da309801968b" \
+  --header "x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2" \
   --data "{
     \"product\": \"verify\",
     \"linkedAccount\": \"5d77f9e1070856f3828945c6\"
@@ -1061,10 +1073,11 @@ var https = require('https');
 var options = {
   'method': 'POST',
   'hostname': 'https://api.atomicfi.com',
-  'path': '/task',
+  'path': '/task/create',
   'headers': {
     'Content-Type': 'application/json',
-    'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+    'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+    'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
   }
 };
 
@@ -1097,13 +1110,14 @@ req.end();
 require "uri"
 require "net/http"
 
-url = URI("https://api.atomicfi.com/task")
+url = URI("https://api.atomicfi.com/task/create")
 
 http = Net::HTTP.new(url.host, url.port)
 
 request = Net::HTTP::Post.new(url)
 request["Content-Type"] = "application/json"
-request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+request["x-api-key"] = "f0d0a166-96de-4898-8879-da309801968b"
+request["x-api-secret"] = "afcce08f-95bd-4317-9119-ecb8debae4f2"
 request.body = "{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"
 
 response = http.request(request)
@@ -1114,11 +1128,12 @@ puts response.read_body
 
 ```python
 import requests
-url = 'https://api.atomicfi.com/task'
+url = 'https://api.atomicfi.com/task/create'
 payload = "{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"
 headers = {
   'Content-Type': 'application/json',
-  'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+  'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+  'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
 }
 response = requests.request('POST', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
 print(response.text)
@@ -1139,7 +1154,7 @@ import (
 
 func main() {
 
-  url := "https://api.atomicfi.com/task"
+  url := "https://api.atomicfi.com/task/create"
   method := "POST"
 
   payload := strings.NewReader("{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}")
@@ -1155,7 +1170,8 @@ func main() {
     fmt.Println(err)
   }
   req.Header.Add("Content-Type", "application/json")
-  req.Header.Add("x-public-token", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
+  req.Header.Add("x-api-key", "f0d0a166-96de-4898-8879-da309801968b")
+  req.Header.Add("x-api-secret", "afcce08f-95bd-4317-9119-ecb8debae4f2")
 
   res, err := client.Do(req)
   defer res.Body.Close()
@@ -1180,13 +1196,14 @@ To generate a task using a Linked Account, a `Task` request is created that cont
 
 ### HTTP Request
 
-`POST /task`
+`POST /task/create`
 
 ### Authentication headers
 
-| Name             | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
+| Name           | Description                        |
+| -------------- | ---------------------------------- |
+| `x-api-key`    | API Key for your Atomic account    |
+| `x-api-secret` | API Secret for your Atomic account |
 
 ### Request properties
 
