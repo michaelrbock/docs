@@ -332,6 +332,14 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
         "_id": "5d8d3fecbf637ef3b11a877a",
         "identifier": "YOUR_INTERNAL_GUID"
     },
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
+    },
     "task": "5e30afde097146a8fc3d5cec",
     "data": {
         "previousStatus": "processing",
@@ -341,13 +349,14 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
 }
 ```
 
-| Attribute   | Description                                                                     |
-| ----------- | ------------------------------------------------------------------------------- |
-| `eventType` | Status of a task was changed. Currently this value is `task-status-updated`     |
-| `eventTime` | The date and time of the event creation.                                        |
-| `user`      | Object containg `_id` and `identifier`. `Identifier` will be your internal GUID |
-| `task`      | Contains the task ID.                                                           |
-| `data`      | Payload object containing `previousStatus`, `status`, and `transferType`        |
+| Attribute   | Description                                                                       |
+| ----------- | --------------------------------------------------------------------------------- |
+| `eventType` | Status of a task was changed. Currently this value is `task-status-updated`       |
+| `eventTime` | The date and time of the event creation.                                          |
+| `user`      | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID |
+| `company`   | Object containing `_id`, `name`, and `branding`                                   |
+| `task`      | Contains the task ID.                                                             |
+| `data`      | Payload object containing `previousStatus`, `status`, and `transferType`          |
 
 ## Event types
 
@@ -361,6 +370,14 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
     "user": {
         "_id": "5c17c632e1d8ca3b08b2586f",
         "identifier": "YOUR_UNIQUE_GUID"
+    },
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
     },
     "type": "task-status-updated",
     "data": {
@@ -395,6 +412,14 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
         "identifier": "YOUR_INTERNAL_GUID"
     },
     "task": "5e30afde097146a8fc3d5cec",
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
+    },
     "data": {
         "previousStatus": "processing",
         "status": "completed",
