@@ -349,14 +349,14 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
 }
 ```
 
-| Attribute   | Description                                                                       |
-| ----------- | --------------------------------------------------------------------------------- |
-| `eventType` | Status of a task was changed. Currently this value is `task-status-updated`       |
-| `eventTime` | The date and time of the event creation.                                          |
-| `user`      | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID |
-| `company`   | Object containing `_id`, `name`, and `branding`                                   |
-| `task`      | Contains the task ID.                                                             |
-| `data`      | Payload object containing `previousStatus`, `status`, and `transferType`          |
+| Attribute   | Description                                                                                                                                                                                                                        |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType` | Status of a task was changed. Currently this value is `task-status-updated` .                                                                                                                                                      |
+| `eventTime` | The date and time of the event creation.                                                                                                                                                                                           |
+| `user`      | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID.                                                                                                                                                 |
+| `company`   | Object containing `_id`, `name`, and `branding`.                                                                                                                                                                                   |
+| `task`      | Contains the task ID.                                                                                                                                                                                                              |
+| `data`      | Payload object containing `reason`, `previousStatus`, `status`, and `transferType`(if applicable), `transferAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depenind on the product). |
 
 ## Event types
 
@@ -574,6 +574,18 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `city`        | Address city.           |
 | `state`       | Address state.          |
 | `postalcode`  | Address postal code.    |
+
+## Fail Reasons
+
+| Attribute               | Description                                                              |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `bad-credentials`       | Either the username or password was incorrect                            |
+| `account-lockout`       | The account is locked out, most likely you have too many failed attempts |
+| `user-abandon`          | The user was asked an MFA question, but did not answer the question      |
+| `connection-error`      | A network error occurred                                                 |
+| `session-timeout`       | The session timed out                                                    |
+| `product-not-supported` | The account did not support the product                                  |
+| `unknown-failure`       | We encountered an unexpected error                                       |
 
 # API Reference
 
