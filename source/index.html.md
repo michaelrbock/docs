@@ -34,7 +34,7 @@ https://sandbox-api.atomicfi.com
 
 ### Welcome to Atomic's developer documentation!
 
-You'll find resources to help you integrate with [Transact](#transact-sdk), our web app that handles the heavy-lifting of integration, as well as a number of [REST](en.wikipedia.org/wiki/Representational_State_Transfer)ful API endpoints.
+You'll find resources to help you integrate with [Transact](#transact-sdk), our web app that handles the heavy-lifting of integration, as well as a number of [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)ful API endpoints.
 
 We've tried our best to make this documentation comprehensive and helpful. If you have suggestions or find issues, [please let us know](mailto:engineering@atomicfi.com).
 
@@ -115,7 +115,7 @@ Move a user’s credit card or loan balance to a new account.
 
 ### Deployment options
 
-#### Transact SDK
+#### Transact
 
 [Transact](#transact-sdk) allows the user to easily choose the source of their transfer, while the destination is pre-configured during [Access Token](#create-access-token) creation.
 
