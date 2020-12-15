@@ -218,12 +218,12 @@ https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 
 ```
 
-Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [Kotlin (Android)](https://github.com/atomicfi/transact-android), [React Native](https://github.com/atomicfi/transact-react-native), and [Flutter](https://github.com/atomicfi/transact_flutter)
+Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [Kotlin (Android)](https://github.com/atomicfi/transact-android), [React Native](https://github.com/atomicfi/transact-react-native), and [Flutter](https://github.com/atomicfi/transact-flutter)
 <br />
 <a href="https://github.com/atomicfi/transact-android"><img src="/source/images/kotlin.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-ios"><img src="/source/images/swift.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-react-native"><img src="/source/images/react-native.png" class="transact-example-platform" /></a>
-<a href="https://github.com/atomicfi/transact_flutter"><img src="/source/images/flutter.png" class="transact-example-platform" /></a>
+<a href="https://github.com/atomicfi/transact-flutter"><img src="/source/images/flutter.png" class="transact-example-platform" /></a>
 
 ### SMS
 
