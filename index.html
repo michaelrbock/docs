@@ -155,6 +155,21 @@ window.onpopstate = function() {
                   </li>
                 
                   <li>
+                    <a href="#task-status-updated" class="toc-h2 toc-link" data-title="">Task status updated</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#task-status-patched" class="toc-h2 toc-link" data-title="">Task status patched</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#task-authentication-status-updated" class="toc-h2 toc-link" data-title="">Task authentication status updated</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#outputs" class="toc-h2 toc-link" data-title="">Outputs</a>
                     
                   </li>
@@ -660,7 +675,7 @@ startTransact();
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"processing"</span>,
         <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>,
-        <span class="hljs-attr">"transferType"</span>: <span class="hljs-string">"total"</span>
+        <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"total"</span>
     }
 }
 </code></pre>
@@ -674,7 +689,7 @@ startTransact();
 <tbody>
 <tr>
 <td><code>eventType</code></td>
-<td>Webhook event type for a task status change or authentication status change. Value will be one of the following values: <table><tr><th>Value/Description</th></tr><tr><td><code>task-status-updated</code><br />Signifies and update to the task status. For example processing to failed or processing to completed</td></tr><tr><td><code>task-authentication-status-updated</code><br />Signifies that an update to the authentication status. For example if authentication updates to true or false</td></tr></table>.</td>
+<td>Webhook event type for a task status change or authentication status change. Value will be one of the following values: <table><tr><th>Value/Description</th></tr><tr><td><code>task-status-updated</code><br />Signifies an update to the task status. For example processing to failed or processing to completed.</td></tr><tr><td><code>task-status-patched</code><br />Signifies a patch to a task's final status. For example, a task's status is reversed from completed to a status of failed.</td></tr><tr><td><code>task-authentication-status-updated</code><br />Signifies that an update to the authentication status. For example if authentication updates to true or false.</td></tr></table></td>
 </tr>
 <tr>
 <td><code>eventTime</code></td>
@@ -694,18 +709,22 @@ startTransact();
 </tr>
 <tr>
 <td><code>data</code></td>
-<td>Payload object containing <code>reason</code>, <code>previousStatus</code>, <code>status</code>, and <code>transferType</code>(if applicable), <code>transferAmount</code>(if applicable), <code>amount</code>(if applicable), and <a href="#outputs">outputs</a>(Outputs will differ depenind on the product).</td>
+<td>Payload object containing <code>reason</code>, <code>previousStatus</code>, <code>status</code>, and <code>distributionType</code>(if applicable), <code>distributionAmount</code>(if applicable), <code>amount</code>(if applicable), and <a href="#outputs">outputs</a>(Outputs will differ depenind on the product).</td>
 </tr>
 </tbody>
 </table>
 <h2 id="event-types">Event types</h2>
+<p>This is a list of all the types of events we currently send. We may add more at any time, so you shouldn't rely on only these types existing in your code.</p>
+<p>Each event object includes a <code>data</code> property which contains unique data points for each type of event. Each event type below describes these unique data points.</p>
+<h2 id="task-status-updated">Task status updated</h2>
 <blockquote>
-<p>Task Status Update</p>
+<p>Example <code>task-status-updated</code> event</p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
     <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c1821dbc6b7baf3435e1d23"</span>,
-    <span class="hljs-attr">"created"</span>: <span class="hljs-string">"2019-11-20T16:51:12Z"</span>,
-    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
+    <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-updated"</span>,
+    <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2021-01-13T19:43:26.097Z"</span>,
+    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"deposit"</span>,
     <span class="hljs-attr">"user"</span>: {
         <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c17c632e1d8ca3b08b2586f"</span>,
         <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_UNIQUE_GUID"</span>
@@ -718,14 +737,13 @@ startTransact();
             }
         }
     },
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"task-status-updated"</span>,
+    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"processing"</span>,
         <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>
     }
 }
 </code></pre>
-<h3 id="task-status-updated">task-status-updated</h3>
 <p>The status of a <a href="#create-task">Task</a> was changed. Possible statuses include:</p>
 <table>
 <thead>
@@ -746,6 +764,99 @@ startTransact();
 <tr>
 <td><code>completed</code></td>
 <td>The task completed successfully.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="task-status-patched">Task status patched</h2>
+<blockquote>
+<p>Example <code>task-status-patched</code> event</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c1821dbc6b7baf3435e1d23"</span>,
+    <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-patched"</span>,
+    <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2021-01-13T19:43:26.097Z"</span>,
+    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"deposit"</span>,
+    <span class="hljs-attr">"user"</span>: {
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c17c632e1d8ca3b08b2586f"</span>,
+        <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_UNIQUE_GUID"</span>
+    },
+    <span class="hljs-attr">"company"</span>: {
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Home Depot"</span>,
+        <span class="hljs-attr">"branding"</span>: {
+            <span class="hljs-attr">"logo"</span>: {
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
+            }
+        }
+    },
+    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"failed"</span>,
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>
+    }
+}
+</code></pre>
+<p>The status of a <a href="#create-task">Task</a> was patched. Possible statuses include:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>failed</code></td>
+<td>The task failed to process.</td>
+</tr>
+<tr>
+<td><code>completed</code></td>
+<td>The task completed successfully.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="task-authentication-status-updated">Task authentication status updated</h2>
+<blockquote>
+<p>Example <code>task-authentication-status-updated</code> event</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c1821dbc6b7baf3435e1d23"</span>,
+    <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-authentication-status-updated"</span>,
+    <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2021-01-13T19:43:26.097Z"</span>,
+    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"deposit"</span>,
+    <span class="hljs-attr">"user"</span>: {
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5c17c632e1d8ca3b08b2586f"</span>,
+        <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_UNIQUE_GUID"</span>
+    },
+    <span class="hljs-attr">"company"</span>: {
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Home Depot"</span>,
+        <span class="hljs-attr">"branding"</span>: {
+            <span class="hljs-attr">"logo"</span>: {
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
+            }
+        }
+    },
+    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"authenticated"</span>: <span class="hljs-literal">true</span>
+    }
+}
+</code></pre>
+<p>The authentication status of a <a href="#create-task">Task</a> was updated. Possible <code>authenticated</code> statuses include:</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>true</code></td>
+<td>The task authenticated successfully.</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td>The task faield to authenticate.</td>
 </tr>
 </tbody>
 </table>
