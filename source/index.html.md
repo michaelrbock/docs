@@ -344,29 +344,36 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
     "data": {
         "previousStatus": "processing",
         "status": "completed",
-        "transferType": "total"
+        "distributionType": "total"
     }
 }
 ```
 
 | Attribute   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `eventType` | Webhook event type for a task status change or authentication status change. Value will be one of the following values: <table><tr><th>Value/Description</th></tr><tr><td>`task-status-updated`<br />Signifies and update to the task status. For example processing to failed or processing to completed</td></tr><tr><td>`task-authentication-status-updated`<br />Signifies that an update to the authentication status. For example if authentication updates to true or false</td></tr></table>. |
+| `eventType` | Webhook event type for a task status change or authentication status change. Value will be one of the following values: <table><tr><th>Value/Description</th></tr><tr><td>`task-status-updated`<br />Signifies an update to the task status. For example processing to failed or processing to completed.</td></tr><tr><td>`task-status-patched`<br />Signifies a patch to a task's final status. For example, a task's status is reversed from completed to a status of failed.</td></tr><tr><td>`task-authentication-status-updated`<br />Signifies that an update to the authentication status. For example if authentication updates to true or false.</td></tr></table> |
 | `eventTime` | The date and time of the event creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `user`      | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID.                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `company`   | Object containing `_id`, `name`, and `branding`.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `task`      | Contains the task ID.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `data`      | Payload object containing `reason`, `previousStatus`, `status`, and `transferType`(if applicable), `transferAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depenind on the product).                                                                                                                                                                                                                                                                    |
+| `data`      | Payload object containing `reason`, `previousStatus`, `status`, and `distributionType`(if applicable), `distributionAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depenind on the product).                                                                                                                                                                                                                                                                    |
 
 ## Event types
 
-> Task Status Update
+This is a list of all the types of events we currently send. We may add more at any time, so you shouldn't rely on only these types existing in your code.
+
+Each event object includes a `data` property which contains unique data points for each type of event. Each event type below describes these unique data points.
+
+## Task status updated
+
+> Example `task-status-updated` event
 
 ```json
 {
     "_id": "5c1821dbc6b7baf3435e1d23",
-    "created": "2019-11-20T16:51:12Z",
-    "task": "5d97e4abc90a0a0007993e9c",
+    "eventType": "task-status-updated",
+    "eventTime": "2021-01-13T19:43:26.097Z",
+    "product": "deposit",
     "user": {
         "_id": "5c17c632e1d8ca3b08b2586f",
         "identifier": "YOUR_UNIQUE_GUID"
@@ -379,15 +386,13 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
             }
         }
     },
-    "type": "task-status-updated",
+    "task": "5d97e4abc90a0a0007993e9c",
     "data": {
         "previousStatus": "processing",
         "status": "completed"
     }
 }
 ```
-
-### task-status-updated
 
 The status of a [Task](#create-task) was changed. Possible statuses include:
 
@@ -396,6 +401,79 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `processing` | The task has started processing. |
 | `failed`     | The task failed to process.      |
 | `completed`  | The task completed successfully. |
+
+## Task status patched
+
+> Example `task-status-patched` event
+
+```json
+{
+    "_id": "5c1821dbc6b7baf3435e1d23",
+    "eventType": "task-status-patched",
+    "eventTime": "2021-01-13T19:43:26.097Z",
+    "product": "deposit",
+    "user": {
+        "_id": "5c17c632e1d8ca3b08b2586f",
+        "identifier": "YOUR_UNIQUE_GUID"
+    },
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
+    },
+    "task": "5d97e4abc90a0a0007993e9c",
+    "data": {
+        "previousStatus": "failed",
+        "status": "completed"
+    }
+}
+```
+
+The status of a [Task](#create-task) was patched. Possible statuses include:
+
+| Status       | Description                      |
+| ------------ | -------------------------------- |
+| `failed`     | The task failed to process.      |
+| `completed`  | The task completed successfully. |
+
+## Task authentication status updated
+
+> Example `task-authentication-status-updated` event
+
+```json
+{
+    "_id": "5c1821dbc6b7baf3435e1d23",
+    "eventType": "task-authentication-status-updated",
+    "eventTime": "2021-01-13T19:43:26.097Z",
+    "product": "deposit",
+    "user": {
+        "_id": "5c17c632e1d8ca3b08b2586f",
+        "identifier": "YOUR_UNIQUE_GUID"
+    },
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
+    },
+    "task": "5d97e4abc90a0a0007993e9c",
+    "data": {
+        "authenticated": true
+    }
+}
+```
+
+The authentication status of a [Task](#create-task) was updated. Possible `authenticated` statuses include:
+
+| Status       | Description                      |
+| ------------ | -------------------------------- |
+| `true`     | The task authenticated successfully. |
+| `false`     | The task faield to authenticate. |
 
 ## Outputs
 
