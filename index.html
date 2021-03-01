@@ -2027,8 +2027,6 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
             <span class="hljs-attr">brandColor</span>: <span class="hljs-string">"#FF0000"</span>,
             <span class="hljs-attr">overlayColor</span>: <span class="hljs-string">"#000000"</span>,
         },
-        <span class="hljs-comment">// Optionally theme Transact with a *dark* color. *DEPRICATED*</span>
-        color: <span class="hljs-string">"#4B39EF"</span>,
         <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
         language: <span class="hljs-string">"en"</span>,
         <span class="hljs-attr">onFinish</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
@@ -2067,7 +2065,10 @@ startTransact();
   <span class="hljs-comment">// Could be either 'balance', 'verify', 'identify', or 'deposit'</span>
   product: <span class="hljs-string">"deposit"</span>,
   <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
-  color: <span class="hljs-string">'#1b1464'</span>,
+  theme: {
+    <span class="hljs-attr">brandColor</span>: <span class="hljs-string">'#1b1464'</span>,
+    <span class="hljs-attr">overlayColor</span>: <span class="hljs-string">'#CCCCCC'</span>
+  }
   <span class="hljs-comment">// Optionally start on a specific step. Accepts an object</span>
   deeplink: {
     <span class="hljs-attr">step</span>: <span class="hljs-string">'search-company'</span>
@@ -2104,15 +2105,11 @@ startTransact();
 </tr>
 <tr>
 <td><code>theme</code></td>
-<td>Optionally, provide hex values to customize Transact. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>brandColor</code></td><td>Accepts hex values. For example: <code>#FF0000</code>. This property will mostly be applied to buttons.</td></tr><tr><td><code>overlayColor</code></td><td>Accepts hex values. For example: <code>#000000</code>. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.</td></tr></table></td>
-</tr>
-<tr>
-<td><code>color</code> <h6 id="depricated">depricated</h6></td>
-<td>Optionally, provide a hex color code to customize Transact.</td>
+<td>Optionally, provide hex or rgb values to customize Transact. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>brandColor</code></td><td>Accepts hex values. For example: <code>#FF0000</code> or <code>rgb(255, 255, 255)</code>. This property will mostly be applied to buttons.</td></tr><tr><td><code>overlayColor</code></td><td>Accepts hex values. For example: <code>#000000</code> or <code>rgb(0, 0, 0)</code>. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.</td></tr></table></td>
 </tr>
 <tr>
 <td><code>deeplink</code></td>
-<td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>companyId</code></td><td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>login-connector</code>. Accepts a string of the company name.</td></tr></table></td>
+<td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code>, <code>search-payroll</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>companyId</code></td><td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>search-payroll</code> or <code>login-connector</code>. Accepts a string of the company name.</td></tr></table></td>
 </tr>
 <tr>
 <td><code>language</code></td>
@@ -2303,7 +2300,7 @@ startTransact();
 </table>
 <h1 id="webhooks">Webhooks</h1>
 <h3 id="webhooks-are-a-useful-way-to-receive-automated-updates--and-send-timely-notification-to-your-user-as-a-transaction-progresses-">Webhooks are a useful way to receive automated updates, and send timely notification to your user as a transaction progresses.</h3>
-<p>You can configure webhook endpoints via the <a href="https://dashboard.atomicfi.com/">Atomic Dashboard</a> or during the <a href="#transact-sdk">initialization of Transact</a>. Atomic will issue <code>POST</code> requests to the designated endpoint(s). We recommend using <a href="https://requestbin.com/">Request Bin</a> as a way to inspect the payload of events during development without needing to stand up a server.</p>
+<p>You can configure webhook endpoints via the <a href="https://dashboard.atomicfi.com/">Atomic Dashboard</a>. Atomic will issue <code>POST</code> requests to the designated endpoint(s). We recommend using <a href="https://requestbin.com/">Request Bin</a> as a way to inspect the payload of events during development without needing to stand up a server.</p>
 <h2 id="securing-webhooks">Securing webhooks</h2>
 <p>To validate a webhook request came from Atomic, we suggest verifying the payloads with the <code>X-HMAC-Signature-Sha-256</code> header (which we pass with every request).</p>
 <table>
