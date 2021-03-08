@@ -2027,6 +2027,14 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
             <span class="hljs-attr">brandColor</span>: <span class="hljs-string">"#FF0000"</span>,
             <span class="hljs-attr">overlayColor</span>: <span class="hljs-string">"#000000"</span>,
         },
+        <span class="hljs-comment">// Optionally pass in fractional deposit settings</span>
+        distribution: {
+            <span class="hljs-comment">// Could be either 'total', 'fixed', or 'percent'</span>
+            type: <span class="hljs-string">'fixed'</span>,
+            <span class="hljs-attr">amount</span>: <span class="hljs-number">50</span>,
+            <span class="hljs-comment">// Could be either 'create', 'update', or 'delete'</span>
+            action: <span class="hljs-string">'create'</span>
+        },
         <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
         language: <span class="hljs-string">"en"</span>,
         <span class="hljs-attr">onFinish</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
@@ -2035,12 +2043,12 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         },
         <span class="hljs-attr">onClose</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-comment">// Called when the user exits Transact prematurely</span>
-        },
-    });
-};
+        }
+    })
+}
 
 <span class="hljs-comment">// `startTransact` would typically be user-initiated, such as a button click or tap</span>
-startTransact();
+startTransact()
 </code></pre>
 <p>An <a href="#create-access-token">AccessToken</a> is required to initialize Transact, and is generated server-side using your API key, and the <code>publicToken</code> from the response is returned to your client-side code.</p>
 <h3 id="mobile--amp--web">Mobile &amp; Web</h3>
@@ -2059,24 +2067,24 @@ startTransact();
 </blockquote>
 <pre class="highlight tab tab-html"><code>https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 </code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-comment">//Object to be BASE64 Encoded</span>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-comment">// Object to be BASE64 Encoded</span>
 {
-  <span class="hljs-attr">publicToken</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
-  <span class="hljs-comment">// Could be either 'balance', 'verify', 'identify', or 'deposit'</span>
-  product: <span class="hljs-string">"deposit"</span>,
-  <span class="hljs-comment">// Optionally theme Transact with a *dark* color</span>
-  theme: {
-    <span class="hljs-attr">brandColor</span>: <span class="hljs-string">'#1b1464'</span>,
-    <span class="hljs-attr">overlayColor</span>: <span class="hljs-string">'#CCCCCC'</span>
-  }
-  <span class="hljs-comment">// Optionally start on a specific step. Accepts an object</span>
-  deeplink: {
-    <span class="hljs-attr">step</span>: <span class="hljs-string">'search-company'</span>
-  },
-  <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
-  language: <span class="hljs-string">'en'</span>
+    <span class="hljs-string">"publicToken"</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
+    <span class="hljs-string">"product"</span>: <span class="hljs-string">"deposit"</span>,
+    <span class="hljs-string">"theme"</span>: {
+        <span class="hljs-string">"brandColor"</span>: <span class="hljs-string">'#1b1464'</span>,
+        <span class="hljs-string">"overlayColor"</span>: <span class="hljs-string">'#CCCCCC'</span>
+    },
+    <span class="hljs-string">"distribution"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">'fixed'</span>,
+        <span class="hljs-string">"amount"</span>: <span class="hljs-number">50</span>,
+        <span class="hljs-string">"action"</span>: <span class="hljs-string">'create'</span>
+    },
+    <span class="hljs-string">"deeplink"</span>: {
+        <span class="hljs-string">"step"</span>: <span class="hljs-string">'search-company'</span>
+    },
+    <span class="hljs-string">"language"</span>: <span class="hljs-string">'en'</span>
 }
-
 </code></pre>
 <p>Here are examples for <a href="https://github.com/atomicfi/transact-ios">Swift (iOS)</a>, <a href="https://github.com/atomicfi/transact-android">Kotlin (Android)</a>, <a href="https://github.com/atomicfi/transact-react-native">React Native</a>, and <a href="https://github.com/atomicfi/transact-flutter">Flutter</a>
 <br />
@@ -2105,11 +2113,51 @@ startTransact();
 </tr>
 <tr>
 <td><code>theme</code></td>
-<td>Optionally, provide hex or rgb values to customize Transact. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>brandColor</code></td><td>Accepts hex values. For example: <code>#FF0000</code> or <code>rgb(255, 255, 255)</code>. This property will mostly be applied to buttons.</td></tr><tr><td><code>overlayColor</code></td><td>Accepts hex values. For example: <code>#000000</code> or <code>rgb(0, 0, 0)</code>. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.</td></tr></table></td>
+<td>Optionally, provide hex or rgb values to customize Transact.</td>
+</tr>
+<tr>
+<td><code>theme.brandColor</code></td>
+<td>Accepts hex values. For example: <code>#FF0000</code> or <code>rgb(255, 255, 255)</code>. This property will mostly be applied to buttons.</td>
+</tr>
+<tr>
+<td><code>theme.overlayColor</code></td>
+<td>Accepts hex values. For example: <code>#000000</code> or <code>rgb(0, 0, 0)</code>. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.</td>
 </tr>
 <tr>
 <td><code>deeplink</code></td>
-<td>Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td><code>step</code><h6 id="required">required</h6></td><td>Acceptable values: <code>search-company</code>, <code>search-payroll</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td></tr><tr><td><code>companyId</code></td><td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td></tr><tr><td><code>connectorId</code></td><td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td></tr><tr><td><code>companyName</code></td><td>Required if the step is <code>search-payroll</code> or <code>login-connector</code>. Accepts a string of the company name.</td></tr></table></td>
+<td>Optionally, deeplink into a specific step.</td>
+</tr>
+<tr>
+<td><code>deeplink.step</code> <h6 id="required">required</h6></td>
+<td>Acceptable values: <code>search-company</code>, <code>search-payroll</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td>
+</tr>
+<tr>
+<td><code>deeplink.companyId</code></td>
+<td>Required if the step is <code>login-company</code>. Accepts the <a href="#company-search">ID</a> of the company.</td>
+</tr>
+<tr>
+<td><code>deeplink.connectorId</code></td>
+<td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td>
+</tr>
+<tr>
+<td><code>deeplink.companyName</code></td>
+<td>Required if the step is <code>search-payroll</code> or <code>login-connector</code>. Accepts a string of the company name.</td>
+</tr>
+<tr>
+<td><code>distribution</code></td>
+<td>Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings.</td>
+</tr>
+<tr>
+<td><code>distribution.type</code></td>
+<td>Can be <code>total</code> to indicate the remaining balance of their paycheck, <code>fixed</code> to indicate a specific dollar amount, or <code>percent</code> to indicate a percentage of their paycheck.</td>
+</tr>
+<tr>
+<td><code>distribution.amount</code></td>
+<td>When <code>distributionType</code> is <code>fixed</code>, it indicates the dollar amount to be used. When <code>distributionType</code> is <code>percent</code>, it indicates the percentage of their paycheck. Not required if <code>distributionType</code> is <code>total</code>.</td>
+</tr>
+<tr>
+<td><code>distribution.action</code></td>
+<td>The operation to perform when updating the distribution. The default value is <code>create</code> which will add a new distribution. The value of <code>update</code> indicates an update to an existing distribution matched by the routing and account number. The value of <code>delete</code> removes a distribution matched by the routing and account number.</td>
 </tr>
 <tr>
 <td><code>language</code></td>

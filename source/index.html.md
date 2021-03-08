@@ -165,6 +165,14 @@ const startTransact = () => {
             brandColor: "#FF0000",
             overlayColor: "#000000",
         },
+        // Optionally pass in fractional deposit settings
+        distribution: {
+            // Could be either 'total', 'fixed', or 'percent'
+            type: 'fixed',
+            amount: 50,
+            // Could be either 'create', 'update', or 'delete'
+            action: 'create'
+        },
         // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
         language: "en",
         onFinish: function (data) {
@@ -173,12 +181,12 @@ const startTransact = () => {
         },
         onClose: function () {
             // Called when the user exits Transact prematurely
-        },
-    });
-};
+        }
+    })
+}
 
 // `startTransact` would typically be user-initiated, such as a button click or tap
-startTransact();
+startTransact()
 ```
 
 An [AccessToken](#create-access-token) is required to initialize Transact, and is generated server-side using your API key, and the `publicToken` from the response is returned to your client-side code.
@@ -204,24 +212,24 @@ https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
 ```
 
 ```javascript
-//Object to be BASE64 Encoded
+// Object to be BASE64 Encoded
 {
-  publicToken: "PUBLIC_TOKEN",
-  // Could be either 'balance', 'verify', 'identify', or 'deposit'
-  product: "deposit",
-  // Optionally theme Transact with a *dark* color
-  theme: {
-    brandColor: '#1b1464',
-    overlayColor: '#CCCCCC'
-  }
-  // Optionally start on a specific step. Accepts an object
-  deeplink: {
-    step: 'search-company'
-  },
-  // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
-  language: 'en'
+    "publicToken": "PUBLIC_TOKEN",
+    "product": "deposit",
+    "theme": {
+        "brandColor": '#1b1464',
+        "overlayColor": '#CCCCCC'
+    },
+    "distribution": {
+        "type": 'fixed',
+        "amount": 50,
+        "action": 'create'
+    },
+    "deeplink": {
+        "step": 'search-company'
+    },
+    "language": 'en'
 }
-
 ```
 
 Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [Kotlin (Android)](https://github.com/atomicfi/transact-android), [React Native](https://github.com/atomicfi/transact-react-native), and [Flutter](https://github.com/atomicfi/transact-flutter)
@@ -237,16 +245,26 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 
 ### Javascript SDK parameters
 
-| Attribute                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `publicToken` <h6>required</h6> | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `product` <h6>required</h6>     | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `theme`                         | Optionally, provide hex or rgb values to customize Transact. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`brandColor`</td><td>Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons.</td></tr><tr><td>`overlayColor`</td><td>Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.</td></tr></table>                                                                                                                                                                                                                                                                              |
-| `deeplink`                      | Optionally, start on a specific step. Accepts an object. <table><tr><th>Property</th><th>Value</th></tr><tr><td>`step`<h6>required</h6></td><td>Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required)</td></tr><tr><td>`companyId`</td><td>Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.</td></tr><tr><td>`connectorId`</td><td>Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector.</td></tr><tr><td>`companyName`</td><td>Required if the step is `search-payroll` or `login-connector`. Accepts a string of the company name.</td></tr></table> |
-| `language`                      | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `linkedAccount`                 | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `onFinish`                      | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `onClose`                       | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Attribute                                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `publicToken` <h6>required</h6>           | The public token returned during [AccessToken](#create-access-token) creation. |
+| `product` <h6>required</h6>               | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`. |
+| `theme`                                   | Optionally, provide hex or rgb values to customize Transact. |
+| `theme.brandColor`                        | Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons. |
+| `theme.overlayColor`                      | Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop. |
+| `deeplink`                                | Optionally, deeplink into a specific step. |
+| `deeplink.step` <h6>required</h6>         | Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required) |
+| `deeplink.companyId`                      | Required if the step is `login-company`. Accepts the [ID](#company-search) of the company. |
+| `deeplink.connectorId`                    | Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector. |
+| `deeplink.companyName`                    | Required if the step is `search-payroll` or `login-connector`. Accepts a string of the company name. |
+| `distribution`                            | Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings. |
+| `distribution.type`                       | Can be `total` to indicate the remaining balance of their paycheck, `fixed` to indicate a specific dollar amount, or `percent` to indicate a percentage of their paycheck. |
+| `distribution.amount`                     | When `distributionType` is `fixed`, it indicates the dollar amount to be used. When `distributionType` is `percent`, it indicates the percentage of their paycheck. Not required if `distributionType` is `total`. | 
+| `distribution.action`                     | The operation to perform when updating the distribution. The default value is `create` which will add a new distribution. The value of `update` indicates an update to an existing distribution matched by the routing and account number. The value of `delete` removes a distribution matched by the routing and account number. |
+| `language`                                | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en` |
+| `linkedAccount`                           | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`. |
+| `onFinish`                                | A function that is called when the user finishes the transaction. The function will receive a `data` object. |
+| `onClose`                                 | Called when the user exits Transact prematurely. |
 
 #### Event Listeners
 
