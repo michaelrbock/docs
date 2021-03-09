@@ -679,15 +679,16 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 
 ## Fail Reasons
 
-| Attribute               | Description                                                              |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `bad-credentials`       | Either the username or password was incorrect                            |
-| `account-lockout`       | The account is locked out, most likely you have too many failed attempts |
-| `user-abandon`          | The user was asked an MFA question, but did not answer the question      |
-| `connection-error`      | A network error occurred                                                 |
-| `session-timeout`       | The session timed out                                                    |
-| `product-not-supported` | The account did not support the product                                  |
-| `unknown-failure`       | We encountered an unexpected error                                       |
+| Attribute                     | Description                                                              |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| `bad-credentials`             | Either the username or password was incorrect                            |
+| `account-lockout`             | The account is locked out, most likely you have too many failed attempts |
+| `user-abandon`                | The user was asked an MFA question, but did not answer the question      |
+| `connection-error`            | A network error occurred                                                 |
+| `session-timeout`             | The session timed out                                                    |
+| `product-not-supported`       | The account did not support the product                                  |
+| `distribution-not-supported`  | The account did not support the distribution                             |
+| `unknown-failure`             | We encountered an unexpected error                                       |
 
 # API Reference
 
