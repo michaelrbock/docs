@@ -566,6 +566,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `payCycle`         | Payment period. Possible values are `monthly`, `semimonthly`, `biweekly`, and `weekly`.           |
 | `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
+| `w2s`              | An array of [w2s](#w2).                                                                          |
 
 ### Nested object properties
 
@@ -621,6 +622,29 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `type`                            | string | Type of account. Possible values include `checking` or `savings`                                                                                                                                                                                                                    |
 | `distributionType`                | string | The type of distribution for the account. Possible values include `total`, `percent`, or `fixed`..                                                                                                                                                                                  |
 | `distributionAmount`              | number | The amount being distributed to the account. When `distributionType` is `percent`, the number represents a percentage of the total pay. When `distributionType` is `fixed`, this number represents a fixed dollar amount. This value is not set when `distributionType` is `total`. |
+
+#### W2
+
+> Sample W2
+
+```json
+{
+    "totalWages": "23226.8",
+    "year": "2019",
+    "form": {
+      "_id": "3046cb8222cb33122dbcb65c",
+      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D",
+    }
+}
+```
+
+##### Properties
+
+| Name               | Type   | Description
+| ------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `totalWages`       | number | Wages, tips and other compensation. Box 1 of the W2 form.                                                             |
+| `year`             | string | The tax year 
+| `form`             | object | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint. 
 
 > Sample response for `identify`
 
