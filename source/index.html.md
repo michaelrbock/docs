@@ -539,7 +539,10 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
                     "grossAmount": "1266.11",
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
-                    "paystub": "https://example.url/statement1.pdf",
+                    "paystub": {
+                      "_id": "602414d84f9a1980cf5eafcc",
+                      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+                    }, 
                     "hours": "32"
                 },
                 {
@@ -547,7 +550,10 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
                     "grossAmount": "1266.11",
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
-                    "paystub": "https://example.url/statement2.pdf",
+                    "paystub": {
+                      "_id": "602414d84f9a1980cf5eafcc",
+                      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+                    },
                     "hours": "32"
                 }
             ],
@@ -578,6 +584,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `payCycle`         | Payment period. Possible values are `monthly`, `semimonthly`, `biweekly`, and `weekly`.           |
 | `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
+| `w2s`              | An array of [w2s](#w2).                                                                          |
 
 ### Nested object properties
 
@@ -591,7 +598,10 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
     "grossAmount": "1266.11",
     "netAmount": "1014.29",
     "paymentMethod": "deposit",
-    "paystub": "https://example.url/statement1.pdf",
+    "paystub": {
+      "_id": "602414d84f9a1980cf5eafcc",
+      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+     },
     "hours": "32"
 }
 ```
@@ -604,7 +614,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `grossAmount`            | string | Gross dollar amount of the deposit.                                       |
 | `netAmount`              | string | Net dollar amount of the deposit.                                         |
 | `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
-| `paystub`                | string | A link to download a PDF of the paystub.                                  |
+| `paystub`                | string | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint.|
 | `hours`                  | number | Hours worked within the pay period.                                       |
 
 #### Deposit account
@@ -630,6 +640,29 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `type`                            | string | Type of account. Possible values include `checking` or `savings`                                                                                                                                                                                                                    |
 | `distributionType`                | string | The type of distribution for the account. Possible values include `total`, `percent`, or `fixed`..                                                                                                                                                                                  |
 | `distributionAmount`              | number | The amount being distributed to the account. When `distributionType` is `percent`, the number represents a percentage of the total pay. When `distributionType` is `fixed`, this number represents a fixed dollar amount. This value is not set when `distributionType` is `total`. |
+
+#### W2
+
+> Sample W2
+
+```json
+{
+    "totalWages": "23226.8",
+    "year": "2019",
+    "form": {
+      "_id": "3046cb8222cb33122dbcb65c",
+      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D",
+    }
+}
+```
+
+##### Properties
+
+| Name               | Type   | Description
+| ------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `totalWages`       | number | Wages, tips and other compensation. Box 1 of the W2 form.                                                             |
+| `year`             | string | The tax year 
+| `form`             | object | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint. 
 
 > Sample response for `identify`
 
@@ -675,7 +708,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `address`     | Address street address. |
 | `city`        | Address city.           |
 | `state`       | Address state.          |
-| `postalcode`  | Address postal code.    |
+| `postalCode`  | Address postal code.    |
 
 ## Fail Reasons
 
@@ -1637,3 +1670,161 @@ Successfully querying the `Connector` search endpoint will return a payload with
 | `branding.logo`  | string | Logo for the connector, typically an `svg` if available. |
 | `branding.color` | string | Branding color for the company.                          |
 | `authenticators` | string | Array of third party authenticators.                     |
+
+
+## Generate File URL
+Generate a URL in order to download a user file (ex: paystubs pdfs). Each URL is valid for 1 hour.
+
+> Code samples
+
+```shell
+# You can also use wget
+curl --location --request GET "https://api.atomicfi.com/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url" \
+  --header "Content-Type: application/json" \
+  --header "x-api-key: f0d0a166-96de-4898-8879-da309801968b" \
+  --header "x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2" \
+```
+
+```javascript--nodejs
+var https = require('https');
+
+var options = {
+  'method': 'GET',
+  'hostname': 'https://api.atomicfi.com',
+  'path': '/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url',
+  'headers': {
+    'Content-Type': 'application/json',
+    'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+    'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
+  }
+};
+
+var req = https.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function (chunk) {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+
+  res.on("error", function (error) {
+    console.error(error);
+  });
+});
+
+req.end();
+
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.atomicfi.com/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url")
+
+http = Net::HTTP.new(url.host, url.port)
+
+request = Net::HTTP::Get.new(url)
+request["Content-Type"] = "application/json"
+request["x-api-key"] = "f0d0a166-96de-4898-8879-da309801968b"
+request["x-api-secret"] = "afcce08f-95bd-4317-9119-ecb8debae4f2"
+
+response = http.request(request)
+puts response.read_body
+
+
+```
+
+```python
+import requests
+url = 'https://api.atomicfi.com/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url'
+headers = {
+  'Content-Type': 'application/json',
+  'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+  'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
+}
+response = requests.request('GET', url, headers = headers, data = undefined, allow_redirects=False, timeout=undefined, allow_redirects=false)
+print(response.text)
+```
+
+```go
+package main
+
+import (
+  "fmt"
+  "strings"
+  "os"
+  "path/filepath"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "https://api.atomicfi.com/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url"
+  method := "GET"
+
+
+  client := &http.Client {
+    CheckRedirect: func(req *http.Request, via []*http.Request) error {
+      return http.ErrUseLastResponse
+    },
+  }
+  req, err := http.NewRequest(method, url)
+
+  if err != nil {
+    fmt.Println(err)
+  }
+  req.Header.Add("Content-Type", "application/json")
+  req.Header.Add("x-api-key", "f0d0a166-96de-4898-8879-da309801968b")
+  req.Header.Add("x-api-secret", "afcce08f-95bd-4317-9119-ecb8debae4f2")
+
+  res, err := client.Do(req)
+  defer res.Body.Close()
+  body, err := ioutil.ReadAll(res.Body)
+
+  fmt.Println(string(body))
+}
+
+```
+
+### HTTP Request
+
+`GET /task/{taskId}/file/{fileId}/generate-url`
+
+### Authentication headers
+
+| Name           | Description                        |
+| -------------- | ---------------------------------- |
+| `x-api-key`    | API Key for your Atomic account    |
+| `x-api-secret` | API Secret for your Atomic account |
+
+### Request properties
+
+| Name                      | Type   | Description         |
+| ------------------------- | ------ | ------------------- |
+| `taskId` <h6>required</h6>| string | The id of the task. |
+| `fileId` <h6>required</h6>| string | The id of the file. | 
+
+
+### Response
+
+> Example response
+
+```json
+{
+    "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+}
+```
+
+A successful request will return a URL that can be used to download the file.
+
+### Response Properties
+
+| Name                    | Type   | Description                                               | 
+| ---------------- | ------ | ---------------------------------------------------------------- |
+| `url`   | string | A URL that can be used to download the file. The URL is valid for 1 hour. |
