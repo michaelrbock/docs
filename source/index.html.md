@@ -168,10 +168,10 @@ const startTransact = () => {
         // Optionally pass in fractional deposit settings
         distribution: {
             // Could be either 'total', 'fixed', or 'percent'
-            type: 'fixed',
+            type: "fixed",
             amount: 50,
             // Could be either 'create', 'update', or 'delete'
-            action: 'create'
+            action: "create",
         },
         // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
         language: "en",
@@ -181,12 +181,12 @@ const startTransact = () => {
         },
         onClose: function () {
             // Called when the user exits Transact prematurely
-        }
-    })
-}
+        },
+    });
+};
 
 // `startTransact` would typically be user-initiated, such as a button click or tap
-startTransact()
+startTransact();
 ```
 
 An [AccessToken](#create-access-token) is required to initialize Transact, and is generated server-side using your API key, and the `publicToken` from the response is returned to your client-side code.
@@ -245,26 +245,27 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 
 ### Javascript SDK parameters
 
-| Attribute                                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `publicToken` <h6>required</h6>           | The public token returned during [AccessToken](#create-access-token) creation. |
-| `product` <h6>required</h6>               | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`. |
-| `theme`                                   | Optionally, provide hex or rgb values to customize Transact. |
-| `theme.brandColor`                        | Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons. |
-| `theme.overlayColor`                      | Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop. |
-| `deeplink`                                | Optionally, deeplink into a specific step. |
-| `deeplink.step` <h6>required</h6>         | Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-connector`. (If `login-company`, then the `companyId` is required. If `login-connector`, then `connectorId` and `companyName` are required) |
-| `deeplink.companyId`                      | Required if the step is `login-company`. Accepts the [ID](#company-search) of the company. |
-| `deeplink.connectorId`                    | Required if the step is `login-connector`. Accepts the [ID](#connector-search) of the connector. |
-| `deeplink.companyName`                    | Required if the step is `search-payroll` or `login-connector`. Accepts a string of the company name. |
-| `distribution`                            | Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings. |
-| `distribution.type`                       | Can be `total` to indicate the remaining balance of their paycheck, `fixed` to indicate a specific dollar amount, or `percent` to indicate a percentage of their paycheck. |
-| `distribution.amount`                     | When `distribution.type` is `fixed`, it indicates the dollar amount to be used. When `distribution.type` is `percent`, it indicates the percentage of their paycheck. Not required if `distribution.type` is `total`. | 
-| `distribution.action`                     | The operation to perform when updating the distribution. The default value is `create` which will add a new distribution. The value of `update` indicates an update to an existing distribution matched by the routing and account number. The value of `delete` removes a distribution matched by the routing and account number. |
-| `language`                                | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en` |
-| `linkedAccount`                           | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`. |
-| `onFinish`                                | A function that is called when the user finishes the transaction. The function will receive a `data` object. |
-| `onClose`                                 | Called when the user exits Transact prematurely. |
+| Attribute                         | Description                                                                                                                                                                                                                                                                                                                        |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `publicToken` <h6>required</h6>   | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                     |
+| `product` <h6>required</h6>       | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`.                                                                                                                                                                                                                           |
+| `inSdk`                           | Acceps a boolean. Default is `true`. When `false` close buttons and [SDK Events](#event-listeners) are not broadcast.                                                                                                                                                                                                              |
+| `theme`                           | Optionally, provide hex or rgb values to customize Transact.                                                                                                                                                                                                                                                                       |
+| `theme.brandColor`                | Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons.                                                                                                                                                                                                               |
+| `theme.overlayColor`              | Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.                                                                                                                                         |
+| `deeplink`                        | Optionally, deeplink into a specific step.                                                                                                                                                                                                                                                                                         |
+| `deeplink.step` <h6>required</h6> | Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-payroll`. (If `login-company`, then the `companyId` is required. If `login-payroll`, then `connectorId` and `companyName` are required)                                                                                                           |
+| `deeplink.companyId`              | Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.                                                                                                                                                                                                                                         |
+| `deeplink.connectorId`            | Required if the step is `login-payroll`. Accepts the [ID](#connector-search) of the connector.                                                                                                                                                                                                                                     |
+| `deeplink.companyName`            | Required if the step is `search-payroll` or `login-payroll`. Accepts a string of the company name.                                                                                                                                                                                                                                 |
+| `distribution`                    | Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings.                                                                                                                                                                      |
+| `distribution.type`               | Can be `total` to indicate the remaining balance of their paycheck, `fixed` to indicate a specific dollar amount, or `percent` to indicate a percentage of their paycheck.                                                                                                                                                         |
+| `distribution.amount`             | When `distribution.type` is `fixed`, it indicates the dollar amount to be used. When `distribution.type` is `percent`, it indicates the percentage of their paycheck. Not required if `distribution.type` is `total`.                                                                                                              |
+| `distribution.action`             | The operation to perform when updating the distribution. The default value is `create` which will add a new distribution. The value of `update` indicates an update to an existing distribution matched by the routing and account number. The value of `delete` removes a distribution matched by the routing and account number. |
+| `language`                        | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                     |
+| `linkedAccount`                   | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                  |
+| `onFinish`                        | A function that is called when the user finishes the transaction. The function will receive a `data` object.                                                                                                                                                                                                                       |
+| `onClose`                         | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                   |
 
 #### Event Listeners
 
@@ -540,9 +541,9 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
                     "paystub": {
-                      "_id": "602414d84f9a1980cf5eafcc",
-                      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
-                    }, 
+                        "_id": "602414d84f9a1980cf5eafcc",
+                        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+                    },
                     "hours": "32"
                 },
                 {
@@ -551,8 +552,8 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
                     "netAmount": "1014.29",
                     "paymentMethod": "deposit",
                     "paystub": {
-                      "_id": "602414d84f9a1980cf5eafcc",
-                      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+                        "_id": "602414d84f9a1980cf5eafcc",
+                        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
                     },
                     "hours": "32"
                 }
@@ -584,7 +585,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `payCycle`         | Payment period. Possible values are `monthly`, `semimonthly`, `biweekly`, and `weekly`.           |
 | `statements`       | An array of [statements](#statement).                                                             |
 | `accounts`         | An array of bank [accounts](#deposit-account) on file for paycheck distributions.                 |
-| `w2s`              | An array of [w2s](#w2).                                                                          |
+| `w2s`              | An array of [w2s](#w2).                                                                           |
 
 ### Nested object properties
 
@@ -599,23 +600,23 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
     "netAmount": "1014.29",
     "paymentMethod": "deposit",
     "paystub": {
-      "_id": "602414d84f9a1980cf5eafcc",
-      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
-     },
+        "_id": "602414d84f9a1980cf5eafcc",
+        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
+    },
     "hours": "32"
 }
 ```
 
 ##### Properties
 
-| Name                     | Type   | Description                                                               |
-| ------------------------ | ------ | ------------------------------------------------------------------------- |
-| `date` <h6>required</h6> | string | Date of the deposit.                                                      |
-| `grossAmount`            | string | Gross dollar amount of the deposit.                                       |
-| `netAmount`              | string | Net dollar amount of the deposit.                                         |
-| `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check` |
-| `paystub`                | string | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint.|
-| `hours`                  | number | Hours worked within the pay period.                                       |
+| Name                     | Type   | Description                                                                                                                                                                                                                    |
+| ------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `date` <h6>required</h6> | string | Date of the deposit.                                                                                                                                                                                                           |
+| `grossAmount`            | string | Gross dollar amount of the deposit.                                                                                                                                                                                            |
+| `netAmount`              | string | Net dollar amount of the deposit.                                                                                                                                                                                              |
+| `paymentMethod`          | string | Method used for the payment. Possible values include `deposit` or `check`                                                                                                                                                      |
+| `paystub`                | string | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint. |
+| `hours`                  | number | Hours worked within the pay period.                                                                                                                                                                                            |
 
 #### Deposit account
 
@@ -650,19 +651,19 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
     "totalWages": "23226.8",
     "year": "2019",
     "form": {
-      "_id": "3046cb8222cb33122dbcb65c",
-      "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D",
+        "_id": "3046cb8222cb33122dbcb65c",
+        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
     }
 }
 ```
 
 ##### Properties
 
-| Name               | Type   | Description
-| ------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| `totalWages`       | number | Wages, tips and other compensation. Box 1 of the W2 form.                                                             |
-| `year`             | string | The tax year 
-| `form`             | object | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint. 
+| Name         | Type   | Description                                                                                                                                                                                                                    |
+| ------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `totalWages` | number | Wages, tips and other compensation. Box 1 of the W2 form.                                                                                                                                                                      |
+| `year`       | string | The tax year                                                                                                                                                                                                                   |
+| `form`       | object | An object containing fileds of `_id` and `url`. The `url` field can be used to download a PDF and is valid for 1 hour. If the `url` expires, you can get a new one using the [generate file url](#generate-file-url) endpoint. |
 
 > Sample response for `identify`
 
@@ -712,16 +713,16 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 
 ## Fail Reasons
 
-| Attribute                     | Description                                                               |
-| ----------------------------- | ------------------------------------------------------------------------  |
-| `bad-credentials`             | Either the username or password was incorrect.                            |
-| `account-lockout`             | The account is locked out, most likely you have too many failed attempts. |
-| `user-abandon`                | The user was asked an MFA question, but did not answer the question.      |
-| `connection-error`            | A network error occurred.                                                 |
-| `session-timeout`             | The session timed out.                                                    |
-| `product-not-supported`       | The account did not support the product.                                  |
-| `distribution-not-supported`  | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance. |
-| `unknown-failure`             | We encountered an unexpected error.                                       |
+| Attribute                    | Description                                                                                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bad-credentials`            | Either the username or password was incorrect.                                                                                                                                   |
+| `account-lockout`            | The account is locked out, most likely you have too many failed attempts.                                                                                                        |
+| `user-abandon`               | The user was asked an MFA question, but did not answer the question.                                                                                                             |
+| `connection-error`           | A network error occurred.                                                                                                                                                        |
+| `session-timeout`            | The session timed out.                                                                                                                                                           |
+| `product-not-supported`      | The account did not support the product.                                                                                                                                         |
+| `distribution-not-supported` | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance. |
+| `unknown-failure`            | We encountered an unexpected error.                                                                                                                                              |
 
 # API Reference
 
@@ -1671,8 +1672,8 @@ Successfully querying the `Connector` search endpoint will return a payload with
 | `branding.color` | string | Branding color for the company.                          |
 | `authenticators` | string | Array of third party authenticators.                     |
 
-
 ## Generate File URL
+
 Generate a URL in order to download a user file (ex: paystubs pdfs). Each URL is valid for 1 hour.
 
 > Code samples
@@ -1805,11 +1806,10 @@ func main() {
 
 ### Request properties
 
-| Name                      | Type   | Description         |
-| ------------------------- | ------ | ------------------- |
-| `taskId` <h6>required</h6>| string | The id of the task. |
-| `fileId` <h6>required</h6>| string | The id of the file. | 
-
+| Name                       | Type   | Description         |
+| -------------------------- | ------ | ------------------- |
+| `taskId` <h6>required</h6> | string | The id of the task. |
+| `fileId` <h6>required</h6> | string | The id of the file. |
 
 ### Response
 
@@ -1825,6 +1825,6 @@ A successful request will return a URL that can be used to download the file.
 
 ### Response Properties
 
-| Name                    | Type   | Description                                               | 
-| ---------------- | ------ | ---------------------------------------------------------------- |
-| `url`   | string | A URL that can be used to download the file. The URL is valid for 1 hour. |
+| Name  | Type   | Description                                                               |
+| ----- | ------ | ------------------------------------------------------------------------- |
+| `url` | string | A URL that can be used to download the file. The URL is valid for 1 hour. |

@@ -2035,10 +2035,10 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         <span class="hljs-comment">// Optionally pass in fractional deposit settings</span>
         distribution: {
             <span class="hljs-comment">// Could be either 'total', 'fixed', or 'percent'</span>
-            type: <span class="hljs-string">'fixed'</span>,
+            type: <span class="hljs-string">"fixed"</span>,
             <span class="hljs-attr">amount</span>: <span class="hljs-number">50</span>,
             <span class="hljs-comment">// Could be either 'create', 'update', or 'delete'</span>
-            action: <span class="hljs-string">'create'</span>
+            action: <span class="hljs-string">"create"</span>,
         },
         <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
         language: <span class="hljs-string">"en"</span>,
@@ -2048,12 +2048,12 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         },
         <span class="hljs-attr">onClose</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
             <span class="hljs-comment">// Called when the user exits Transact prematurely</span>
-        }
-    })
-}
+        },
+    });
+};
 
 <span class="hljs-comment">// `startTransact` would typically be user-initiated, such as a button click or tap</span>
-startTransact()
+startTransact();
 </code></pre>
 <p>An <a href="#create-access-token">AccessToken</a> is required to initialize Transact, and is generated server-side using your API key, and the <code>publicToken</code> from the response is returned to your client-side code.</p>
 <h3 id="mobile--amp--web">Mobile &amp; Web</h3>
@@ -2117,6 +2117,10 @@ startTransact()
 <td>The <a href="#products">product</a> to initiate. Valid values include <code>balance</code> <code>deposit</code>, <code>verify</code>, or <code>identify</code>.</td>
 </tr>
 <tr>
+<td><code>inSdk</code></td>
+<td>Acceps a boolean. Default is <code>true</code>. When <code>false</code> close buttons and <a href="#event-listeners">SDK Events</a> are not broadcast.</td>
+</tr>
+<tr>
 <td><code>theme</code></td>
 <td>Optionally, provide hex or rgb values to customize Transact.</td>
 </tr>
@@ -2134,7 +2138,7 @@ startTransact()
 </tr>
 <tr>
 <td><code>deeplink.step</code> <h6 id="required">required</h6></td>
-<td>Acceptable values: <code>search-company</code>, <code>search-payroll</code>, <code>login-company</code> or <code>login-connector</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-connector</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td>
+<td>Acceptable values: <code>search-company</code>, <code>search-payroll</code>, <code>login-company</code> or <code>login-payroll</code>. (If <code>login-company</code>, then the <code>companyId</code> is required. If <code>login-payroll</code>, then <code>connectorId</code> and <code>companyName</code> are required)</td>
 </tr>
 <tr>
 <td><code>deeplink.companyId</code></td>
@@ -2142,11 +2146,11 @@ startTransact()
 </tr>
 <tr>
 <td><code>deeplink.connectorId</code></td>
-<td>Required if the step is <code>login-connector</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td>
+<td>Required if the step is <code>login-payroll</code>. Accepts the <a href="#connector-search">ID</a> of the connector.</td>
 </tr>
 <tr>
 <td><code>deeplink.companyName</code></td>
-<td>Required if the step is <code>search-payroll</code> or <code>login-connector</code>. Accepts a string of the company name.</td>
+<td>Required if the step is <code>search-payroll</code> or <code>login-payroll</code>. Accepts a string of the company name.</td>
 </tr>
 <tr>
 <td><code>distribution</code></td>
@@ -2618,9 +2622,9 @@ startTransact()
                     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
                     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
                     <span class="hljs-attr">"paystub"</span>: {
-                      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
-                      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
-                    }, 
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+                    },
                     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
                 },
                 {
@@ -2629,8 +2633,8 @@ startTransact()
                     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
                     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
                     <span class="hljs-attr">"paystub"</span>: {
-                      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
-                      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
                     },
                     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
                 }
@@ -2713,9 +2717,9 @@ startTransact()
     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
     <span class="hljs-attr">"paystub"</span>: {
-      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
-      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
-     },
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+    },
     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
 }
 </code></pre>
@@ -2818,8 +2822,8 @@ startTransact()
     <span class="hljs-attr">"totalWages"</span>: <span class="hljs-string">"23226.8"</span>,
     <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2019"</span>,
     <span class="hljs-attr">"form"</span>: {
-      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"3046cb8222cb33122dbcb65c"</span>,
-      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>,
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"3046cb8222cb33122dbcb65c"</span>,
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
     }
 }
 </code></pre>
