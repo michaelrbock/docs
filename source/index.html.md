@@ -217,18 +217,18 @@ https://transact.atomicfi.com/initialize/BASE64_ENCODED_STRING
     "publicToken": "PUBLIC_TOKEN",
     "product": "deposit",
     "theme": {
-        "brandColor": '#1b1464',
-        "overlayColor": '#CCCCCC'
+        "brandColor": "#1b1464",
+        "overlayColor": "#CCCCCC"
     },
     "distribution": {
-        "type": 'fixed',
+        "type": "fixed",
         "amount": 50,
-        "action": 'create'
+        "action": "create"
     },
     "deeplink": {
-        "step": 'search-company'
+        "step": "search-company"
     },
-    "language": 'en'
+    "language": "en"
 }
 ```
 
@@ -889,7 +889,6 @@ func main() {
     "identifier": "YOUR_INTERNAL_GUID",
     "phone": "8016554444",
     "email": "jdoe@example.org",
-    "expiry": "2019-12-06T12:22:54Z",
     "names": [
         {
             "firstName": "Jane",
@@ -935,7 +934,6 @@ An `AccessToken` grants access to Atomic's API resources for a specific user.
 | Name                           | Type                  | Description                                                                                                                                                                                                             |
 | ------------------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `identifier` <h6>required</h6> | string                | A unique identifier (GUID) from your system that will be used to reference this user.                                                                                                                                   |
-| `expiry`                       | string                | An optional [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time by which the `AccessToken` will expire. By default, it will be set to 24 hours after access token creation.                                |
 | `sendUserInvite`               | string                | An optional field, that if set to a product (e.g. `deposit`, `verify`, `identify`, or `balance`), will send a text message to the user with a unique link to access Transact.                                           |
 | `phone`                        | string                | A mobile phone number for the user is required if you plan on inviting a user to use [Transact](#transact-sdk) via SMS.                                                                                                 |
 | `email`                        | string                | An email address for the user is required if you plan on inviting a user to use [Transact](#transact-sdk) via email.                                                                                                    |
@@ -1031,8 +1029,7 @@ An `AccessToken` grants access to Atomic's API resources for a specific user.
 {
     "data": {
         "publicToken": "6e93549e-3571-4f57-b0f7-77b7cb0b5e48",
-        "token": "c00f869e-0fce-4d32-9277-a68658578ba2",
-        "publicTokenExpiration": "2019-12-06T12:22:54Z"
+        "token": "c00f869e-0fce-4d32-9277-a68658578ba2"
     }
 }
 ```
@@ -1044,7 +1041,6 @@ Successfully creating an `Access Token` will return a payload with a `data` obje
 | Name                    | Type   | Description                                                                                                         |
 | ----------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
 | `publicToken`           | string | Public `AccessToken` that can be used to initialize [Transact SDK](#transact-sdk) and make subsequent API requests. |
-| `publicTokenExpiration` | string | [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date by which the `AccessToken` will no longer be valid.         |
 | `token`                 | string | Private token that should be kept secret.                                                                           |
 |                         |
 

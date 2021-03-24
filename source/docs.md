@@ -520,8 +520,7 @@ An `AccessToken` grants access to Atomic's API resources for a specific user.
 {
     "data": {
         "publicToken": "6e93549e-3571-4f57-b0f7-77b7cb0b5e48",
-        "token": "c00f869e-0fce-4d32-9277-a68658578ba2",
-        "publicTokenExpiration": "2019-12-06T12:22:54Z"
+        "token": "c00f869e-0fce-4d32-9277-a68658578ba2"
     }
 }
 ```
@@ -533,7 +532,6 @@ Successfully creating an `Access Token` will return a payload with a `data` obje
 | Name                    | Type   | Description                                                                                                         |
 | ----------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
 | `publicToken`           | string | Public `AccessToken` that can be used to initialize [Transact SDK](#transact-sdk) and make subsequent API requests. |
-| `publicTokenExpiration` | string | [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date by which the `AccessToken` will no longer be valid.         |
 | `token`                 | string | Private token that should be kept secret.                                                                           |
 
 ## Create Task
