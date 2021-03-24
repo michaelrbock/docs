@@ -499,7 +499,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | Status  | Description                          |
 | ------- | ------------------------------------ |
 | `true`  | The task authenticated successfully. |
-| `false` | The task faield to authenticate.     |
+| `false` | The task failed to authenticate.     |
 
 ## Outputs
 
