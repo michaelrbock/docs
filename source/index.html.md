@@ -1223,7 +1223,7 @@ If enabled on your account, can be used to list accounts linked to a particular 
 
 ## Use a Linked Account
 
-> Code samples
+> Verify samples
 
 ```shell
 curl --location --request POST "https://api.atomicfi.com/task/create" \
@@ -1235,6 +1235,19 @@ curl --location --request POST "https://api.atomicfi.com/task/create" \
     \"linkedAccount\": \"5d77f9e1070856f3828945c6\"
 }"
 
+curl --location --request POST "https://api.atomicfi.com/task/create" \
+  --header "Content-Type: application/json" \
+  --header "x-api-key: f0d0a166-96de-4898-8879-da309801968b" \
+  --header "x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2" \
+  --data "{
+    \"product\": \"deposit\",
+    \"linkedAccount\": \"5d77f9e1070856f3828945c6\",
+    \"distribution\": {
+        \"type\": \"fixed\",
+        \"amount\": 50,
+        \"action\": \"create\"
+    }
+}"
 ```
 
 ```javascript--nodejs
@@ -1377,10 +1390,11 @@ To generate a task using a Linked Account, a `Task` request is created that cont
 
 ### Request properties
 
-| Name                              | Type   | Description                                                    |
-| --------------------------------- | ------ | -------------------------------------------------------------- |
-| `product` <h6>required</h6>       | string | One of `verify`, `identify`, or `deposit`.                     |
-| `linkedAccount` <h6>required</h6> | string | The `_id` of a [LinkedAccount](#linked-account-object) object. |
+| Name                              | Type   | Description                                                                                     |
+| --------------------------------- | ------ | ----------------------------------------------------------------------------------------------- |
+| `product` <h6>required</h6>       | string | One of `verify`, `identify`, or `deposit`.                                                      |
+| `linkedAccount` <h6>required</h6> | string | The `_id` of a [LinkedAccount](#linked-account-object) object.                                  |
+| `distribution`                    | object | The distribution of the deposit as defined in the [SDK parameters](#javascript-sdk-parameters). |
 
 ### Response
 
