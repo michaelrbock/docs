@@ -370,7 +370,8 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
     "data": {
         "previousStatus": "processing",
         "status": "completed",
-        "distributionType": "total"
+        "distributionType": "fixed",
+        "distributionAmount": 25
     }
 }
 ```
@@ -382,7 +383,7 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
 | `user`      | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `company`   | Object containing `_id`, `name`, and `branding`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `task`      | Contains the task ID.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `data`      | Payload object containing `reason`, `previousStatus`, `status`, and `distributionType`(if applicable), `distributionAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depenind on the product).                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `data`      | Payload object containing `reason`, `previousStatus`, `status`, and `distributionType`(if applicable), `distributionAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depending on the product).                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ## Event types
 
@@ -415,7 +416,9 @@ Each event object includes a `data` property which contains unique data points f
     "task": "5d97e4abc90a0a0007993e9c",
     "data": {
         "previousStatus": "processing",
-        "status": "completed"
+        "status": "completed",
+        "distributionType": "fixed",
+        "distributionAmount": 25
     }
 }
 ```
@@ -453,7 +456,9 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
     "task": "5d97e4abc90a0a0007993e9c",
     "data": {
         "previousStatus": "failed",
-        "status": "completed"
+        "status": "completed",
+        "distributionType": "fixed",
+        "distributionAmount": 25
     }
 }
 ```

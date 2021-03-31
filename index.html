@@ -2398,7 +2398,8 @@ startTransact();
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"processing"</span>,
         <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>,
-        <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"total"</span>
+        <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"fixed"</span>,
+        <span class="hljs-attr">"distributionAmount"</span>: <span class="hljs-number">25</span>
     }
 }
 </code></pre>
@@ -2432,7 +2433,7 @@ startTransact();
 </tr>
 <tr>
 <td><code>data</code></td>
-<td>Payload object containing <code>reason</code>, <code>previousStatus</code>, <code>status</code>, and <code>distributionType</code>(if applicable), <code>distributionAmount</code>(if applicable), <code>amount</code>(if applicable), and <a href="#outputs">outputs</a>(Outputs will differ depenind on the product).</td>
+<td>Payload object containing <code>reason</code>, <code>previousStatus</code>, <code>status</code>, and <code>distributionType</code>(if applicable), <code>distributionAmount</code>(if applicable), <code>amount</code>(if applicable), and <a href="#outputs">outputs</a>(Outputs will differ depending on the product).</td>
 </tr>
 </tbody>
 </table>
@@ -2463,7 +2464,9 @@ startTransact();
     <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"processing"</span>,
-        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>,
+        <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"fixed"</span>,
+        <span class="hljs-attr">"distributionAmount"</span>: <span class="hljs-number">25</span>
     }
 }
 </code></pre>
@@ -2514,7 +2517,9 @@ startTransact();
     <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5d97e4abc90a0a0007993e9c"</span>,
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"failed"</span>,
-        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>,
+        <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"fixed"</span>,
+        <span class="hljs-attr">"distributionAmount"</span>: <span class="hljs-number">25</span>
     }
 }
 </code></pre>
