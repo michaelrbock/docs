@@ -98,12 +98,14 @@ Reduce fraud and onboarding friction with verified profile data from a user’s 
 
 To aid in testing various user experiences, you may use any of these pre-determined "test" credentials for employer authentication. Any password will work, as long as the username is found in this list. When answering MFA questions, any answer will be accepted. If the authentication requires an email, simply append `@test.com` to the end of the chosen username.
 
-| Username            | Test Case                                                  |
-| ------------------- | ---------------------------------------------------------- |
-| `test-good`         | Successful authentication.                                 |
-| `test-bad`          | Unsuccessful authentication.                               |
-| `test-code-mfa`     | Authentication that includes a device code based MFA flow. |
-| `test-question-mfa` | Authentication that includes a question-based MFA flow.    |
+| Username                          | Test Case                                                                    |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| `test-good`                       | Test a successful authentication.                                            |
+| `test-bad`                        | Test an unsuccessful authentication.                                         |
+| `test-failure`                    | Test a failure that occurs after a successful authentication.                |
+| `test-distribution-not-supported` | Test a failure that occurs due to an unsupported distribution configuration. |
+| `test-code-mfa`                   | Test an authentication that includes a device code based MFA flow.           |
+| `test-question-mfa`               | Test an authentication that includes a question-based MFA flow.              |
 
 ## Transfer
 
