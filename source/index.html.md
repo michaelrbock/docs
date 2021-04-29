@@ -735,6 +735,8 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `unknown-failure`              | We encountered an unexpected error.                                                                                                                                              |
 | `routing-number-not-supported` | The account did not support the routing number entered.                                                                                                                          |
 | `system-unavailable`           | The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.                                          |
+| `account-setup-incomplete`     | The user's account setup is not complete and will require additional information from the user.                                                                                  |
+| `enrolled-in-paycard`          | The user is enrolled in a paycard program instead of direct deposit via their bank.                                                                                              |
 
 # API Reference
 
