@@ -2186,7 +2186,7 @@ startTransact();
 </tr>
 <tr>
 <td><code>onFinish</code></td>
-<td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code> object.</td>
+<td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code>, which contains the <code>taskId</code> object.</td>
 </tr>
 <tr>
 <td><code>onClose</code></td>
@@ -2389,6 +2389,7 @@ startTransact();
 <pre class="highlight tab tab-json"><code>{
     <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-updated"</span>,
     <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2020-01-28T22:04:18.778Z"</span>,
+    <span class="hljs-attr">"publicToken"</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
     <span class="hljs-attr">"product"</span>: <span class="hljs-string">"deposit"</span>,
     <span class="hljs-attr">"user"</span>: {
         <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d8d3fecbf637ef3b11a877a"</span>,
@@ -2426,6 +2427,14 @@ startTransact();
 <tr>
 <td><code>eventTime</code></td>
 <td>The date and time of the event creation.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>publicToken</code></td>
+<td><a href="#create-access-token">Public AccessToken</a> used when initializing the Transact SDK</td>
 </tr>
 <tr>
 <td><code>user</code></td>
@@ -3404,7 +3413,7 @@ print(response.text)
     }
 }
 </code></pre>
-<p>Successfully creating an <code>Access Token</code> will return a payload with a <code>data</code> object containing both a public <code>publicToken</code> and a private <code>token</code>. The <code>publicToken</code> may be used to initialize the <a href="#transact-sdk">Transact SDK</a>. If you plan on making subsequent API requests for this user, we recommend saving these tokens to authenticate future requests.</p>
+<p>Successfully creating an <code>Access Token</code> will return a payload with a <code>data</code> object containing both a public <code>publicToken</code> and a private <code>token</code>. The <code>publicToken</code> may be used to initialize the <a href="#transact-sdk">Transact SDK</a>.</p>
 <h3 id="response-properties">Response Properties</h3>
 <table>
 <thead>
@@ -3418,7 +3427,7 @@ print(response.text)
 <tr>
 <td><code>publicToken</code></td>
 <td>string</td>
-<td>Public <code>AccessToken</code> that can be used to initialize <a href="#transact-sdk">Transact SDK</a> and make subsequent API requests.</td>
+<td>Public <code>AccessToken</code> that can be used to initialize <a href="#transact-sdk">Transact SDK</a>.</td>
 </tr>
 <tr>
 <td><code>token</code></td>
