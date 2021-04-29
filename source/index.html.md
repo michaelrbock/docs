@@ -725,16 +725,18 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 
 | Attribute                      | Description                                                                                                                                                                      |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bad-credentials`              | Either the username or password was incorrect.                                                                                                                                   |
 | `account-lockout`              | The account is locked out, most likely you have too many failed attempts.                                                                                                        |
-| `user-abandon`                 | The user was asked an MFA question, but did not answer the question.                                                                                                             |
+| `account-setup-incomplete`     | The user's account setup is not complete and will require additional information from the user.                                                                                  |
+| `bad-credentials`              | Either the username or password was incorrect.                                                                                                                                   |
 | `connection-error`             | A network error occurred.                                                                                                                                                        |
-| `session-timeout`              | The session timed out.                                                                                                                                                           |
-| `product-not-supported`        | The account did not support the product.                                                                                                                                         |
 | `distribution-not-supported`   | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance. |
-| `unknown-failure`              | We encountered an unexpected error.                                                                                                                                              |
+| `enrolled-in-paycard`          | The user is enrolled in a paycard program instead of direct deposit via their bank.                                                                                              |
+| `product-not-supported`        | The account did not support the product.                                                                                                                                         |
 | `routing-number-not-supported` | The account did not support the routing number entered.                                                                                                                          |
+| `session-timeout`              | The session timed out.                                                                                                                                                           |
 | `system-unavailable`           | The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.                                          |
+| `unknown-failure`              | We encountered an unexpected error.                                                                                                                                              |
+| `user-abandon`                 | The user was asked an MFA question, but did not answer the question.                                                                                                             |
 
 # API Reference
 
