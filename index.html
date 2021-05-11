@@ -2185,12 +2185,35 @@ startTransact();
 <td>Optionally pass the <code>_id</code> of a <a href="#linkedaccount-object">LinkedAccount</a>. When used, Transact will immediately begin authenticating upon opening. This parameter is used when the <a href="#linkedaccount-object">LinkedAccount</a>'s <code>transactRequired</code> flag is set to <code>true</code>.</td>
 </tr>
 <tr>
+<td><code>handoff</code></td>
+<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code> and <code>authentication-success</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
+</tr>
+<tr>
 <td><code>onFinish</code></td>
 <td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code>, which contains the <code>taskId</code> object.</td>
 </tr>
 <tr>
 <td><code>onClose</code></td>
 <td>Called when the user exits Transact prematurely.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="handoff-pages">Handoff Pages</h4>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit-prompt</code></td>
+<td>If the user has reached the login page and decides to exit, they are prompted with a view that asks them to confirm their exit. When <code>exit-prompt</code> is passed into the <code>handoff</code> array, users will no longer be presented with the exit confirmation. The <code>atomic-transact-close</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'exit-prompt'}</code></td>
+</tr>
+<tr>
+<td><code>authentication-success</code></td>
+<td>When authentication is successful, the user is taken to the success view within Transact. When <code>authentication-success</code> is passed into the <code>handoff</code> array, users will no longer be taken to the success view. The <code>atomic-transact-finish</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'authentication-success'}</code></td>
 </tr>
 </tbody>
 </table>
