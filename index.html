@@ -2990,44 +2990,52 @@ startTransact();
 </thead>
 <tbody>
 <tr>
-<td><code>bad-credentials</code></td>
-<td>Either the username or password was incorrect.</td>
-</tr>
-<tr>
 <td><code>account-lockout</code></td>
 <td>The account is locked out, most likely you have too many failed attempts.</td>
 </tr>
 <tr>
-<td><code>user-abandon</code></td>
-<td>The user was asked an MFA question, but did not answer the question.</td>
+<td><code>account-setup-incomplete</code></td>
+<td>The user's account setup is not complete and will require additional information from the user.</td>
+</tr>
+<tr>
+<td><code>bad-credentials</code></td>
+<td>Either the username or password was incorrect.</td>
 </tr>
 <tr>
 <td><code>connection-error</code></td>
 <td>A network error occurred.</td>
 </tr>
 <tr>
-<td><code>session-timeout</code></td>
-<td>The session timed out.</td>
+<td><code>distribution-not-supported</code></td>
+<td>The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance.</td>
+</tr>
+<tr>
+<td><code>enrolled-in-paycard</code></td>
+<td>The user is enrolled in a paycard program instead of direct deposit via their bank.</td>
 </tr>
 <tr>
 <td><code>product-not-supported</code></td>
 <td>The account did not support the product.</td>
 </tr>
 <tr>
-<td><code>distribution-not-supported</code></td>
-<td>The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance.</td>
+<td><code>routing-number-not-supported</code></td>
+<td>The account did not support the routing number entered.</td>
+</tr>
+<tr>
+<td><code>session-timeout</code></td>
+<td>The session timed out.</td>
+</tr>
+<tr>
+<td><code>system-unavailable</code></td>
+<td>The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.</td>
 </tr>
 <tr>
 <td><code>unknown-failure</code></td>
 <td>We encountered an unexpected error.</td>
 </tr>
 <tr>
-<td><code>routing-number-not-supported</code></td>
-<td>The account did not support the routing number entered.</td>
-</tr>
-<tr>
-<td><code>system-unavailable</code></td>
-<td>The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.</td>
+<td><code>user-abandon</code></td>
+<td>The user was asked an MFA question, but did not answer the question.</td>
 </tr>
 </tbody>
 </table>
