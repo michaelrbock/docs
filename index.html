@@ -2185,12 +2185,35 @@ startTransact();
 <td>Optionally pass the <code>_id</code> of a <a href="#linkedaccount-object">LinkedAccount</a>. When used, Transact will immediately begin authenticating upon opening. This parameter is used when the <a href="#linkedaccount-object">LinkedAccount</a>'s <code>transactRequired</code> flag is set to <code>true</code>.</td>
 </tr>
 <tr>
+<td><code>handoff</code></td>
+<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code> and <code>authentication-success</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
+</tr>
+<tr>
 <td><code>onFinish</code></td>
-<td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code> object.</td>
+<td>A function that is called when the user finishes the transaction. The function will receive a <code>data</code>, which contains the <code>taskId</code> object.</td>
 </tr>
 <tr>
 <td><code>onClose</code></td>
 <td>Called when the user exits Transact prematurely.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="handoff-pages">Handoff Pages</h4>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit-prompt</code></td>
+<td>If the user has reached the login page and decides to exit, they are prompted with a view that asks them to confirm their exit. When <code>exit-prompt</code> is passed into the <code>handoff</code> array, users will no longer be presented with the exit confirmation. The <code>atomic-transact-close</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'exit-prompt'}</code></td>
+</tr>
+<tr>
+<td><code>authentication-success</code></td>
+<td>When authentication is successful, the user is taken to the success view within Transact. When <code>authentication-success</code> is passed into the <code>handoff</code> array, users will no longer be taken to the success view. The <code>atomic-transact-finish</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'authentication-success'}</code></td>
 </tr>
 </tbody>
 </table>
@@ -2389,6 +2412,7 @@ startTransact();
 <pre class="highlight tab tab-json"><code>{
     <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-updated"</span>,
     <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2020-01-28T22:04:18.778Z"</span>,
+    <span class="hljs-attr">"publicToken"</span>: <span class="hljs-string">"PUBLIC_TOKEN"</span>,
     <span class="hljs-attr">"product"</span>: <span class="hljs-string">"deposit"</span>,
     <span class="hljs-attr">"user"</span>: {
         <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d8d3fecbf637ef3b11a877a"</span>,
@@ -2426,6 +2450,14 @@ startTransact();
 <tr>
 <td><code>eventTime</code></td>
 <td>The date and time of the event creation.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>publicToken</code></td>
+<td><a href="#create-access-token">Public AccessToken</a> used when initializing the Transact SDK</td>
 </tr>
 <tr>
 <td><code>user</code></td>
@@ -2958,44 +2990,52 @@ startTransact();
 </thead>
 <tbody>
 <tr>
-<td><code>bad-credentials</code></td>
-<td>Either the username or password was incorrect.</td>
-</tr>
-<tr>
 <td><code>account-lockout</code></td>
 <td>The account is locked out, most likely you have too many failed attempts.</td>
 </tr>
 <tr>
-<td><code>user-abandon</code></td>
-<td>The user was asked an MFA question, but did not answer the question.</td>
+<td><code>account-setup-incomplete</code></td>
+<td>The user's account setup is not complete and will require additional information from the user.</td>
+</tr>
+<tr>
+<td><code>bad-credentials</code></td>
+<td>Either the username or password was incorrect.</td>
 </tr>
 <tr>
 <td><code>connection-error</code></td>
 <td>A network error occurred.</td>
 </tr>
 <tr>
-<td><code>session-timeout</code></td>
-<td>The session timed out.</td>
+<td><code>distribution-not-supported</code></td>
+<td>The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance.</td>
+</tr>
+<tr>
+<td><code>enrolled-in-paycard</code></td>
+<td>The user is enrolled in a paycard program instead of direct deposit via their bank.</td>
 </tr>
 <tr>
 <td><code>product-not-supported</code></td>
 <td>The account did not support the product.</td>
 </tr>
 <tr>
-<td><code>distribution-not-supported</code></td>
-<td>The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance.</td>
+<td><code>routing-number-not-supported</code></td>
+<td>The account did not support the routing number entered.</td>
+</tr>
+<tr>
+<td><code>session-timeout</code></td>
+<td>The session timed out.</td>
+</tr>
+<tr>
+<td><code>system-unavailable</code></td>
+<td>The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.</td>
 </tr>
 <tr>
 <td><code>unknown-failure</code></td>
 <td>We encountered an unexpected error.</td>
 </tr>
 <tr>
-<td><code>routing-number-not-supported</code></td>
-<td>The account did not support the routing number entered.</td>
-</tr>
-<tr>
-<td><code>system-unavailable</code></td>
-<td>The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.</td>
+<td><code>user-abandon</code></td>
+<td>The user was asked an MFA question, but did not answer the question.</td>
 </tr>
 </tbody>
 </table>
@@ -3399,7 +3439,7 @@ print(response.text)
     }
 }
 </code></pre>
-<p>Successfully creating an <code>Access Token</code> will return a payload with a <code>data</code> object containing both a public <code>publicToken</code> and a private <code>token</code>. The <code>publicToken</code> may be used to initialize the <a href="#transact-sdk">Transact SDK</a>. If you plan on making subsequent API requests for this user, we recommend saving these tokens to authenticate future requests.</p>
+<p>Successfully creating an <code>Access Token</code> will return a payload with a <code>data</code> object containing both a public <code>publicToken</code> and a private <code>token</code>. The <code>publicToken</code> may be used to initialize the <a href="#transact-sdk">Transact SDK</a>.</p>
 <h3 id="response-properties">Response Properties</h3>
 <table>
 <thead>
@@ -3413,7 +3453,7 @@ print(response.text)
 <tr>
 <td><code>publicToken</code></td>
 <td>string</td>
-<td>Public <code>AccessToken</code> that can be used to initialize <a href="#transact-sdk">Transact SDK</a> and make subsequent API requests.</td>
+<td>Public <code>AccessToken</code> that can be used to initialize <a href="#transact-sdk">Transact SDK</a>.</td>
 </tr>
 <tr>
 <td><code>token</code></td>
