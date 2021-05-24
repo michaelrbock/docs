@@ -2633,67 +2633,107 @@ startTransact();
 <p>Sample response for <code>verify</code></p>
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
-    <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-updated"</span>,
-    <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2020-01-28T22:04:18.778Z"</span>,
-    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"verify"</span>,
-    <span class="hljs-attr">"user"</span>: {
-        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d8d3fecbf637ef3b11a877a"</span>,
-        <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_INTERNAL_GUID"</span>
-    },
-    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5e30afde097146a8fc3d5cec"</span>,
+    <span class="hljs-attr">"task"</span>: <span class="hljs-string">"60abefde8a4445000956e30a"</span>,
     <span class="hljs-attr">"company"</span>: {
-        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Home Depot"</span>,
         <span class="hljs-attr">"branding"</span>: {
             <span class="hljs-attr">"logo"</span>: {
-                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
+                <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://cdn-public.atomicfi.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
             }
-        }
+        },
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Mocky"</span>
+    },
+    <span class="hljs-attr">"product"</span>: <span class="hljs-string">"verify"</span>,
+    <span class="hljs-attr">"publicToken"</span>: <span class="hljs-string">"0cbb06d9-1610-4fa6-ae04-230e9ac3a60d"</span>,
+    <span class="hljs-attr">"user"</span>: {
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5ebc3977cb64830007f48ca4"</span>,
+        <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_INTERNAL_GUID"</span>
     },
     <span class="hljs-attr">"data"</span>: {
         <span class="hljs-attr">"previousStatus"</span>: <span class="hljs-string">"processing"</span>,
         <span class="hljs-attr">"status"</span>: <span class="hljs-string">"completed"</span>,
+        <span class="hljs-attr">"authenticated"</span>: <span class="hljs-literal">true</span>,
         <span class="hljs-attr">"outputs"</span>: {
-            <span class="hljs-attr">"income"</span>: <span class="hljs-string">"45000"</span>,
-            <span class="hljs-attr">"incomeType"</span>: <span class="hljs-string">"yearly"</span>,
-            <span class="hljs-attr">"employeeType"</span>: <span class="hljs-string">"fulltime"</span>,
-            <span class="hljs-attr">"employmentStatus"</span>: <span class="hljs-string">"active"</span>,
-            <span class="hljs-attr">"jobTitle"</span>: <span class="hljs-string">"Product Manager"</span>,
-            <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"4/19/2017"</span>,
-            <span class="hljs-attr">"weeklyHours"</span>: <span class="hljs-string">"40"</span>,
-            <span class="hljs-attr">"statements"</span>: [
+            <span class="hljs-attr">"w2s"</span>: [
                 {
-                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
-                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
-                    <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
-                    <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-                    <span class="hljs-attr">"paystub"</span>: {
-                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
-                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
-                    },
-                    <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb2"</span>,
+                    <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2020-01-01T00:00:00.000Z"</span>,
+                    <span class="hljs-attr">"totalWages"</span>: <span class="hljs-number">50000</span>,
+                    <span class="hljs-attr">"form"</span>: {
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616faf"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/62ca2574-21d2-4151-a171-bffebf80ab1c.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210524T182709Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&amp;X-Amz-Signature=1592e0c681cbba2f2c8e812a75f18bc4af238231cd9f76ad2994bad9d9eee026&amp;X-Amz-SignedHeaders=host"</span>
+                    }
                 },
                 {
-                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2019-12-15T00:00:00.000Z"</span>,
-                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
-                    <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
-                    <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb3"</span>,
+                    <span class="hljs-attr">"year"</span>: <span class="hljs-string">"2019-01-01T00:00:00.000Z"</span>,
+                    <span class="hljs-attr">"totalWages"</span>: <span class="hljs-number">50000</span>,
+                    <span class="hljs-attr">"form"</span>: {
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff50836730008616faa"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/587c09a2-1b05-47ee-9ea7-fb49d587119f.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210524T182709Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&amp;X-Amz-Signature=6f4e330438cb12c5cc7226342377b7bb610691c74f8def6d56b7b7c4db455988&amp;X-Amz-SignedHeaders=host"</span>
+                    }
+                }
+            ],
+            <span class="hljs-attr">"statements"</span>: [
+                {
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb4"</span>,
+                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-06-15T12:00:00.000Z"</span>,
+                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-number">1000</span>,
                     <span class="hljs-attr">"paystub"</span>: {
-                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"602414d84f9a1980cf5eafcc"</span>,
-                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&amp;Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
-                    },
-                    <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff50836730008616fad"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/a4ac9f90-902c-4ae4-8008-95f7ffff2159.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210524T182709Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&amp;X-Amz-Signature=8181652f0d8af4ab7d3cf3e2aab8cdf563384134acdd4fa709e21edb805287b4&amp;X-Amz-SignedHeaders=host"</span>
+                    }
+                },
+                {
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb5"</span>,
+                    <span class="hljs-attr">"date"</span>: <span class="hljs-string">"2020-06-30T12:00:00.000Z"</span>,
+                    <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-number">1000</span>,
+                    <span class="hljs-attr">"paystub"</span>: {
+                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff50836730008616fae"</span>,
+                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/4ba670fe-378e-4228-a6df-d0708b73e5fa.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210524T182709Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&amp;X-Amz-Signature=5fcf0eaca8c461eb3e1479ca15e23931ab0c9ed9e38eed3bb1292dffeb436a91&amp;X-Amz-SignedHeaders=host"</span>
+                    }
                 }
             ],
             <span class="hljs-attr">"accounts"</span>: [
                 {
-                    <span class="hljs-attr">"accountNumber"</span>: <span class="hljs-string">"220000000"</span>,
-                    <span class="hljs-attr">"routingNumber"</span>: <span class="hljs-string">"110000000"</span>,
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb0"</span>,
+                    <span class="hljs-attr">"routingNumber"</span>: <span class="hljs-string">"123123123"</span>,
+                    <span class="hljs-attr">"accountNumber"</span>: <span class="hljs-string">"XXXX0000"</span>,
                     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"checking"</span>,
-                    <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"total"</span>
+                    <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"percentage"</span>,
+                    <span class="hljs-attr">"distributionAmount"</span>: <span class="hljs-number">80</span>
+                },
+                {
+                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"60abeff60836730008616fb1"</span>,
+                    <span class="hljs-attr">"routingNumber"</span>: <span class="hljs-string">"456456456"</span>,
+                    <span class="hljs-attr">"accountNumber"</span>: <span class="hljs-string">"XXXX1111"</span>,
+                    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"savings"</span>,
+                    <span class="hljs-attr">"distributionType"</span>: <span class="hljs-string">"percentage"</span>,
+                    <span class="hljs-attr">"distributionAmount"</span>: <span class="hljs-number">20</span>
                 }
-            ]
+            ],
+            <span class="hljs-attr">"employeeType"</span>: <span class="hljs-string">"fulltime"</span>,
+            <span class="hljs-attr">"employmentStatus"</span>: <span class="hljs-string">"active"</span>,
+            <span class="hljs-attr">"income"</span>: <span class="hljs-number">45000</span>,
+            <span class="hljs-attr">"incomeType"</span>: <span class="hljs-string">"Biweekly"</span>,
+            <span class="hljs-attr">"jobTitle"</span>: <span class="hljs-string">"Product Manager"</span>,
+            <span class="hljs-attr">"startDate"</span>: <span class="hljs-string">"2017-04-19T12:00:00.000Z"</span>,
+            <span class="hljs-attr">"address"</span>: <span class="hljs-string">"123 Street St."</span>,
+            <span class="hljs-attr">"city"</span>: <span class="hljs-string">"Provo"</span>,
+            <span class="hljs-attr">"dateOfBirth"</span>: <span class="hljs-string">"1984-04-12T12:00:00.000Z"</span>,
+            <span class="hljs-attr">"email"</span>: <span class="hljs-string">"jappleseed@example.org"</span>,
+            <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"Jane"</span>,
+            <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"Appleseed"</span>,
+            <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"8015551111"</span>,
+            <span class="hljs-attr">"postalCode"</span>: <span class="hljs-number">84606</span>,
+            <span class="hljs-attr">"ssn"</span>: <span class="hljs-string">"1112223333"</span>,
+            <span class="hljs-attr">"state"</span>: <span class="hljs-string">"UT"</span>,
+            <span class="hljs-attr">"weeklyHours"</span>: <span class="hljs-string">"40"</span>,
+            <span class="hljs-attr">"payCycle"</span>: <span class="hljs-string">"weekly"</span>,
+            <span class="hljs-attr">"employer"</span>: <span class="hljs-string">"ABC Company"</span>
         }
-    }
+    },
+    <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"task-status-updated"</span>,
+    <span class="hljs-attr">"eventTime"</span>: <span class="hljs-string">"2021-05-24T18:27:09.610Z"</span>
 }
 </code></pre>
 <h3 id="outputs-for-the--code-verify--code--product">Outputs for the <code>verify</code> product</h3>

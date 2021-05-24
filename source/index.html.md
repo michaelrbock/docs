@@ -525,67 +525,107 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 
 ```json
 {
-    "eventType": "task-status-updated",
-    "eventTime": "2020-01-28T22:04:18.778Z",
-    "product": "verify",
-    "user": {
-        "_id": "5d8d3fecbf637ef3b11a877a",
-        "identifier": "YOUR_INTERNAL_GUID"
-    },
-    "task": "5e30afde097146a8fc3d5cec",
+    "task": "60abefde8a4445000956e30a",
     "company": {
-        "name": "Home Depot",
         "branding": {
             "logo": {
-                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+                "url": "https://cdn-public.atomicfi.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
             }
-        }
+        },
+        "name": "Mocky"
+    },
+    "product": "verify",
+    "publicToken": "0cbb06d9-1610-4fa6-ae04-230e9ac3a60d",
+    "user": {
+        "_id": "5ebc3977cb64830007f48ca4",
+        "identifier": "YOUR_INTERNAL_GUID"
     },
     "data": {
         "previousStatus": "processing",
         "status": "completed",
+        "authenticated": true,
         "outputs": {
-            "income": "45000",
-            "incomeType": "yearly",
-            "employeeType": "fulltime",
-            "employmentStatus": "active",
-            "jobTitle": "Product Manager",
-            "startDate": "4/19/2017",
-            "weeklyHours": "40",
-            "statements": [
+            "w2s": [
                 {
-                    "date": "2020-01-01T00:00:00.000Z",
-                    "grossAmount": "1266.11",
-                    "netAmount": "1014.29",
-                    "paymentMethod": "deposit",
-                    "paystub": {
-                        "_id": "602414d84f9a1980cf5eafcc",
-                        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
-                    },
-                    "hours": "32"
+                    "_id": "60abeff60836730008616fb2",
+                    "year": "2020-01-01T00:00:00.000Z",
+                    "totalWages": 50000,
+                    "form": {
+                        "_id": "60abeff60836730008616faf",
+                        "url": "https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/62ca2574-21d2-4151-a171-bffebf80ab1c.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210524T182709Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&X-Amz-Signature=1592e0c681cbba2f2c8e812a75f18bc4af238231cd9f76ad2994bad9d9eee026&X-Amz-SignedHeaders=host"
+                    }
                 },
                 {
-                    "date": "2019-12-15T00:00:00.000Z",
-                    "grossAmount": "1266.11",
-                    "netAmount": "1014.29",
-                    "paymentMethod": "deposit",
+                    "_id": "60abeff60836730008616fb3",
+                    "year": "2019-01-01T00:00:00.000Z",
+                    "totalWages": 50000,
+                    "form": {
+                        "_id": "60abeff50836730008616faa",
+                        "url": "https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/587c09a2-1b05-47ee-9ea7-fb49d587119f.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210524T182709Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&X-Amz-Signature=6f4e330438cb12c5cc7226342377b7bb610691c74f8def6d56b7b7c4db455988&X-Amz-SignedHeaders=host"
+                    }
+                }
+            ],
+            "statements": [
+                {
+                    "_id": "60abeff60836730008616fb4",
+                    "date": "2020-06-15T12:00:00.000Z",
+                    "grossAmount": 1000,
                     "paystub": {
-                        "_id": "602414d84f9a1980cf5eafcc",
-                        "url": "https://private-bucket.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"
-                    },
-                    "hours": "32"
+                        "_id": "60abeff50836730008616fad",
+                        "url": "https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/a4ac9f90-902c-4ae4-8008-95f7ffff2159.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210524T182709Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&X-Amz-Signature=8181652f0d8af4ab7d3cf3e2aab8cdf563384134acdd4fa709e21edb805287b4&X-Amz-SignedHeaders=host"
+                    }
+                },
+                {
+                    "_id": "60abeff60836730008616fb5",
+                    "date": "2020-06-30T12:00:00.000Z",
+                    "grossAmount": 1000,
+                    "paystub": {
+                        "_id": "60abeff50836730008616fae",
+                        "url": "https://atomicfi-task-output-file-sandbox.s3.amazonaws.com/customer-5e978dcf3abbf90008a00b7a/task-60abefde8a4445000956e30a/4ba670fe-378e-4228-a6df-d0708b73e5fa.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA6EYFQTOWMIY2TUSM%2F20210524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210524T182709Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFsaCXVzLWVhc3QtMSJGMEQCIBCAiYKuUVIYjCFolA%2Feeu%2BDu%2FNtlADYOOX7Uy09CVWuAiAT1umLzk5Xbs6vANPMFS9sRWWyLIRWfmZXbCLtXeW5QCrnAQj0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAIaDDk3MjI4NDc5NTgyMCIMssXdL%2FxgLWwt8%2BgnKrsB4jVv4rWWhviSPha5qwh1WPasjt%2FhLKr4dRI9%2FgUSQercXwg37%2FYjdK3%2BcVrvEgfnYkhw3U5YHUc9Aja4baMLONbQemmcZ5%2FI0ehwlkcTDdDspTHXDPacceD%2BcHBkczNZvgzp6j6RfZRiynhZVVBTWnSzJfhzmLkAR4uq8%2BaeCdA7chTGCuBxx3BbhUAAeEcPHS2c8t6mqsuwkPlqgSiFb%2FoGxisqRAZRCtIfNEHNiTHXpR8oFGVqjeLuBDDk36%2BFBjrhATRrp5dhRdXu5VgYUpRXrIFqg8FU5J8iDvAZT6WTzC60djT4cuGKUebJmnpF%2BJbzJ0NAHDnAXylnE%2F5UpHBjwKMZtgouvvHsgxYWIWddTQWP1ihySIaZuAotqjYSjLhBsIKpznabeWoWW5Zu5VJOcb1pfyzBYJVv7JQAxKglgR6L5y3cNuLRrs2cnNMmYKVGcitUd9roccBGhMh5ph3ChaLadrxEJPiyHOtIZcDRTDZDrMvTvLP1GCXtbirK8LDNWRs6KS2ldx4nHTirXGyUPO2k6MZJxImiXJCmShcmLP1XKg%3D%3D&X-Amz-Signature=5fcf0eaca8c461eb3e1479ca15e23931ab0c9ed9e38eed3bb1292dffeb436a91&X-Amz-SignedHeaders=host"
+                    }
                 }
             ],
             "accounts": [
                 {
-                    "accountNumber": "220000000",
-                    "routingNumber": "110000000",
+                    "_id": "60abeff60836730008616fb0",
+                    "routingNumber": "123123123",
+                    "accountNumber": "XXXX0000",
                     "type": "checking",
-                    "distributionType": "total"
+                    "distributionType": "percentage",
+                    "distributionAmount": 80
+                },
+                {
+                    "_id": "60abeff60836730008616fb1",
+                    "routingNumber": "456456456",
+                    "accountNumber": "XXXX1111",
+                    "type": "savings",
+                    "distributionType": "percentage",
+                    "distributionAmount": 20
                 }
-            ]
+            ],
+            "employeeType": "fulltime",
+            "employmentStatus": "active",
+            "income": 45000,
+            "incomeType": "Biweekly",
+            "jobTitle": "Product Manager",
+            "startDate": "2017-04-19T12:00:00.000Z",
+            "address": "123 Street St.",
+            "city": "Provo",
+            "dateOfBirth": "1984-04-12T12:00:00.000Z",
+            "email": "jappleseed@example.org",
+            "firstName": "Jane",
+            "lastName": "Appleseed",
+            "phone": "8015551111",
+            "postalCode": 84606,
+            "ssn": "1112223333",
+            "state": "UT",
+            "weeklyHours": "40",
+            "payCycle": "weekly",
+            "employer": "ABC Company"
         }
-    }
+    },
+    "eventType": "task-status-updated",
+    "eventTime": "2021-05-24T18:27:09.610Z"
 }
 ```
 
