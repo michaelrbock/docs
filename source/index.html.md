@@ -1620,7 +1620,7 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
             "name": "Wells Fargo",
             "connector": {
                 "_id": "5d38f182512bbf0c06776013",
-                "availableProducts": ["balance"]
+                "availableProducts": ["deposit"]
             },
             "branding": {
                 "logo": {
