@@ -1623,7 +1623,10 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
                 "availableProducts": ["balance"]
             },
             "branding": {
-                "logo": "https://atomicfi-public.s3.amazonaws.com/1b27b5a3-db2d-4dbd-83e9-5e256a91d573.svg",
+                "logo": {
+                    "_id": "5ed93faa3e36220007d157f6",
+                    "url": "https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"
+                },
                 "color": "#FFFFFF"
             }
         }
