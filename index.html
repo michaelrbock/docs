@@ -1858,11 +1858,6 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
-                    <a href="#connector-search" class="toc-h2 toc-link" data-title="">Connector Search</a>
-                    
-                  </li>
-                
-                  <li>
                     <a href="#generate-file-url" class="toc-h2 toc-link" data-title="">Generate File URL</a>
                     
                   </li>
@@ -3960,15 +3955,19 @@ print(response.text)
 <blockquote>
 <p>Code samples</p>
 </blockquote>
-<pre class="highlight tab tab-shell"><code>curl --location --request GET <span class="hljs-string">"https://api.atomicfi.com/company/search?query=microsoft&amp;product=deposit"</span> \
+<pre class="highlight tab tab-shell"><code>curl --location --request POST <span class="hljs-string">"https://api.atomicfi.com/company/search"</span> \
   --header <span class="hljs-string">"x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+  --data <span class="hljs-string">"{
+    \"product\": \"deposit\",
+    \"query\": \"ADP\"
+  }"</span>
 </code></pre>
 <pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">var</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
 
 <span class="hljs-keyword">var</span> options = {
-  <span class="hljs-string">'method'</span>: <span class="hljs-string">'GET'</span>,
+  <span class="hljs-string">'method'</span>: <span class="hljs-string">'POST'</span>,
   <span class="hljs-string">'hostname'</span>: <span class="hljs-string">'https://api.atomicfi.com'</span>,
-  <span class="hljs-string">'path'</span>: <span class="hljs-string">'/company/search?query=microsoft&amp;product=deposit'</span>,
+  <span class="hljs-string">'path'</span>: <span class="hljs-string">'/company/search'</span>,
   <span class="hljs-string">'headers'</span>: {
     <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
   }
@@ -3991,18 +3990,25 @@ print(response.text)
   });
 });
 
+<span class="hljs-keyword">var</span> postData =  <span class="hljs-string">"{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\",\n    }\n}"</span>;
+
+req.write(postData);
+
 req.end();
 
 </code></pre>
 <pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">"uri"</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"net/http"</span>
 
-url = URI(<span class="hljs-string">"https://api.atomicfi.com/company/search?query=microsoft&amp;product=deposit"</span>)
+url = URI(<span class="hljs-string">"https://api.atomicfi.com/company/search"</span>)
 
 http = Net::HTTP.new(url.host, url.port)
 
-request = Net::HTTP::Get.new(url)
+request = Net::HTTP::Post.new(url)
+request[<span class="hljs-string">"Content-Type"</span>] = <span class="hljs-string">"application/json"</span>
 request[<span class="hljs-string">"x-public-token"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+
+request.body = <span class="hljs-string">"{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"</span>
 
 response = http.request(request)
 puts response.read_body
@@ -4010,12 +4016,12 @@ puts response.read_body
 
 </code></pre>
 <pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
-url = <span class="hljs-string">'https://api.atomicfi.com/company/search?query=microsoft&amp;product=deposit'</span>
-payload = {}
+url = <span class="hljs-string">'https://api.atomicfi.com/company/search'</span>
+payload = <span class="hljs-string">"{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"</span>
 headers = {
   <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
 }
-response = requests.request(<span class="hljs-string">'GET'</span>, url, headers = headers, data = payload, allow_redirects=<span class="hljs-keyword">False</span>, timeout=undefined, allow_redirects=false)
+response = requests.request(<span class="hljs-string">'POST'</span>, url, headers = headers, data = payload, allow_redirects=<span class="hljs-keyword">False</span>, timeout=undefined, allow_redirects=false)
 print(response.text)
 
 
@@ -4032,8 +4038,10 @@ print(response.text)
 
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
 
-  url := <span class="hljs-string">"https://api.atomicfi.com/company/search?query=microsoft&amp;product=deposit"</span>
-  method := <span class="hljs-string">"GET"</span>
+  url := <span class="hljs-string">"https://api.atomicfi.com/company/search"</span>
+  method := <span class="hljs-string">"POST"</span>
+  
+  payload := strings.NewReader(<span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"</span>)
 
   client := &amp;http.Client {
     CheckRedirect: <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(req *http.Request, via []*http.Request)</span> <span class="hljs-title">error</span></span> {
@@ -4056,7 +4064,7 @@ print(response.text)
 </code></pre>
 <p>Searches for a <code>Company</code> using a text <code>query</code>. Searches can also be narrowed by passing in a specific <code>product</code>. The primary use case of this endpoint is for an autocomplete search component.</p>
 <h3 id="http-request">HTTP Request</h3>
-<p><code>GET /company/search</code></p>
+<p><code>POST /company/search</code></p>
 <h3 id="authentication-headers">Authentication headers</h3>
 <table>
 <thead>
@@ -4072,8 +4080,6 @@ print(response.text)
 </tr>
 </tbody>
 </table>
-<pre><code>                                        |
-</code></pre>
 <h3 id="request-properties">Request properties</h3>
 <table>
 <thead>
@@ -4092,7 +4098,12 @@ print(response.text)
 <tr>
 <td><code>product</code></td>
 <td>string</td>
-<td>Filters companies by a specific product. Possible values include <code>balance</code>, <code>verify</code>, <code>identify</code>, and <code>deposit</code></td>
+<td>Filters companies by a specific product. Possible values include <code>verify</code>, <code>identify</code>, and <code>deposit</code>.</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>array</td>
+<td>Filters companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -4155,154 +4166,6 @@ print(response.text)
 <td><code>branding.color</code></td>
 <td>string</td>
 <td>Branding color for the company.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="connector-search">Connector Search</h2>
-<p>Searches for a <code>Connector</code> using a text <code>query</code>. Searches can also be narrowed by passing in a specific <code>product</code>. The primary use case of this endpoint is for an autocomplete search component.</p>
-<h3 id="http-request">HTTP Request</h3>
-<p><code>GET /connector/search</code></p>
-<h3 id="authentication-headers">Authentication headers</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>x-public-token</code></td>
-<td>Public token generated during <a href="#create-access-token">access token creation</a>.</td>
-</tr>
-</tbody>
-</table>
-<pre><code>                                        |
-</code></pre>
-<h3 id="request-properties">Request properties</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>query</code> <h6 id="required">required</h6></td>
-<td>string</td>
-<td>Filters connectors by name. Uses fuzzy matching to narrow results.</td>
-</tr>
-<tr>
-<td><code>product</code></td>
-<td>string</td>
-<td>Filters connectors by a specific product. Possible values include <code>balance</code>, <code>verify</code>, <code>identify</code>, and <code>deposit</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="response">Response</h3>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre class="highlight tab tab-json"><code>{
-    <span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">"data"</span>: [
-        {
-            <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5da2a2372a5c5600081d0052"</span>,
-            <span class="hljs-attr">"options"</span>: {
-                <span class="hljs-attr">"inputs"</span>: [
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Username"</span>,
-                        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"username"</span>,
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
-                        <span class="hljs-attr">"placeholder"</span>: <span class="hljs-string">"Username"</span>
-                    },
-                    {
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Password"</span>,
-                        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"password"</span>,
-                        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"password"</span>,
-                        <span class="hljs-attr">"placeholder"</span>: <span class="hljs-string">"Password"</span>
-                    }
-                ],
-                <span class="hljs-attr">"loginRecoveryOptions"</span>: [
-                    {
-                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5e97992de81d67000802dda7"</span>,
-                        <span class="hljs-attr">"action"</span>: <span class="hljs-string">"url"</span>,
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Recover User ID/Password"</span>,
-                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://netsecure.adp.com/ilink/pub/smsess/v3/forgot/theme.jsp?returnUrl=https%3A%2F%2Fmy.adp.com%2Fstatic%2Fredbox%2Flogin.html&amp;totalURL=https://my.adp.com/static/redbox/login.html"</span>,
-                        <span class="hljs-attr">"flow"</span>: <span class="hljs-string">""</span>
-                    },
-                    {
-                        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5e97992de81d67000802dda8"</span>,
-                        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Create Account"</span>,
-                        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://netsecure.adp.com/pages/sms/ess/v3/pub/ssr/theme.jsp?returnUrl=https%3A%2F%2Fmy.adp.com%2Fstatic%2Fredbox%2Flogin.html"</span>,
-                        <span class="hljs-attr">"action"</span>: <span class="hljs-string">"url"</span>
-                    }
-                ]
-            },
-            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"ADP"</span>,
-            <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2019-10-13T04:04:07.598Z"</span>,
-            <span class="hljs-attr">"branding"</span>: {
-                <span class="hljs-attr">"color"</span>: <span class="hljs-string">"#E20000"</span>,
-                <span class="hljs-attr">"logo"</span>: {
-                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5ed93faa3e36220007d157f6"</span>,
-                    <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"</span>
-                }
-            },
-            <span class="hljs-attr">"authenticators"</span>: [
-                {
-                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5f0ded47a5892d50f7fb38bb"</span>,
-                    <span class="hljs-attr">"connector"</span>: <span class="hljs-string">"5f03b5d210b6e90007e536cf"</span>,
-                    <span class="hljs-attr">"buttonLabel"</span>: <span class="hljs-string">"Sign in with Mocky"</span>,
-                    <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span>
-                }
-            ],
-            <span class="hljs-attr">"isAuthenticator"</span>: <span class="hljs-literal">false</span>
-        }
-    ]
-}
-</code></pre>
-<p>Successfully querying the <code>Connector</code> search endpoint will return a payload with a <code>data</code> array of <code>Connector</code> objects.</p>
-<h3 id="connector-object">Connector object</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>_id</code></td>
-<td>string</td>
-<td>Unique identifier.</td>
-</tr>
-<tr>
-<td><code>options</code></td>
-<td>string</td>
-<td>Object of authentications options.</td>
-</tr>
-<tr>
-<td><code>name</code></td>
-<td>array</td>
-<td>Name of the connector.</td>
-</tr>
-<tr>
-<td><code>branding.logo</code></td>
-<td>string</td>
-<td>Logo for the connector, typically an <code>svg</code> if available.</td>
-</tr>
-<tr>
-<td><code>branding.color</code></td>
-<td>string</td>
-<td>Branding color for the company.</td>
-</tr>
-<tr>
-<td><code>authenticators</code></td>
-<td>string</td>
-<td>Array of third party authenticators.</td>
 </tr>
 </tbody>
 </table>

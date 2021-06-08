@@ -1484,17 +1484,21 @@ Successfully creating a `Task` will return a payload with a `data` object contai
 > Code samples
 
 ```shell
-curl --location --request GET "https://api.atomicfi.com/company/search?query=microsoft&product=deposit" \
+curl --location --request POST "https://api.atomicfi.com/company/search" \
   --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+  --data "{
+    \"product\": \"deposit\",
+    \"query\": \"ADP\"
+  }"
 ```
 
 ```javascript--nodejs
 var https = require('https');
 
 var options = {
-  'method': 'GET',
+  'method': 'POST',
   'hostname': 'https://api.atomicfi.com',
-  'path': '/company/search?query=microsoft&product=deposit',
+  'path': '/company/search',
   'headers': {
     'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
   }
@@ -1517,6 +1521,10 @@ var req = https.request(options, function (res) {
   });
 });
 
+var postData =  "{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\",\n    }\n}";
+
+req.write(postData);
+
 req.end();
 
 ```
@@ -1525,12 +1533,15 @@ req.end();
 require "uri"
 require "net/http"
 
-url = URI("https://api.atomicfi.com/company/search?query=microsoft&product=deposit")
+url = URI("https://api.atomicfi.com/company/search")
 
 http = Net::HTTP.new(url.host, url.port)
 
-request = Net::HTTP::Get.new(url)
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/json"
 request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+
+request.body = "{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"
 
 response = http.request(request)
 puts response.read_body
@@ -1540,12 +1551,12 @@ puts response.read_body
 
 ```python
 import requests
-url = 'https://api.atomicfi.com/company/search?query=microsoft&product=deposit'
-payload = {}
+url = 'https://api.atomicfi.com/company/search'
+payload = "{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"
 headers = {
   'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
 }
-response = requests.request('GET', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
+response = requests.request('POST', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
 print(response.text)
 
 
@@ -1564,8 +1575,10 @@ import (
 
 func main() {
 
-  url := "https://api.atomicfi.com/company/search?query=microsoft&product=deposit"
-  method := "GET"
+  url := "https://api.atomicfi.com/company/search"
+  method := "POST"
+  
+  payload := strings.NewReader("{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}")
 
   client := &http.Client {
     CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -1591,7 +1604,7 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
 
 ### HTTP Request
 
-`GET /company/search`
+`POST /company/search`
 
 ### Authentication headers
 
@@ -1599,14 +1612,13 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
 | ---------------- | ---------------------------------------------------------------------------- |
 | `x-public-token` | Public token generated during [access token creation](#create-access-token). |
 
-                                            |
-
 ### Request properties
 
-| Name                      | Type   | Description                                                                                                     |
-| ------------------------- | ------ | --------------------------------------------------------------------------------------------------------------- |
-| `query` <h6>required</h6> | string | Filters companies by name. Uses fuzzy matching to narrow results.                                               |
-| `product`                 | string | Filters companies by a specific product. Possible values include `balance`, `verify`, `identify`, and `deposit` |
+| Name                      | Type    | Description                                                                                                                   |
+| ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `query` <h6>required</h6> | string  | Filters companies by name. Uses fuzzy matching to narrow results.                                                             |
+| `product`                 | string  | Filters companies by a specific product. Possible values include `verify`, `identify`, and `deposit`.                         |
+| `tags`                    | array   | Filters companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.           |
 
 ### Response
 
@@ -1645,106 +1657,6 @@ Successfully querying the `Company` search endpoint will return a payload with a
 | `availableProducts` | array  | A list of compatible products.                         |
 | `branding.logo`     | string | Logo for the company, typically an `svg` if available. |
 | `branding.color`    | string | Branding color for the company.                        |
-
-## Connector Search
-
-Searches for a `Connector` using a text `query`. Searches can also be narrowed by passing in a specific `product`. The primary use case of this endpoint is for an autocomplete search component.
-
-### HTTP Request
-
-`GET /connector/search`
-
-### Authentication headers
-
-| Name             | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
-
-                                            |
-
-### Request properties
-
-| Name                      | Type   | Description                                                                                                      |
-| ------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------- |
-| `query` <h6>required</h6> | string | Filters connectors by name. Uses fuzzy matching to narrow results.                                               |
-| `product`                 | string | Filters connectors by a specific product. Possible values include `balance`, `verify`, `identify`, and `deposit` |
-
-### Response
-
-> Example response
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "_id": "5da2a2372a5c5600081d0052",
-            "options": {
-                "inputs": [
-                    {
-                        "title": "Username",
-                        "name": "username",
-                        "type": "text",
-                        "placeholder": "Username"
-                    },
-                    {
-                        "title": "Password",
-                        "name": "password",
-                        "type": "password",
-                        "placeholder": "Password"
-                    }
-                ],
-                "loginRecoveryOptions": [
-                    {
-                        "_id": "5e97992de81d67000802dda7",
-                        "action": "url",
-                        "title": "Recover User ID/Password",
-                        "url": "https://netsecure.adp.com/ilink/pub/smsess/v3/forgot/theme.jsp?returnUrl=https%3A%2F%2Fmy.adp.com%2Fstatic%2Fredbox%2Flogin.html&totalURL=https://my.adp.com/static/redbox/login.html",
-                        "flow": ""
-                    },
-                    {
-                        "_id": "5e97992de81d67000802dda8",
-                        "title": "Create Account",
-                        "url": "https://netsecure.adp.com/pages/sms/ess/v3/pub/ssr/theme.jsp?returnUrl=https%3A%2F%2Fmy.adp.com%2Fstatic%2Fredbox%2Flogin.html",
-                        "action": "url"
-                    }
-                ]
-            },
-            "name": "ADP",
-            "createdAt": "2019-10-13T04:04:07.598Z",
-            "branding": {
-                "color": "#E20000",
-                "logo": {
-                    "_id": "5ed93faa3e36220007d157f6",
-                    "url": "https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"
-                }
-            },
-            "authenticators": [
-                {
-                    "_id": "5f0ded47a5892d50f7fb38bb",
-                    "connector": "5f03b5d210b6e90007e536cf",
-                    "buttonLabel": "Sign in with Mocky",
-                    "optional": true
-                }
-            ],
-            "isAuthenticator": false
-        }
-    ]
-}
-```
-
-Successfully querying the `Connector` search endpoint will return a payload with a `data` array of `Connector` objects.
-
-### Connector object
-
-| Name             | Type   | Description                                              |
-| ---------------- | ------ | -------------------------------------------------------- |
-| `_id`            | string | Unique identifier.                                       |
-| `options`        | string | Object of authentications options.                       |
-| `name`           | array  | Name of the connector.                                   |
-| `branding.logo`  | string | Logo for the connector, typically an `svg` if available. |
-| `branding.color` | string | Branding color for the company.                          |
-| `authenticators` | string | Array of third party authenticators.                     |
 
 ## Generate File URL
 
