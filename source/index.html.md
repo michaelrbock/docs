@@ -1614,10 +1614,18 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
 
 ### Authentication headers
 
+#### Using API credentials (BACKEND)
+
 | Name           | Description                        |
 | -------------- | ---------------------------------- |
 | `x-api-key`    | API Key for your Atomic account    |
 | `x-api-secret` | API Secret for your Atomic account |
+
+#### Using public token (CLIENT-SIDE)
+
+| Name             | Description                                                                  |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
 
 ### Request properties
 
