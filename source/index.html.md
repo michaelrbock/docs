@@ -1485,7 +1485,8 @@ Successfully creating a `Task` will return a payload with a `data` object contai
 
 ```shell
 curl --location --request POST "https://api.atomicfi.com/company/search" \
-  --header "x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+  --header "x-api-key: f0d0a166-96de-4898-8879-da309801968b" \
+  --header "x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2" \
   --data "{
     \"product\": \"deposit\",
     \"query\": \"ADP\"
@@ -1500,7 +1501,9 @@ var options = {
   'hostname': 'https://api.atomicfi.com',
   'path': '/company/search',
   'headers': {
-    'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+    'Content-Type': 'application/json',
+    'x-api-key': 'f0d0a166-96de-4898-8879-da309801968b',
+    'x-api-secret': 'afcce08f-95bd-4317-9119-ecb8debae4f2'
   }
 };
 
@@ -1539,7 +1542,8 @@ http = Net::HTTP.new(url.host, url.port)
 
 request = Net::HTTP::Post.new(url)
 request["Content-Type"] = "application/json"
-request["x-public-token"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+request["x-api-key"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
+request["x-api-secret"] = "e0d2f67e-dc98-45d8-8b22-db76cb52f732"
 
 request.body = "{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"
 
@@ -1554,7 +1558,8 @@ import requests
 url = 'https://api.atomicfi.com/company/search'
 payload = "{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"
 headers = {
-  'x-public-token': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
+  'x-api-key': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732',
+  'x-api-secret': 'e0d2f67e-dc98-45d8-8b22-db76cb52f732'
 }
 response = requests.request('POST', url, headers = headers, data = payload, allow_redirects=False, timeout=undefined, allow_redirects=false)
 print(response.text)
@@ -1590,7 +1595,8 @@ func main() {
   if err != nil {
     fmt.Println(err)
   }
-  req.Header.Add("x-public-token", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
+  req.Header.Add("x-api-key", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
+  req.Header.Add("x-api-secret", "e0d2f67e-dc98-45d8-8b22-db76cb52f732")
 
   res, err := client.Do(req)
   defer res.Body.Close()
@@ -1608,9 +1614,10 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
 
 ### Authentication headers
 
-| Name             | Description                                                                  |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `x-public-token` | Public token generated during [access token creation](#create-access-token). |
+| Name           | Description                        |
+| -------------- | ---------------------------------- |
+| `x-api-key`    | API Key for your Atomic account    |
+| `x-api-secret` | API Secret for your Atomic account |
 
 ### Request properties
 

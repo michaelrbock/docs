@@ -3956,7 +3956,8 @@ print(response.text)
 <p>Code samples</p>
 </blockquote>
 <pre class="highlight tab tab-shell"><code>curl --location --request POST <span class="hljs-string">"https://api.atomicfi.com/company/search"</span> \
-  --header <span class="hljs-string">"x-public-token: e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+  --header <span class="hljs-string">"x-api-key: f0d0a166-96de-4898-8879-da309801968b"</span> \
+  --header <span class="hljs-string">"x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2"</span> \
   --data <span class="hljs-string">"{
     \"product\": \"deposit\",
     \"query\": \"ADP\"
@@ -3969,7 +3970,9 @@ print(response.text)
   <span class="hljs-string">'hostname'</span>: <span class="hljs-string">'https://api.atomicfi.com'</span>,
   <span class="hljs-string">'path'</span>: <span class="hljs-string">'/company/search'</span>,
   <span class="hljs-string">'headers'</span>: {
-    <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
+    <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+    <span class="hljs-string">'x-api-key'</span>: <span class="hljs-string">'f0d0a166-96de-4898-8879-da309801968b'</span>,
+    <span class="hljs-string">'x-api-secret'</span>: <span class="hljs-string">'afcce08f-95bd-4317-9119-ecb8debae4f2'</span>
   }
 };
 
@@ -4006,7 +4009,8 @@ http = Net::HTTP.new(url.host, url.port)
 
 request = Net::HTTP::Post.new(url)
 request[<span class="hljs-string">"Content-Type"</span>] = <span class="hljs-string">"application/json"</span>
-request[<span class="hljs-string">"x-public-token"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+request[<span class="hljs-string">"x-api-key"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
+request[<span class="hljs-string">"x-api-secret"</span>] = <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>
 
 request.body = <span class="hljs-string">"{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"</span>
 
@@ -4019,7 +4023,8 @@ puts response.read_body
 url = <span class="hljs-string">'https://api.atomicfi.com/company/search'</span>
 payload = <span class="hljs-string">"{\n    \"product\": \"deposit\",\n    \"query\": \"ADP\"\n    }\n}"</span>
 headers = {
-  <span class="hljs-string">'x-public-token'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
+  <span class="hljs-string">'x-api-key'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>,
+  <span class="hljs-string">'x-api-secret'</span>: <span class="hljs-string">'e0d2f67e-dc98-45d8-8b22-db76cb52f732'</span>
 }
 response = requests.request(<span class="hljs-string">'POST'</span>, url, headers = headers, data = payload, allow_redirects=<span class="hljs-keyword">False</span>, timeout=undefined, allow_redirects=false)
 print(response.text)
@@ -4053,7 +4058,8 @@ print(response.text)
   <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
     fmt.Println(err)
   }
-  req.Header.Add(<span class="hljs-string">"x-public-token"</span>, <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>)
+  req.Header.Add(<span class="hljs-string">"x-api-key"</span>, <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>)
+  req.Header.Add(<span class="hljs-string">"x-api-secret"</span>, <span class="hljs-string">"e0d2f67e-dc98-45d8-8b22-db76cb52f732"</span>)
 
   res, err := client.Do(req)
   <span class="hljs-keyword">defer</span> res.Body.Close()
@@ -4075,8 +4081,12 @@ print(response.text)
 </thead>
 <tbody>
 <tr>
-<td><code>x-public-token</code></td>
-<td>Public token generated during <a href="#create-access-token">access token creation</a>.</td>
+<td><code>x-api-key</code></td>
+<td>API Key for your Atomic account</td>
+</tr>
+<tr>
+<td><code>x-api-secret</code></td>
+<td>API Secret for your Atomic account</td>
 </tr>
 </tbody>
 </table>
