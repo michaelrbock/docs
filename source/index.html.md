@@ -444,6 +444,42 @@ The status of a [Task](#create-task) was changed. Possible statuses include:
 | `failed`     | The task failed to process.      |
 | `completed`  | The task completed successfully. |
 
+## Task authentication status updated
+
+> Example `task-authentication-status-updated` event
+
+```json
+{
+    "_id": "5c1821dbc6b7baf3435e1d23",
+    "eventType": "task-authentication-status-updated",
+    "eventTime": "2021-01-13T19:43:26.097Z",
+    "product": "deposit",
+    "user": {
+        "_id": "5c17c632e1d8ca3b08b2586f",
+        "identifier": "YOUR_UNIQUE_GUID"
+    },
+    "company": {
+        "name": "Home Depot",
+        "branding": {
+            "logo": {
+                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
+            }
+        }
+    },
+    "task": "5d97e4abc90a0a0007993e9c",
+    "data": {
+        "authenticated": true
+    }
+}
+```
+
+The authentication status of a [Task](#create-task) was updated. Possible `authenticated` statuses include:
+
+| Status  | Description                          |
+| ------- | ------------------------------------ |
+| `true`  | The task authenticated successfully. |
+| `false` | The task failed to authenticate.     |
+
 ## Task status patched
 
 > Example `task-status-patched` event
@@ -482,42 +518,6 @@ The status of a [Task](#create-task) was patched. Possible statuses include:
 | ----------- | -------------------------------- |
 | `failed`    | The task failed to process.      |
 | `completed` | The task completed successfully. |
-
-## Task authentication status updated
-
-> Example `task-authentication-status-updated` event
-
-```json
-{
-    "_id": "5c1821dbc6b7baf3435e1d23",
-    "eventType": "task-authentication-status-updated",
-    "eventTime": "2021-01-13T19:43:26.097Z",
-    "product": "deposit",
-    "user": {
-        "_id": "5c17c632e1d8ca3b08b2586f",
-        "identifier": "YOUR_UNIQUE_GUID"
-    },
-    "company": {
-        "name": "Home Depot",
-        "branding": {
-            "logo": {
-                "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
-            }
-        }
-    },
-    "task": "5d97e4abc90a0a0007993e9c",
-    "data": {
-        "authenticated": true
-    }
-}
-```
-
-The authentication status of a [Task](#create-task) was updated. Possible `authenticated` statuses include:
-
-| Status  | Description                          |
-| ------- | ------------------------------------ |
-| `true`  | The task authenticated successfully. |
-| `false` | The task failed to authenticate.     |
 
 ## Outputs
 
