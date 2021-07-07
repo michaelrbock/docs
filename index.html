@@ -2181,7 +2181,7 @@ startTransact();
 </tr>
 <tr>
 <td><code>handoff</code></td>
-<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code> and <code>authentication-success</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
+<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code>, <code>authentication-success</code>, and <code>high-latency</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
@@ -2209,6 +2209,10 @@ startTransact();
 <tr>
 <td><code>authentication-success</code></td>
 <td>When authentication is successful, the user is taken to the success view within Transact. When <code>authentication-success</code> is passed into the <code>handoff</code> array, users will no longer be taken to the success view. The <code>atomic-transact-finish</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'authentication-success'}</code></td>
+</tr>
+<tr>
+<td><code>high-latency</code></td>
+<td>When authentication takes much longer than expected, the user is taken to the the high latency view within Transact. When <code>high-latency</code> is passed into the <code>handoff</code> array, users will no longer be taken to this view. The <code>atomic-transact-close</code> event will be triggered in its place. The event will also send the following data: <code>{handoff: 'high-latency'}</code></td>
 </tr>
 </tbody>
 </table>
@@ -4045,7 +4049,7 @@ print(response.text)
 
   url := <span class="hljs-string">"https://api.atomicfi.com/company/search"</span>
   method := <span class="hljs-string">"POST"</span>
-  
+
   payload := strings.NewReader(<span class="hljs-string">"{\n    \"product\": \"verify\",\n    \"linkedAccount\": \"5d77f9e1070856f3828945c6\"\n    }\n}"</span>)
 
   client := &amp;http.Client {
