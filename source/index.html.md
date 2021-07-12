@@ -139,7 +139,7 @@ When testing `balance`, you may use `4111111111111111` as the origin account num
 
 ### Atomic Transact SDK is a UI designed to securely handle interactions with our products, while performing the heavy-lifting of integration.
 
-### Integration
+## Integration
 
 > Initalize Transact via Javascript
 
@@ -245,7 +245,7 @@ Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [
 
 To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructions as described in the [AccessToken](#create-access-token) section.
 
-### Javascript SDK parameters
+## Javascript SDK parameters
 
 | Attribute                         | Description                                                                                                                                                                                                                                                                                                                                        |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -278,7 +278,7 @@ To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructi
 | `authentication-success` | When authentication is successful, the user is taken to the success view within Transact. When `authentication-success` is passed into the `handoff` array, users will no longer be taken to the success view. The `atomic-transact-finish` event will be triggered in its place. The event will also send the following data: `{handoff: 'authentication-success'}`                           |
 | `high-latency`           | When authentication takes much longer than expected, the user is taken to the the high latency view within Transact. When `high-latency` is passed into the `handoff` array, users will no longer be taken to this view. The `atomic-transact-close` event will be triggered in its place. The event will also send the following data: `{handoff: 'high-latency'}`                            |
 
-#### Event Listeners
+## Event Listeners
 
 When using the SDK, events will be emitted and passed to the native application. Such events allow native applications to react and perform functions as needed. Some events will be passed with a data object with additional information.
 | Event | Description |
