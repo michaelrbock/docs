@@ -2119,8 +2119,6 @@ startTransact();
 <a href="https://github.com/atomicfi/transact-ios"><img src="/source/images/swift.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-react-native"><img src="/source/images/react-native.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-flutter"><img src="/source/images/flutter.png" class="transact-example-platform" /></a></p>
-<h3 id="sms">SMS</h3>
-<p>To invite a user to use <a href="#transact-sdk">Transact</a> over SMS, follow the instructions as described in the <a href="#create-access-token">AccessToken</a> section.</p>
 <h2 id="javascript-sdk-parameters">Javascript SDK parameters</h2>
 <table>
 <thead>
@@ -2199,8 +2197,20 @@ startTransact();
 <td>Optionally pass the <code>_id</code> of a <a href="#linkedaccount-object">LinkedAccount</a>. When used, Transact will immediately begin authenticating upon opening. This parameter is used when the <a href="#linkedaccount-object">LinkedAccount</a>'s <code>transactRequired</code> flag is set to <code>true</code>.</td>
 </tr>
 <tr>
+<td><code>search </code></td>
+<td>Optionally, enforce search queries.</td>
+</tr>
+<tr>
+<td><code>search.tags</code></td>
+<td>Filters companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
+</tr>
+<tr>
+<td><code>search.excludedTags</code></td>
+<td>Exclude companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
+</tr>
+<tr>
 <td><code>handoff</code></td>
-<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code>, <code>authentication-success</code>, and <code>high-latency</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
+<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code>, <code>authentication-success</code>, and <code>high-latency</code>.  See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
@@ -3315,16 +3325,6 @@ print(response.text)
 <td>A unique identifier (GUID) from your system that will be used to reference this user.</td>
 </tr>
 <tr>
-<td><code>phone</code></td>
-<td>string</td>
-<td>A mobile phone number for the user is required if you plan on inviting a user to use <a href="#transact-sdk">Transact</a> via SMS.</td>
-</tr>
-<tr>
-<td><code>email</code></td>
-<td>string</td>
-<td>An email address for the user is required if you plan on inviting a user to use <a href="#transact-sdk">Transact</a> via email.</td>
-</tr>
-<tr>
 <td><code>accounts</code> <h6 id="required">required</h6></td>
 <td>[<a href="#account">Account</a>]</td>
 <td>An array of bank and/or credit card accounts. At least one bank account is required for an <a href="#payroll-connect">Deposit</a> transaction, and at least one card account is required for an <a href="#transfer">Transfer</a> transaction.</td>
@@ -4154,6 +4154,11 @@ print(response.text)
 <td>array</td>
 <td>Filters companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
 </tr>
+<tr>
+<td><code>excludedTags</code></td>
+<td>array</td>
+<td>Excludes companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="response">Response</h3>
@@ -4164,23 +4169,25 @@ print(response.text)
     <span class="hljs-attr">"data"</span>: [
         {
             <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d38f1e8512bbf71fb776015"</span>,
-            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Wells Fargo"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"DoorDash"</span>,
+            <span class="hljs-attr">"status"</span>: <span class="hljs-string">"operational"</span>,
             <span class="hljs-attr">"connector"</span>: {
                 <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d38f182512bbf0c06776013"</span>,
                 <span class="hljs-attr">"availableProducts"</span>: [<span class="hljs-string">"deposit"</span>]
             },
             <span class="hljs-attr">"branding"</span>: {
                 <span class="hljs-attr">"logo"</span>: {
-                    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5ed93faa3e36220007d157f6"</span>,
                     <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"</span>
                 },
                 <span class="hljs-attr">"color"</span>: <span class="hljs-string">"#FFFFFF"</span>
-            }
+            },
+            <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"gig-economy"</span>]
         }
     ]
 }
 </code></pre>
-<p>Successfully querying the <code>Company</code> search endpoint will return a payload with a <code>data</code> array of <code>Company</code> objects.</p>
+<p>Successfully querying the <code>Company</code> search endpoint will return a payload with a <code>data</code> array of <code>Company</code> objects.
+When a company is <code>under-maintenance</code>, users are unable to initiate an authentication until it has been restored.</p>
 <h3 id="company-object">Company object</h3>
 <table>
 <thead>
@@ -4202,12 +4209,17 @@ print(response.text)
 <td>Company name.</td>
 </tr>
 <tr>
-<td><code>availableProducts</code></td>
+<td><code>status</code></td>
+<td>string</td>
+<td>Possible values include <code>operational</code> or <code>under-maintenance</code>.</td>
+</tr>
+<tr>
+<td><code>connector.availableProducts</code></td>
 <td>array</td>
 <td>A list of compatible products.</td>
 </tr>
 <tr>
-<td><code>branding.logo</code></td>
+<td><code>branding.logo.url</code></td>
 <td>string</td>
 <td>Logo for the company, typically an <code>svg</code> if available.</td>
 </tr>
@@ -4215,6 +4227,11 @@ print(response.text)
 <td><code>branding.color</code></td>
 <td>string</td>
 <td>Branding color for the company.</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>array</td>
+<td>Categories to which a company is associated. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, <code>unemployment</code>, and <code>manual-deposits</code>.</td>
 </tr>
 </tbody>
 </table>

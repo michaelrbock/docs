@@ -241,34 +241,33 @@ Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [
 <a href="https://github.com/atomicfi/transact-react-native"><img src="/source/images/react-native.png" class="transact-example-platform" /></a>
 <a href="https://github.com/atomicfi/transact-flutter"><img src="/source/images/flutter.png" class="transact-example-platform" /></a>
 
-### SMS
-
-To invite a user to use [Transact](#transact-sdk) over SMS, follow the instructions as described in the [AccessToken](#create-access-token) section.
-
 ## Javascript SDK parameters
 
-| Attribute                         | Description                                                                                                                                                                                                                                                                                                                                        |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `publicToken` <h6>required</h6>   | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                                     |
-| `product` <h6>required</h6>       | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`.                                                                                                                                                                                                                                           |
-| `inSdk`                           | Acceps a boolean. Default is `true`. When `false` close buttons and [SDK Events](#event-listeners) are not broadcast.                                                                                                                                                                                                                              |
-| `theme`                           | Optionally, provide hex or rgb values to customize Transact.                                                                                                                                                                                                                                                                                       |
-| `theme.brandColor`                | Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons.                                                                                                                                                                                                                               |
-| `theme.overlayColor`              | Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.                                                                                                                                                         |
-| `deeplink`                        | Optionally, deeplink into a specific step.                                                                                                                                                                                                                                                                                                         |
-| `deeplink.step` <h6>required</h6> | Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-payroll`. (If `login-company`, then the `companyId` is required. If `login-payroll`, then `connectorId` and `companyName` are required)                                                                                                                           |
-| `deeplink.companyId`              | Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.                                                                                                                                                                                                                                                         |
-| `deeplink.connectorId`            | Required if the step is `login-payroll`. Accepts the [ID](#connector-search) of the connector.                                                                                                                                                                                                                                                     |
-| `deeplink.companyName`            | Required if the step is `search-payroll` or `login-payroll`. Accepts a string of the company name.                                                                                                                                                                                                                                                 |
-| `distribution`                    | Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings.                                                                                                                                                                                      |
-| `distribution.type`               | Can be `total` to indicate the remaining balance of their paycheck, `fixed` to indicate a specific dollar amount, or `percent` to indicate a percentage of their paycheck.                                                                                                                                                                         |
-| `distribution.amount`             | When `distribution.type` is `fixed`, it indicates the dollar amount to be used. When `distribution.type` is `percent`, it indicates the percentage of their paycheck. Not required if `distribution.type` is `total`.                                                                                                                              |
-| `distribution.action`             | The operation to perform when updating the distribution. The default value is `create` which will add a new distribution. The value of `update` indicates an update to an existing distribution matched by the routing and account number. The value of `delete` removes a distribution matched by the routing and account number.                 |
-| `language`                        | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                                     |
-| `linkedAccount`                   | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                                  |
-| `handoff`                         | Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are `exit-prompt`, `authentication-success`, and `high-latency`. See [Handoff Pages](#handoff-pages) for more detail. |
-| `onFinish`                        | A function that is called when the user finishes the transaction. The function will receive a `data`, which contains the `taskId` object.                                                                                                                                                                                                          |
-| `onClose`                         | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                                   |
+| Attribute                         | Description                                                                                                                                                                                                                                                                                                                        |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `publicToken` <h6>required</h6>   | The public token returned during [AccessToken](#create-access-token) creation.                                                                                                                                                                                                                                                     |
+| `product` <h6>required</h6>       | The [product](#products) to initiate. Valid values include `balance` `deposit`, `verify`, or `identify`.                                                                                                                                                                                                                           |
+| `inSdk`                           | Acceps a boolean. Default is `true`. When `false` close buttons and [SDK Events](#event-listeners) are not broadcast.                                                                                                                                                                                                              |
+| `theme`                           | Optionally, provide hex or rgb values to customize Transact.                                                                                                                                                                                                                                                                       |
+| `theme.brandColor`                | Accepts hex values. For example: `#FF0000` or `rgb(255, 255, 255)`. This property will mostly be applied to buttons.                                                                                                                                                                                                               |
+| `theme.overlayColor`              | Accepts hex values. For example: `#000000` or `rgb(0, 0, 0)`. This property will change the overlay background color. This overlay is mainly only seen when Transact is used on a Desktop.                                                                                                                                         |
+| `deeplink`                        | Optionally, deeplink into a specific step.                                                                                                                                                                                                                                                                                         |
+| `deeplink.step` <h6>required</h6> | Acceptable values: `search-company`, `search-payroll`, `login-company` or `login-payroll`. (If `login-company`, then the `companyId` is required. If `login-payroll`, then `connectorId` and `companyName` are required)                                                                                                           |
+| `deeplink.companyId`              | Required if the step is `login-company`. Accepts the [ID](#company-search) of the company.                                                                                                                                                                                                                                         |
+| `deeplink.connectorId`            | Required if the step is `login-payroll`. Accepts the [ID](#connector-search) of the connector.                                                                                                                                                                                                                                     |
+| `deeplink.companyName`            | Required if the step is `search-payroll` or `login-payroll`. Accepts a string of the company name.                                                                                                                                                                                                                                 |
+| `distribution`                    | Optionally pass in enforced deposit settings. Enforcing deposit settings will eliminate company search results that do not support the distribution settings.                                                                                                                                                                      |
+| `distribution.type`               | Can be `total` to indicate the remaining balance of their paycheck, `fixed` to indicate a specific dollar amount, or `percent` to indicate a percentage of their paycheck.                                                                                                                                                         |
+| `distribution.amount`             | When `distribution.type` is `fixed`, it indicates the dollar amount to be used. When `distribution.type` is `percent`, it indicates the percentage of their paycheck. Not required if `distribution.type` is `total`.                                                                                                              |
+| `distribution.action`             | The operation to perform when updating the distribution. The default value is `create` which will add a new distribution. The value of `update` indicates an update to an existing distribution matched by the routing and account number. The value of `delete` removes a distribution matched by the routing and account number. |
+| `language`                        | Optionally pass in a language. Acceptable values: `en` for English and `es` for Spanish. Default value is `en`                                                                                                                                                                                                                     |
+| `linkedAccount`                   | Optionally pass the `_id` of a [LinkedAccount](#linkedaccount-object). When used, Transact will immediately begin authenticating upon opening. This parameter is used when the [LinkedAccount](#linkedaccount-object)'s `transactRequired` flag is set to `true`.                                                                  |
+| `search `                         | Optionally, enforce search queries.                                                                                                                                                                                                                                                                                                |
+| `search.tags`                     | Filters companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.                                                                                                                                                                                                                |
+| `search.excludedTags`             | Exclude companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.                                                                                                                                                                                                                |
+| `handoff`                         | Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are `exit-prompt`, `authentication-success`, and `high-latency`.  See [Handoff Pages](#handoff-pages) for more detail.  |
+| `onFinish`                        | A function that is called when the user finishes the transaction. The function will receive a `data`, which contains the `taskId` object.                                                                                                                                                                                          |
+| `onClose`                         | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                   |
 
 #### Handoff Pages
 
@@ -997,8 +996,6 @@ An `AccessToken` grants access to Atomic's API resources for a specific user.
 | Name                           | Type                  | Description                                                                                                                                                                                                             |
 | ------------------------------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `identifier` <h6>required</h6> | string                | A unique identifier (GUID) from your system that will be used to reference this user.                                                                                                                                   |
-| `phone`                        | string                | A mobile phone number for the user is required if you plan on inviting a user to use [Transact](#transact-sdk) via SMS.                                                                                                 |
-| `email`                        | string                | An email address for the user is required if you plan on inviting a user to use [Transact](#transact-sdk) via email.                                                                                                    |
 | `accounts` <h6>required</h6>   | [[Account](#account)] | An array of bank and/or credit card accounts. At least one bank account is required for an [Deposit](#payroll-connect) transaction, and at least one card account is required for an [Transfer](#transfer) transaction. |
 | `names`                        | [[Name](#name)]       | Account holder names, for reference.                                                                                                                                                                                    |
 | `addresses`                    | [[Address](#address)] | Account holder addresses, for reference.                                                                                                                                                                                |
@@ -1630,11 +1627,12 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
 
 ### Request properties
 
-| Name                      | Type   | Description                                                                                                         |
-| ------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
-| `query` <h6>required</h6> | string | Filters companies by name. Uses fuzzy matching to narrow results.                                                   |
-| `product`                 | string | Filters companies by a specific product. Possible values include `verify`, `identify`, and `deposit`.               |
-| `tags`                    | array  | Filters companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`. |
+| Name                      | Type    | Description                                                                                                                   |
+| ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `query` <h6>required</h6> | string  | Filters companies by name. Uses fuzzy matching to narrow results.                                                             |
+| `product`                 | string  | Filters companies by a specific product. Possible values include `verify`, `identify`, and `deposit`.                         |
+| `tags`                    | array   | Filters companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.           |
+| `excludedTags`            | array   | Excludes companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.          |
 
 ### Response
 
@@ -1645,34 +1643,38 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
     "data": [
         {
             "_id": "5d38f1e8512bbf71fb776015",
-            "name": "Wells Fargo",
+            "name": "DoorDash",
+            "status": "operational",
             "connector": {
                 "_id": "5d38f182512bbf0c06776013",
                 "availableProducts": ["deposit"]
             },
             "branding": {
                 "logo": {
-                    "_id": "5ed93faa3e36220007d157f6",
                     "url": "https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"
                 },
                 "color": "#FFFFFF"
-            }
+            },
+            "tags": ["gig-economy"]
         }
     ]
 }
 ```
 
 Successfully querying the `Company` search endpoint will return a payload with a `data` array of `Company` objects.
+When a company is `under-maintenance`, users are unable to initiate an authentication until it has been restored.
 
 ### Company object
 
-| Name                | Type   | Description                                            |
-| ------------------- | ------ | ------------------------------------------------------ |
-| `_id`               | string | Unique identifier.                                     |
-| `name`              | string | Company name.                                          |
-| `availableProducts` | array  | A list of compatible products.                         |
-| `branding.logo`     | string | Logo for the company, typically an `svg` if available. |
-| `branding.color`    | string | Branding color for the company.                        |
+| Name                          | Type   | Description                                                                                                                                                            |
+| ----------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `_id`                         | string | Unique identifier.                                                                                                                                                     |
+| `name`                        | string | Company name.                                                                                                                                                          |
+| `status`                      | string | Possible values include `operational` or `under-maintenance`.                                                                                                          |
+| `connector.availableProducts` | array  | A list of compatible products.                                                                                                                                         |
+| `branding.logo.url`           | string | Logo for the company, typically an `svg` if available.                                                                                                                 |
+| `branding.color`              | string | Branding color for the company.                                                                                                                                        |
+| `tags`                        | array  | Categories to which a company is associated. Possible values include `gig-economy`, `payroll-provider`, `unemployment`, and `manual-deposits`. |
 
 ## Generate File URL
 
