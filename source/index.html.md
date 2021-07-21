@@ -177,12 +177,16 @@ const startTransact = () => {
         },
         // Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.
         language: "en",
+        // Optionally pass data to Transact that will be returned to you in webhook events.
+        metadata: {
+            orderId: "123"
+        },
+        // Called when the user finishes the transaction
         onFinish: function (data) {
-            // Called when the user finishes the transaction
             // We recommend saving the `data` object which could be useful for support purposes
         },
+        // Called when the user exits Transact prematurely
         onClose: function () {
-            // Called when the user exits Transact prematurely
         },
     });
 };
@@ -265,6 +269,7 @@ Here are examples for [Swift (iOS)](https://github.com/atomicfi/transact-ios), [
 | `search `                         | Optionally, enforce search queries.                                                                                                                                                                                                                                                                                                |
 | `search.tags`                     | Filters companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.                                                                                                                                                                                                                |
 | `search.excludedTags`             | Exclude companies by a specific tag. Possible values include `gig-economy`, `payroll-provider`, and `unemployment`.                                                                                                                                                                                                                |
+| `metadata`                        | Optionally pass data to Transact that will be returned to you in webhook events.                                                                                                                                                                                                                                                                            | 
 | `handoff`                         | Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are `exit-prompt`, `authentication-success`, and `high-latency`.  See [Handoff Pages](#handoff-pages) for more detail.  |
 | `onFinish`                        | A function that is called when the user finishes the transaction. The function will receive a `data`, which contains the `taskId` object.                                                                                                                                                                                          |
 | `onClose`                         | Called when the user exits Transact prematurely.                                                                                                                                                                                                                                                                                   |
@@ -341,6 +346,14 @@ Each event, by default, will have `customer`, `product`, and `language` in the `
 | `fromScreen`    | Screen user was on when they pressed the back button           |
 | `depositOption` | Option user chose during the deposit options                   |
 
+## Metadata
+
+When initializing the [Transact SDK](#transact-sdk) or creating a Task [using a Linked Account](#use-a-linked-account) you can pass a `metadata` parameter. You can use this parameter to attach key-value data that will be returned in webhook events.
+
+Metadata is useful for storing additional, structured information on a Task. As an example, you could store an order ID from your system to track your user's process with a direct deposit. Metadata is not used by Atomic and won't be seen by your users.
+
+Do not store any sensitive information (bank account numbers, card details, etc.) as metadata.
+
 # Webhooks
 
 ### Webhooks are a useful way to receive automated updates, and send timely notification to your user as a transaction progresses.
@@ -370,12 +383,16 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
         "identifier": "YOUR_INTERNAL_GUID"
     },
     "company": {
+        "_id": "5d9a3fecbf637ef3b11ab442",
         "name": "Home Depot",
         "branding": {
             "logo": {
                 "url": "https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"
             }
         }
+    },
+    "metadata": {
+        "orderId": "123"
     },
     "task": "5e30afde097146a8fc3d5cec",
     "data": {
@@ -394,7 +411,8 @@ To validate a webhook request came from Atomic, we suggest verifying the payload
 |               |
 | `publicToken` | [Public AccessToken](#create-access-token) used when initializing the Transact SDK                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `user`        | Object containing `_id` and `identifier`. `Identifier` will be your internal GUID.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `company`     | Object containing `_id`, `name`, and `branding`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `company`     | Object containing `_id`, `name`, and `branding`.          
+| `metadata`    | Object containing the `metadata` used when initializing the [Transact SDK](#transact-sdk) or [using a Linked Account](#use-a-linked-account).
 | `task`        | Contains the task ID.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `data`        | Payload object containing `reason`, `previousStatus`, `status`, and `distributionType`(if applicable), `distributionAmount`(if applicable), `amount`(if applicable), and [outputs](#outputs)(Outputs will differ depending on the product).                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
@@ -1454,6 +1472,7 @@ To generate a task using a Linked Account, a `Task` request is created that cont
 | `product` <h6>required</h6>       | string | One of `verify`, `identify`, or `deposit`.                                                      |
 | `linkedAccount` <h6>required</h6> | string | The `_id` of a [LinkedAccount](#linked-account-object) object.                                  |
 | `distribution`                    | object | The distribution of the deposit as defined in the [SDK parameters](#javascript-sdk-parameters). |
+| `session`                         | object | Session data that will be sent in subsequent webhooks.                                          |
 
 ### Response
 

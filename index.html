@@ -1798,6 +1798,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                     
                   </li>
                 
+                  <li>
+                    <a href="#metadata" class="toc-h2 toc-link" data-title="">Metadata</a>
+                    
+                  </li>
+                
               </ul>
             
           </li>
@@ -2064,12 +2069,16 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         },
         <span class="hljs-comment">// Optionally change the language. Could be either 'en' for English or 'es' for Spanish. Default is 'en'.</span>
         language: <span class="hljs-string">"en"</span>,
-        <span class="hljs-attr">onFinish</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
-            <span class="hljs-comment">// Called when the user finishes the transaction</span>
+        <span class="hljs-comment">// Optionally pass data to Transact that will be returned to you in webhook events.</span>
+        metadata: {
+            <span class="hljs-attr">orderId</span>: <span class="hljs-string">"123"</span>
+        },
+        <span class="hljs-comment">// Called when the user finishes the transaction</span>
+        onFinish: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
             <span class="hljs-comment">// We recommend saving the `data` object which could be useful for support purposes</span>
         },
-        <span class="hljs-attr">onClose</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-            <span class="hljs-comment">// Called when the user exits Transact prematurely</span>
+        <span class="hljs-comment">// Called when the user exits Transact prematurely</span>
+        onClose: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         },
     });
 };
@@ -2207,6 +2216,10 @@ startTransact();
 <tr>
 <td><code>search.excludedTags</code></td>
 <td>Exclude companies by a specific tag. Possible values include <code>gig-economy</code>, <code>payroll-provider</code>, and <code>unemployment</code>.</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td>Optionally pass data to Transact that will be returned to you in webhook events.</td>
 </tr>
 <tr>
 <td><code>handoff</code></td>
@@ -2414,6 +2427,10 @@ startTransact();
 </tr>
 </tbody>
 </table>
+<h2 id="metadata">Metadata</h2>
+<p>When initializing the <a href="#transact-sdk">Transact SDK</a> or creating a Task <a href="#use-a-linked-account">using a Linked Account</a> you can pass a <code>metadata</code> parameter. You can use this parameter to attach key-value data that will be returned in webhook events.</p>
+<p>Metadata is useful for storing additional, structured information on a Task. As an example, you could store an order ID from your system to track your user's process with a direct deposit. Metadata is not used by Atomic and won't be seen by your users.</p>
+<p>Do not store any sensitive information (bank account numbers, card details, etc.) as metadata.</p>
 <h1 id="webhooks">Webhooks</h1>
 <h3 id="webhooks-are-a-useful-way-to-receive-automated-updates--and-send-timely-notification-to-your-user-as-a-transaction-progresses-">Webhooks are a useful way to receive automated updates, and send timely notification to your user as a transaction progresses.</h3>
 <p>You can configure webhook endpoints via the <a href="https://dashboard.atomicfi.com/">Atomic Dashboard</a>. Atomic will issue <code>POST</code> requests to the designated endpoint(s). We recommend using <a href="https://requestbin.com/">Request Bin</a> as a way to inspect the payload of events during development without needing to stand up a server.</p>
@@ -2447,12 +2464,16 @@ startTransact();
         <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"YOUR_INTERNAL_GUID"</span>
     },
     <span class="hljs-attr">"company"</span>: {
+        <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"5d9a3fecbf637ef3b11ab442"</span>,
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Home Depot"</span>,
         <span class="hljs-attr">"branding"</span>: {
             <span class="hljs-attr">"logo"</span>: {
                 <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://atomicfi-public-production.s3.amazonaws.com/979115f4-34a0-44f5-901e-753a33337444_atomic-logo-dark.png"</span>
             }
         }
+    },
+    <span class="hljs-attr">"metadata"</span>: {
+        <span class="hljs-attr">"orderId"</span>: <span class="hljs-string">"123"</span>
     },
     <span class="hljs-attr">"task"</span>: <span class="hljs-string">"5e30afde097146a8fc3d5cec"</span>,
     <span class="hljs-attr">"data"</span>: {
@@ -2494,6 +2515,10 @@ startTransact();
 <tr>
 <td><code>company</code></td>
 <td>Object containing <code>_id</code>, <code>name</code>, and <code>branding</code>.</td>
+</tr>
+<tr>
+<td><code>metadata</code></td>
+<td>Object containing the <code>metadata</code> used when initializing the <a href="#transact-sdk">Transact SDK</a> or <a href="#use-a-linked-account">using a Linked Account</a>.</td>
 </tr>
 <tr>
 <td><code>task</code></td>
@@ -3937,6 +3962,11 @@ print(response.text)
 <td><code>distribution</code></td>
 <td>object</td>
 <td>The distribution of the deposit as defined in the <a href="#javascript-sdk-parameters">SDK parameters</a>.</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>object</td>
+<td>Session data that will be sent in subsequent webhooks.</td>
 </tr>
 </tbody>
 </table>
