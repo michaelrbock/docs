@@ -1472,7 +1472,7 @@ To generate a task using a Linked Account, a `Task` request is created that cont
 | `product` <h6>required</h6>       | string | One of `verify`, `identify`, or `deposit`.                                                      |
 | `linkedAccount` <h6>required</h6> | string | The `_id` of a [LinkedAccount](#linked-account-object) object.                                  |
 | `distribution`                    | object | The distribution of the deposit as defined in the [SDK parameters](#javascript-sdk-parameters). |
-| `session`                         | object | Session data that will be sent in subsequent webhooks.                                          |
+| `metadata`                        | object | Optionally pass [Metadata](#metadata) that will be returned to you in webhook events.                                         |
 
 ### Response
 
