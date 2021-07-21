@@ -2071,15 +2071,14 @@ data-postman-var-1="4d830a56bc79a690a118"></div>
         language: <span class="hljs-string">"en"</span>,
         <span class="hljs-comment">// Optionally pass data to Transact that will be returned to you in webhook events.</span>
         metadata: {
-            <span class="hljs-attr">orderId</span>: <span class="hljs-string">"123"</span>
+            <span class="hljs-attr">orderId</span>: <span class="hljs-string">"123"</span>,
         },
         <span class="hljs-comment">// Called when the user finishes the transaction</span>
         onFinish: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{
             <span class="hljs-comment">// We recommend saving the `data` object which could be useful for support purposes</span>
         },
         <span class="hljs-comment">// Called when the user exits Transact prematurely</span>
-        onClose: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        },
+        onClose: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{},
     });
 };
 
@@ -2223,7 +2222,7 @@ startTransact();
 </tr>
 <tr>
 <td><code>handoff</code></td>
-<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code>, <code>authentication-success</code>, and <code>high-latency</code>.  See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
+<td>Handoff allows views to be handled outside of Transact. In place of the view, corresponding SDK events will be emitted that allows apps to respond and handle these views. Accepts an array. The two string values available are <code>exit-prompt</code>, <code>authentication-success</code>, and <code>high-latency</code>. See <a href="#handoff-pages">Handoff Pages</a> for more detail.</td>
 </tr>
 <tr>
 <td><code>onFinish</code></td>
@@ -2301,7 +2300,145 @@ startTransact();
 }
 
 </code></pre>
-<p>Each event, by default, will have <code>customer</code>, <code>product</code>, and <code>language</code> in the <code>value object</code>. Most events have additional data. See the Additional Properties table below</p>
+<p>Each event, by default, will have <code>customer</code>, <code>product</code>, and <code>language</code> in the <code>value</code> object. Some events have additional data.</p>
+<h3 id="updated-events-7-21-2021">Updated Events 7/21/2021</h3>
+<h4 id="pages">Pages</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Viewed Access Unauthorized Page</code></td>
+<td>User did not have a valid token</td>
+</tr>
+<tr>
+<td><code>Viewed Authentication Failed Page</code></td>
+<td>User viewed the page indicating authentication failed</td>
+</tr>
+<tr>
+<td><code>Viewed Authentication Paused Page</code></td>
+<td>User viewed the page indicating authentication paused</td>
+</tr>
+<tr>
+<td><code>Viewed Authentication Success Page</code></td>
+<td>User viewed the page indicating authentication was successful</td>
+</tr>
+<tr>
+<td><code>Viewed Distribution Confirmation Page</code></td>
+<td>User viewed the distribution confirmation page</td>
+</tr>
+<tr>
+<td><code>Viewed Expired Token Page</code></td>
+<td>User has an expired token</td>
+</tr>
+<tr>
+<td><code>Viewed Fixed Deposit Amount Page</code></td>
+<td>User viewed the fixed deposit amount page</td>
+</tr>
+<tr>
+<td><code>Viewed Fractional Deposit Error Page</code></td>
+<td>User viewed the fractional deposit error page</td>
+</tr>
+<tr>
+<td><code>Viewed High Latency Page</code></td>
+<td>User viewed the high latency page</td>
+</tr>
+<tr>
+<td><code>Viewed Learn How You Are Protected Page</code></td>
+<td>User viewed the learn how you are protected page</td>
+</tr>
+<tr>
+<td><code>Viewed Login Page</code></td>
+<td>User viewed the login page</td>
+</tr>
+<tr>
+<td><code>Viewed Login Help Page</code></td>
+<td>User viewed the login help page</td>
+</tr>
+<tr>
+<td><code>Viewed Login Recovery Page</code></td>
+<td>User viewed the login recovery page</td>
+</tr>
+<tr>
+<td><code>Viewed Manual Deposit Instructions Page</code></td>
+<td>User viewed manual deposit instructions page</td>
+</tr>
+<tr>
+<td><code>Viewed MFA Page</code></td>
+<td>User viewed the multi factor authentication page</td>
+</tr>
+<tr>
+<td><code>Viewed Percentage Deposit Amount Page</code></td>
+<td>User viewed the percentage deposit amount page</td>
+</tr>
+<tr>
+<td><code>Viewed Search By Company Page</code></td>
+<td>User viewed the search by company page</td>
+</tr>
+<tr>
+<td><code>Viewed Search By Configurable Connector Page</code></td>
+<td>User viewed the search by configurable connector/payroll provider page</td>
+</tr>
+<tr>
+<td><code>Viewed Search By Payroll Page</code></td>
+<td>User viewed the search by payroll page</td>
+</tr>
+<tr>
+<td><code>Viewed Select From Deposit Options Page</code></td>
+<td>User viewed the select from deposit options page</td>
+</tr>
+<tr>
+<td><code>Viewed Select From Multiple Accounts Page</code></td>
+<td>User viewed the select from multiple accounts page</td>
+</tr>
+<tr>
+<td><code>Viewed Select From Multiple Payroll Providers Page</code></td>
+<td>User viwed the select from available payroll providers page</td>
+</tr>
+<tr>
+<td><code>Viewed Terms And Conditions Are Required Page</code></td>
+<td>User viewed the terms and conditions required page</td>
+</tr>
+<tr>
+<td><code>Viewed Terms And Conditions Page</code></td>
+<td>User viewed the terms and conditions page</td>
+</tr>
+<tr>
+<td><code>Viewed Under Maintenance Page</code></td>
+<td>User viewed a company/payroll provider that is under maintenance</td>
+</tr>
+<tr>
+<td><code>Viewed Welcome Page</code></td>
+<td>User viewed the welcome page</td>
+</tr>
+</tbody>
+</table>
+<h4 id="other-events">Other events</h4>
+<p>This includes a subset of our other events.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Search By Company</code></td>
+<td>User has searched for a company/employer</td>
+</tr>
+<tr>
+<td><code>Search By Payroll</code></td>
+<td>User has searched for a payroll provider</td>
+</tr>
+</tbody>
+</table>
+<h3 id="old-events">Old Events</h3>
+<p>These events will longer be sent after 9/1/2021</p>
 <table>
 <thead>
 <tr>
@@ -2385,45 +2522,6 @@ startTransact();
 <tr>
 <td><code>select-payroll</code></td>
 <td>User selects a payroll provider</td>
-</tr>
-</tbody>
-</table>
-<h4 id="additional-properties">Additional Properties</h4>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>company</code></td>
-<td>User's employer that they have selected</td>
-</tr>
-<tr>
-<td><code>payroll</code></td>
-<td>Payroll provider the the company uses (ie: ADP, Gusto, etc...)</td>
-</tr>
-<tr>
-<td><code>searchCompany</code></td>
-<td>Search input for a company</td>
-</tr>
-<tr>
-<td><code>searchPayroll</code></td>
-<td>Search input for a payroll provider</td>
-</tr>
-<tr>
-<td><code>exitScreen</code></td>
-<td>Screen user was on when they exited the app</td>
-</tr>
-<tr>
-<td><code>fromScreen</code></td>
-<td>Screen user was on when they pressed the back button</td>
-</tr>
-<tr>
-<td><code>depositOption</code></td>
-<td>Option user chose during the deposit options</td>
 </tr>
 </tbody>
 </table>
