@@ -1705,7 +1705,7 @@ Searches for a `Company` using a text `query`. Searches can also be narrowed by 
                 "logo": {
                     "url": "https://atomicfi-public-production.s3.amazonaws.com/a8d7e778-b718-45e0-b639-2305e33e7f95_ADP.svg"
                 },
-                "color": "#FFFFFF"
+                "color": "#E20000"
             },
             "tags": ["gig-economy"]
         }
